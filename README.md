@@ -7,12 +7,14 @@ I analyzed **11,979 NBA regular-season games across 10 seasons (2016-17 to 2025-
 | Question | Model | Train accuracy | Test accuracy |
 |---|---|---|---|
 | — | Baseline: always pick the home team | 56.9% | **54.7%** |
-| **Who will win?** (pregame info only) | Logistic regression | 64.4% | **66.9%** |
-| | Random forest | 66.6% | **66.3%** |
+| **Who will win?** (pregame info only) | Logistic regression (team averages) | 64.4% | **66.9%** |
+| | Random forest (team averages) | 66.6% | **66.3%** |
+| | **Player-based strength** (tonight's lineup) | 65.7% | **68.3%** |
+| | Player-based strength (last game's players, zero leakage) | 65.1% | 67.9% |
 | **What explains a win?** (stats from the game itself) | Logistic regression | 95.7% | 96.0% |
 | | Random forest | 94.6% | 93.0% |
 
-**Why two questions?** An audit found that same-game shooting, free throw, turnover and rebounding rates rebuild a team's points per possession with 98% accuracy, so they come close to revealing the final score. The 96% models are useful for *explaining* what wins, but they aren't forecasts. The pregame model is the honest forecast: about **67%, 12 points above the baseline**, near the 68–70% that sportsbook lines usually reach.
+**Why two questions?** An audit found that same-game shooting, free throw, turnover and rebounding rates rebuild a team's points per possession with 98% accuracy, so they come close to revealing the final score. The 96% models are useful for *explaining* what wins, but they aren't forecasts. The pregame models are the honest forecast. The best one builds each team from **its players** (ratings × expected minutes) and reaches **68.3%, about 14 points above the baseline**.
 
 ## Key findings: what explains a win
 
@@ -34,6 +36,15 @@ I analyzed **11,979 NBA regular-season games across 10 seasons (2016-17 to 2025-
 - **Surprise 1: the test seasons were *easier* to predict than the training seasons** (66.9% vs 64.4%). Recent seasons had bigger gaps between the best and worst teams (the spread of team win % rose from 0.14 to 0.165), so favorites won more often.
 - **Surprise 2: rest days have a clear coefficient but add almost no accuracy.** A rested team wins slightly more often, but rest rarely changes *who is favored*, so it seldom flips a prediction.
 - **Overfitting caught and fixed:** the first random forest scored 74.5% on training games but 66.1% on test games. Requiring each leaf to cover 100+ games closed the gap (66.6% vs 66.3%) with no loss on test.
+
+## Predicting games from players, not team averages
+Team averages can't tell when a star sits out. So each team's pregame strength is built from its players: each player's rating (Part 2) × expected minutes, using only information from before the game. Ratings are refit every 14 days from earlier games only.
+
+![Pregame accuracy](figures/pregame_accuracy.png)
+
+- **Players beat team averages:** 68.3% vs 66.9%, and log loss (a check that the predicted *probabilities* are right) improves from 0.607 to 0.588.
+- **Honest about leakage:** "tonight's lineup" uses who actually played, which in real use comes from the injury report and starting lineups shortly before tip-off. Coach's-decision benchings aren't known in advance, so I also built a zero-leakage version from the previous game's players. It still reaches 67.9%.
+- **Near the ceiling:** with hindsight, knowing every team's full-season quality only reaches 68.9%. The rest is game-to-game luck no pregame model can see.
 
 ## Testing a fan's hypothesis: is the modern NBA all about the 3?
 From watching games, my theory was: score in fewer seconds than the opponent, and favor 3s over 2s over mid-range shots. The data says I was **mostly right**, with one surprise:
@@ -63,7 +74,8 @@ From watching games, my theory was: score in fewer seconds than the opponent, an
 | 3. Models | Logistic regression and random forest. **Train on 2016-17 to 2022-23, test on 2023-24 to 2025-26**, with no random shuffling | [`notebooks/analysis.ipynb`](notebooks/analysis.ipynb) |
 | 4. Importance | Standardized coefficients plus permutation importance on the test set | same notebook |
 | 5. Pregame model | Each team's season-to-date averages *before* each game, blended with last season early on | [`src/build_pregame_features.py`](src/build_pregame_features.py) |
-| 6. Shot value | Points per shot by court zone and how shot mix relates to winning | [`src/fetch_shot_zones.py`](src/fetch_shot_zones.py), notebook Part 1c |
+| 6. Player-based model | Team strength from player ratings × expected minutes, before each game | [`src/build_player_strength.py`](src/build_player_strength.py), notebook Part 1d |
+| 7. Shot value | Points per shot by court zone and how shot mix relates to winning | [`src/fetch_shot_zones.py`](src/fetch_shot_zones.py), notebook Part 1c |
 
 ### Design choices worth noting
 - **No direct score leakage.** Points, points allowed, point differential and plus-minus are never used as same-game features. The indirect leak (shooting + free throws + turnovers + rebounds ≈ points) is why the forecasting question uses pregame data only.
@@ -131,7 +143,8 @@ python src/fetch_data.py        # optional: data/raw is already included
 python src/fetch_shot_zones.py  # optional: shot locations for Part 1c
 python src/build_features.py
 python src/build_pregame_features.py
-jupyter notebook notebooks/analysis.ipynb   # Part 1, 1b, 1c: models, accuracy, feature importance, shot value
+python src/build_player_strength.py
+jupyter notebook notebooks/analysis.ipynb   # Part 1, 1b-1d: models, accuracy, feature importance, shot value, player-based model
 
 # Part 2 (data/raw is included; re-fetch to update to today)
 python src/fetch_players.py && python src/fetch_ages.py && python src/fetch_injuries.py
