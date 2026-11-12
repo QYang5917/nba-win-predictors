@@ -1,4 +1,4 @@
-# Which team stats best predict NBA wins?
+# NBA Win Predictors: what wins games, and who will win this season
 
 I analyzed **11,979 NBA regular-season games (2016-17 to 2025-26)** to find which box-score stats separate winners from losers. I trained two models on the first seven seasons and tested them on the three most recent ones.
 
@@ -36,8 +36,50 @@ I analyzed **11,979 NBA regular-season games (2016-17 to 2025-26)** to find whic
 - **Team level only.** It doesn't say which *players* drive these stats.
 - **Regular season only.** Playoff basketball (repeated opponents, tighter rotations) may behave differently.
 
-## Next step: a preseason "Moneyball" projection
-The planned extension uses these findings to value **players**: rate each one on the stats that matter most (shooting efficiency, turnovers, rebounding), add a roster together weighted by expected minutes, and predict a team's wins *before* the season. Then test how much a new signing changes the projection.
+---
+
+# Part 2: Moneyball. Rating players, projecting 2026-27, finding trades
+
+Part 1 asked *which stats win games*. Part 2 turns that into decisions: **how good is each player, how many games will each team win this season, who should they trade for, and who will win the title?** Data runs through **November 11, 2026**, about 12 games into the season.
+
+![Championship odds](figures/championship_odds.png)
+
+![Projected wins](figures/projected_wins.png)
+
+## Key findings
+1. **Boston (22.7%) and San Antonio (17.6%) are the title favorites**, followed by Detroit (11.3%). No team is above 25%, so the playoffs are wide open.
+2. **Hot starts can mislead.** Philadelphia is 9-3 but projects for only 43 wins. The Lakers are 11-2 but project below Houston and OKC. The rosters don't support the early records.
+3. **The best players by our rating:** Shai Gilgeous-Alexander, Victor Wembanyama and Nikola Jokić. These ratings come from a method we built, not one we borrowed.
+4. **Top trade targets for contenders:** Devin Booker, Michael Porter Jr., Giannis Antetokounmpo and Brook Lopez. For example, OKC adding Booker projects as about **+4.5 wins**.
+
+## How it works
+
+| Step | What happens | File |
+|---|---|---|
+| Player data | Every player's box score for every game, 2015-16 to today, plus current rosters and the remaining schedule | [`src/fetch_players.py`](src/fetch_players.py) |
+| Player rating | **RAPM with a box-score prior.** Box stats give a first guess (learned from history), and the team's actual margin with the player on the floor adjusts it. Uses this season + last season (+ the season before at half weight) and a learned **age curve** | [`src/ratings.py`](src/ratings.py) |
+| Injuries | Reads the NBA's **official injury report PDFs** and sorts each injury into an expected absence (e.g. fresh ACL tear = out for the season) | [`src/injuries.py`](src/injuries.py) |
+| Team strength | Each player's rating × expected minutes (blending this season and last, adjusted for availability and injuries) | [`src/project.py`](src/project.py) |
+| Win projection | Every remaining game becomes a win probability from the strength gap + home court | [`src/project_current.py`](src/project_current.py) |
+| Trades | For each contender, try every healthy veteran on a losing team and measure the extra wins | [`src/trades.py`](src/trades.py) |
+| Title odds | Simulate the rest of the season, play-in and playoffs **20,000 times** | [`src/simulate.py`](src/simulate.py) |
+
+## Does it work? A backtest on 9 past seasons
+I replayed 2017-18 to 2025-26, stopping each one at the same point in the season as today and using **only data available at that moment**:
+
+| Method | Average miss (wins) |
+|---|---|
+| **This model** | **6.0** |
+| Average of last season and record so far | 6.7 |
+| Record so far | 8.7 |
+| Last season's record | 8.7 |
+
+Even with perfect knowledge of every team's true strength, luck alone would cause about 2.4 wins of error. Most of the remaining gap comes from things no model can see in advance: future injuries, trades and breakout seasons. The backtest also measured how far a team's true strength can be from our estimate (±3.3 points), and the simulation includes that uncertainty so the odds aren't overconfident.
+
+## Limitations
+- **Trades ignore salary and team fit.** The model knows how many wins a player is worth, not whether he fits a roster's needs or whether the contracts can be matched. That's why most contenders name the same few targets. **Team fit is the next planned upgrade.**
+- **Game-level, not possession-level, plus-minus.** Bench players on dominant teams can come out a little high.
+- **Injury return dates are estimated** from the injury description, since the official report lists status, not timelines.
 
 ## Run it yourself
 ```bash
@@ -46,6 +88,15 @@ pip install -r requirements.txt
 python src/fetch_data.py        # optional: data/raw is already included
 python src/build_features.py
 jupyter notebook notebooks/analysis.ipynb
+
+# Part 2 (data/raw is included; re-fetch to update to today)
+python src/fetch_players.py && python src/fetch_ages.py && python src/fetch_injuries.py
+cd src
+python backtest.py          # check the method on past seasons
+python project_current.py   # 2026-27 projected wins
+python trades.py            # trade targets
+python simulate.py          # championship odds
+python plot_moneyball.py    # charts
 ```
 
-**Tools:** Python, pandas, scikit-learn, matplotlib, Jupyter, nba_api
+**Tools:** Python, pandas, NumPy, SciPy, scikit-learn, matplotlib, Jupyter, nba_api, pdfplumber
