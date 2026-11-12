@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data" / "raw" / "team_game_logs.csv"
 OUT = ROOT / "data" / "processed" / "pregame_features.csv"
 PRIOR_GAMES = 10
-COMP = ["PTS", "FGM", "FG3M", "FGA", "FTM", "FTA", "OREB", "DREB", "TOV", "POSS"]
+COMP = ["PTS", "FGM", "FG3M", "FG3A", "FGA", "FTM", "FTA", "OREB", "DREB", "TOV", "POSS"]
 
 
 def rates(t: pd.DataFrame, p: str = "") -> pd.DataFrame:
@@ -35,6 +35,12 @@ def rates(t: pd.DataFrame, p: str = "") -> pd.DataFrame:
         "OPP_FT_RATE": t[p + "OPP_FTM"] / t[p + "OPP_FGA"],
         "NET_RTG": 100 * (t[p + "PTS"] - t[p + "OPP_PTS"]) / t[p + "POSS"],
         "WIN_PCT": t[p + "W"] / t[p + "G"],
+        # Part 1c extras (3-point tests); not used by the main pregame model
+        "FG3A_RATE": t[p + "FG3A"] / t[p + "FGA"],
+        "FG3_PCT": t[p + "FG3M"] / t[p + "FG3A"],
+        "OPP_FG3A_RATE": t[p + "OPP_FG3A"] / t[p + "OPP_FGA"],
+        "OPP_FG3_PCT": t[p + "OPP_FG3M"] / t[p + "OPP_FG3A"],
+        "FG3M_NET_PER100": 100 * (t[p + "FG3M"] / t[p + "POSS"] - t[p + "OPP_FG3M"] / t[p + "OPP_POSS"]),
     })
 
 

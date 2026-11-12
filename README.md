@@ -35,6 +35,25 @@ I analyzed **11,979 NBA regular-season games across 10 seasons (2016-17 to 2025-
 - **Surprise 2: rest days have a clear coefficient but add almost no accuracy.** A rested team wins slightly more often, but rest rarely changes *who is favored*, so it seldom flips a prediction.
 - **Overfitting caught and fixed:** the first random forest scored 74.5% on training games but 66.1% on test games. Requiring each leaf to cover 100+ games closed the gap (66.6% vs 66.3%) with no loss on test.
 
+## Testing a fan's hypothesis: is the modern NBA all about the 3?
+From watching games, my theory was: score in fewer seconds than the opponent, and favor 3s over 2s over mid-range shots. The data says I was **mostly right**, with one surprise:
+
+| The team that… | Won this often |
+|---|---|
+| Played faster (more possessions) | ~42% |
+| Took more 3s | ~50% (coin flip) |
+| Made more 3s | ~66% |
+| Had the higher 3P% | ~71% |
+| Scored more points per possession | **~96%** |
+
+- **Efficiency, not speed.** Playing fast doesn't win. Scoring more *per trip* does.
+- **Making 3s matters; taking them doesn't.**
+- **Shot value: rim > corner 3 > above-break 3 > paint > mid-range.** Mid-range really is the worst shot, and teams have cut it in half since 2016-17. The surprise: shots at the rim are worth even more than 3s.
+- **Corner 3s are the shot mix most linked to winning** (correlation 0.25 with win %, within each season).
+- **No forecasting gain.** Adding 3-point stats to the pregame model moved accuracy from 66.9% to 67.0%, because net rating already captures shooting.
+
+![Points per shot by zone](figures/points_per_shot_by_zone.png)
+
 ## How it works
 
 | Step | What happens | Where |
@@ -44,6 +63,7 @@ I analyzed **11,979 NBA regular-season games across 10 seasons (2016-17 to 2025-
 | 3. Models | Logistic regression and random forest. **Train on 2016-17 to 2022-23, test on 2023-24 to 2025-26**, with no random shuffling | [`notebooks/analysis.ipynb`](notebooks/analysis.ipynb) |
 | 4. Importance | Standardized coefficients plus permutation importance on the test set | same notebook |
 | 5. Pregame model | Each team's season-to-date averages *before* each game, blended with last season early on | [`src/build_pregame_features.py`](src/build_pregame_features.py) |
+| 6. Shot value | Points per shot by court zone and how shot mix relates to winning | [`src/fetch_shot_zones.py`](src/fetch_shot_zones.py), notebook Part 1c |
 
 ### Design choices worth noting
 - **No direct score leakage.** Points, points allowed, point differential and plus-minus are never used as same-game features. The indirect leak (shooting + free throws + turnovers + rebounds ≈ points) is why the forecasting question uses pregame data only.
@@ -108,9 +128,10 @@ Even with perfect knowledge of every team's true strength, luck alone would caus
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 python src/fetch_data.py        # optional: data/raw is already included
+python src/fetch_shot_zones.py  # optional: shot locations for Part 1c
 python src/build_features.py
 python src/build_pregame_features.py
-jupyter notebook notebooks/analysis.ipynb   # Part 1 + 1b: models, accuracy, feature importance
+jupyter notebook notebooks/analysis.ipynb   # Part 1, 1b, 1c: models, accuracy, feature importance, shot value
 
 # Part 2 (data/raw is included; re-fetch to update to today)
 python src/fetch_players.py && python src/fetch_ages.py && python src/fetch_injuries.py
