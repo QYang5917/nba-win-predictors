@@ -2,8 +2,8 @@
 
 For each season 2017-18 to 2025-26:
   - stop the clock 22 days into the season (same point as today, Nov 11, in 2026-27)
-  - learn box-score weights only from seasons *before* it (no peeking)
-  - rate players on last season + this season so far
+  - learn box-score weights and the age curve only from seasons *before* it (no peeking)
+  - rate players on this season so far + last season (+ the one before at half weight)
   - project every team's final wins, then compare with what actually happened.
 
 Baselines to beat:
@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 from project import expected_minutes, expected_wins, prev_season, season_start, team_strength
-from ratings import fit_box_weights, load_logs, player_ratings
+from ratings import fit_age_curve, fit_box_weights, load_ages, load_logs, season_ratings
 
 ROOT = Path(__file__).resolve().parents[1]
 DAYS_IN = 22
@@ -45,12 +45,13 @@ def games_played(games: pd.DataFrame) -> pd.Series:
     return pd.concat([games["HOME_ID"], games["AWAY_ID"]]).value_counts()
 
 
-def backtest_season(logs, season):
+def backtest_season(logs, ages, season):
     history = sorted(s for s in logs["SEASON"].unique() if s < season)
     box_model = fit_box_weights(logs, history)
     cutoff = (season_start(logs, season) + pd.Timedelta(days=DAYS_IN)).strftime("%Y-%m-%d")
 
-    ratings = player_ratings(logs, [prev_season(season), season], box_model, cutoff)
+    curve = fit_age_curve(logs, ages, box_model, season)
+    ratings = season_ratings(logs, season, box_model, curve, ages, cutoff)
     minutes = expected_minutes(logs, season, cutoff)
     strength = team_strength(minutes, ratings)
 
@@ -78,8 +79,9 @@ def backtest_season(logs, season):
 
 def main():
     logs = load_logs()
+    ages = load_ages()
     seasons = [f"{y}-{str(y + 1)[-2:]}" for y in range(2017, 2026)]
-    res = pd.concat([backtest_season(logs, s) for s in seasons]).reset_index(names="TEAM_ID")
+    res = pd.concat([backtest_season(logs, ages, s) for s in seasons]).reset_index(names="TEAM_ID")
     # Compare on an 82-game scale so shortened seasons count fairly.
     methods = ["MODEL", "LAST_SEASON", "RECORD_SO_FAR", "BLEND"]
     scaled = res[methods + ["ACTUAL"]].div(res["N_GAMES"], axis=0) * 82

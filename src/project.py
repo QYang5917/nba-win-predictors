@@ -13,17 +13,14 @@ import numpy as np
 import pandas as pd
 from scipy.stats import norm
 
+from ratings import prev_season
+
 SIGMA = 13.0           # spread of single-game margins around expectation (NBA ~12-13 pts)
 PRIOR_GAMES = 10       # how many games of last season's minutes to blend with this season's
 
 
 def season_start(logs: pd.DataFrame, season: str) -> pd.Timestamp:
     return pd.to_datetime(logs.loc[logs["SEASON"] == season, "GAME_DATE"]).min()
-
-
-def prev_season(season: str) -> str:
-    y = int(season[:4]) - 1
-    return f"{y}-{str(y + 1)[-2:]}"
 
 
 def expected_minutes(logs, season, cutoff, roster=None) -> pd.DataFrame:
