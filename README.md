@@ -46,6 +46,20 @@ Team averages can't tell when a star sits out. So each team's pregame strength i
 - **Honest about leakage:** "tonight's lineup" uses who actually played, which in real use comes from the injury report and starting lineups shortly before tip-off. Coach's-decision benchings aren't known in advance, so I also built a zero-leakage version from the previous game's players. It still reaches 67.9%.
 - **Near the ceiling:** with hindsight, knowing every team's full-season quality only reaches 68.9%. The rest is game-to-game luck no pregame model can see.
 
+## Can it beat the betting market? No, and here's the proof
+Picking winners isn't how betting pays: favorites pay little, and point-spread bets need 52.4% wins to break even at standard -110 odds. So I tested the model against **real BetMGM closing odds** on 3,257 test games (2023-24 through Feb 2026):
+
+| Who | Picked the winner | Log loss (lower = better) |
+|---|---|---|
+| **Betting market** | **68.4%** | **0.590** |
+| Our model (tonight's lineup) | 67.2% | 0.601 |
+| Our model (zero leakage) | 67.0% | 0.608 |
+
+- **The market wins.** Closing odds already include everything the model knows, plus late injury news and money from professional bettors.
+- **The model adds almost nothing on top.** Combining the two puts 0.95 of the weight on the market and 0.09 on the model.
+- **Betting on it loses money.** Betting only when the model disagrees with the odds lost 0.6% to 10.5% in 15 of 16 settings. The one profitable setting (+0.6% on 281 bets) is the best of 16 tries and well within luck.
+- **Why it matters:** 68% accuracy sounds impressive, but the market is the real bar. Testing against it separates a real edge from a good-looking number.
+
 ## Testing a fan's hypothesis: is the modern NBA all about the 3?
 From watching games, my theory was: score in fewer seconds than the opponent, and favor 3s over 2s over mid-range shots. The data says I was **mostly right**, with one surprise:
 
@@ -75,7 +89,8 @@ From watching games, my theory was: score in fewer seconds than the opponent, an
 | 4. Importance | Standardized coefficients plus permutation importance on the test set | same notebook |
 | 5. Pregame model | Each team's season-to-date averages *before* each game, blended with last season early on | [`src/build_pregame_features.py`](src/build_pregame_features.py) |
 | 6. Player-based model | Team strength from player ratings × expected minutes, before each game | [`src/build_player_strength.py`](src/build_player_strength.py), notebook Part 1d |
-| 7. Shot value | Points per shot by court zone and how shot mix relates to winning | [`src/fetch_shot_zones.py`](src/fetch_shot_zones.py), notebook Part 1c |
+| 7. Market test | Compare win probabilities with BetMGM closing odds and simulate bets | notebook Part 1e |
+| 8. Shot value | Points per shot by court zone and how shot mix relates to winning | [`src/fetch_shot_zones.py`](src/fetch_shot_zones.py), notebook Part 1c |
 
 ### Design choices worth noting
 - **No direct score leakage.** Points, points allowed, point differential and plus-minus are never used as same-game features. The indirect leak (shooting + free throws + turnovers + rebounds ≈ points) is why the forecasting question uses pregame data only.
@@ -144,7 +159,7 @@ python src/fetch_shot_zones.py  # optional: shot locations for Part 1c
 python src/build_features.py
 python src/build_pregame_features.py
 python src/build_player_strength.py
-jupyter notebook notebooks/analysis.ipynb   # Part 1, 1b-1d: models, accuracy, feature importance, shot value, player-based model
+jupyter notebook notebooks/analysis.ipynb   # Part 1, 1b-1e: models, feature importance, shot value, player model, market test
 
 # Part 2 (data/raw is included; re-fetch to update to today)
 python src/fetch_players.py && python src/fetch_ages.py && python src/fetch_injuries.py
@@ -155,5 +170,7 @@ python trades.py            # trade targets
 python simulate.py          # championship odds
 python plot_moneyball.py    # charts
 ```
+
+**Data credit:** betting odds from [MGM Grand NBA betting data](https://www.kaggle.com/datasets/caseydurfee/mgm-grand-nba-betting-data) by Casey Durfee (CC BY-SA 4.0), saved as `data/raw/betting_odds_mgm.csv`. Game and player stats from stats.nba.com via `nba_api`.
 
 **Tools:** Python, pandas, NumPy, SciPy, scikit-learn, matplotlib, Jupyter, nba_api, pdfplumber
