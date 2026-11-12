@@ -1,0 +1,14 @@
+{
+  "features": [
+    "PLAYER_STRENGTH_DIFF",
+    "REST_DAYS_DIFF"
+  ],
+  "coef": [
+    0.1452561001833077,
+    0.09041821769782352
+  ],
+  "intercept": 0.269118623667485,
+  "trained_on": "2016-17 to 2025-26",
+  "games": 11969,
+  "train_accuracy": 0.6661
+}

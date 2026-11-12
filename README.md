@@ -46,6 +46,14 @@ Team averages can't tell when a star sits out. So each team's pregame strength i
 - **Honest about leakage:** "tonight's lineup" uses who actually played, which in real use comes from the injury report and starting lineups shortly before tip-off. Coach's-decision benchings aren't known in advance, so I also built a zero-leakage version from the previous game's players. It still reaches 67.9%.
 - **Near the ceiling:** with hindsight, knowing every team's full-season quality only reaches 68.9%. The rest is game-to-game luck no pregame model can see.
 
+## Live test: 1,000 games predicted before tip-off
+Backtests can hide mistakes, so the models are now **frozen** (trained on 2016-17 to 2025-26) and predicting 2026-27 games live, starting November 12, 2026. A few hours before each game, the system reads the official injury report, logs a win probability for the game and a points prediction for every player expected to play 20+ minutes, then commits the log to GitHub. The commit timestamps prove each prediction was made before tip-off.
+
+- **Scorecard:** [`predictions/SCORECARD.md`](predictions/SCORECARD.md) (accuracy, calibration, points error), updated automatically
+- **Raw logs:** [`predictions/games.csv`](predictions/games.csv) and [`predictions/props.csv`](predictions/props.csv)
+- **Rules:** the models don't change during the test. Any idea for improving them gets written down first and tested at the end.
+- **Code:** [`src/predict_today.py`](src/predict_today.py), [`src/grade_predictions.py`](src/grade_predictions.py), [`scripts/run_daily.sh`](scripts/run_daily.sh)
+
 ## Can it beat the betting market? No, and here's the proof
 Picking winners isn't how betting pays: favorites pay little, and point-spread bets need 52.4% wins to break even at standard -110 odds. So I tested the model against **real BetMGM closing odds** on 3,257 test games (2023-24 through Feb 2026):
 

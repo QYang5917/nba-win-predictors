@@ -379,6 +379,7 @@ TeamID,SEASON,LeagueID,PLAYER,NICKNAME,PLAYER_SLUG,NUM,POSITION,HEIGHT,WEIGHT,BI
 1610612758,2026,00,Alex Karaban,Alex,alex-karaban,33,F,6-7,220,"NOV 11, 2002",24.0,R,Connecticut,1642284,Draft Rights Traded from CLE on 06/24/26,0,SAC
 1610612758,2026,00,Emanuel Sharp,Emanuel,emanuel-sharp,34,G,6-3,212,"MAR 07, 2004",22.0,R,Houston,1643567,#45 Pick in 2026 Draft,0,SAC
 1610612758,2026,00,Maxime Raynaud,Maxime,maxime-raynaud,42,C,7-1,268,"APR 07, 2003",23.0,1,Stanford,1642875,#42 Pick in 2025 Draft,0,SAC
+1610612758,2026,00,Mason Plumlee,Mason,mason-plumlee,45,F-C,7-0,254,"MAR 05, 1990",36.0,13,Duke,203486,Signed on 11/11/26,0,SAC
 1610612759,2026,00,Jordan McLaughlin,Jordan,jordan-mclaughlin,0,G,5-11,185,"APR 09, 1996",30.0,7,Southern California,1629162,Traded from SAC on 02/03/25,0,SAS
 1610612759,2026,00,Victor Wembanyama,Victor,victor-wembanyama,1,F-C,7-4,235,"JAN 04, 2004",22.0,3,Metropolitans 92,1641705,#1 Pick in 2023 Draft,0,SAS
 1610612759,2026,00,Dylan Harper,Dylan,dylan-harper,2,G,6-5,215,"MAR 02, 2006",20.0,1,Rutgers,1642844,#2 Pick in 2025 Draft,0,SAS

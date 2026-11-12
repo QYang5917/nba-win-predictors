@@ -39,8 +39,15 @@ REPLACEMENT = -2.0     # rating for unknown / fringe players
 OLDER_SEASON_WEIGHT = 0.5  # weight of games from two seasons ago
 
 
+CURRENT_SEASON = "2026-27"
+
+
 def load_logs() -> pd.DataFrame:
     df = pd.read_csv(RAW / "player_game_logs.csv.gz", dtype={"GAME_ID": str})
+    cur = RAW / "player_game_logs_current.csv.gz"  # refreshed daily by fetch_daily.py
+    if cur.exists():
+        df = pd.concat([df[df["SEASON"] != CURRENT_SEASON],
+                        pd.read_csv(cur, dtype={"GAME_ID": str})], ignore_index=True)
     return df[df["MIN"] > 0]
 
 
