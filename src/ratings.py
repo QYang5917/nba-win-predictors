@@ -121,7 +121,8 @@ def player_ratings(logs: pd.DataFrame, rating_seasons, box_model, cutoff_date=No
     sub = logs[logs["SEASON"].isin(rating_seasons)]
     if cutoff_date is not None:
         sub = sub[sub["GAME_DATE"] < cutoff_date]
-    league = league_per36(logs)
+    # League averages only from games before the cutoff (no peeking at the rest of the season).
+    league = league_per36(logs if cutoff_date is None else logs[logs["GAME_DATE"] < cutoff_date])
     prior = box_rating(sub, box_model, league)
     rating, home = rapm(sub, prior, lam, season_weights)
     info = sub.groupby("PLAYER_ID").agg(PLAYER_NAME=("PLAYER_NAME", "last"),
