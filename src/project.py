@@ -23,11 +23,14 @@ def season_start(logs: pd.DataFrame, season: str) -> pd.Timestamp:
     return pd.to_datetime(logs.loc[logs["SEASON"] == season, "GAME_DATE"]).min()
 
 
-def expected_minutes(logs, season, cutoff, roster=None) -> pd.DataFrame:
+def expected_minutes(logs, season, cutoff, roster=None, injuries=None,
+                     games_left=None) -> pd.DataFrame:
     """Expected minutes per team game for every player on every team at `cutoff`.
 
     roster: optional DataFrame (PLAYER_ID, TEAM_ID) of current rosters, which adds
     players who are on a team but haven't played yet this season (e.g. injured).
+    injuries: optional DataFrame (PLAYER_ID, GAMES_OUT) from the official injury report.
+    games_left: Series TEAM_ID -> games remaining (needed with `injuries`).
     """
     cur = logs[(logs["SEASON"] == season) & (logs["GAME_DATE"] < cutoff)]
     prev = logs[logs["SEASON"] == prev_season(season)]
@@ -53,9 +56,20 @@ def expected_minutes(logs, season, cutoff, roster=None) -> pd.DataFrame:
     avail_prev = (df["GP_P"] / prev_team_games).clip(upper=1)
     tw = tg / (tg + PRIOR_GAMES)
     avail = np.where(avail_cur.isna(), avail_prev, tw * avail_cur.fillna(0) + (1 - tw) * avail_prev)
-    # Rostered but hasn't played yet this season: assume out for about half the rest of the year.
     not_yet = (df["GP"] == 0) & (tg >= 5)
-    avail = np.where(not_yet, 0.5 * avail_prev, avail)
+    if injuries is None:
+        # No injury info: a rostered player who hasn't played is assumed out ~half the season.
+        avail = np.where(not_yet, 0.5 * avail_prev, avail)
+    else:
+        out = df.index.to_series().map(injuries.set_index("PLAYER_ID")["GAMES_OUT"])
+        left = df["TEAM_ID"].map(games_left).fillna(70)
+        healthy_share = (1 - out / left).clip(lower=0).fillna(1.0)
+        # Injured: availability of a healthy version of him, times the share of games he'll be back for.
+        base = np.where(not_yet, avail_prev, avail)
+        avail = np.where(out.notna(), base * healthy_share, avail)
+        # Healthy but hasn't played all season: he's out of the rotation.
+        avail = np.where(not_yet & out.isna(), 0.1 * avail_prev, avail)
+        df["INJURY_SHARE_OUT"] = 1 - healthy_share
     df["EXP_MIN"] = df["MPG"] * avail
 
     # Scale each team to 240 minutes per game.
