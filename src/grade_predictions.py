@@ -15,16 +15,45 @@ RAW, PRED = ROOT / "data" / "raw", ROOT / "predictions"
 GOAL = 1000
 
 
+def wilson_interval(correct, total, z=1.959963984540054):
+    """Binomial interval; unlike the Wald interval it works at 0/n and n/n."""
+    if total <= 0 or not 0 <= correct <= total:
+        raise ValueError('Invalid successes/trials')
+    p = correct / total
+    denominator = 1 + z*z/total
+    center = (p + z*z/(2*total)) / denominator
+    half = z * np.sqrt(p*(1-p)/total + z*z/(4*total*total)) / denominator
+    return max(0., center-half), min(1., center+half)
+
+
+def score_games(predictions, team_logs):
+    """Grade from BOTH teams' actual PTS; never infer scores from PLUS_MINUS."""
+    g, tl = predictions.copy(), team_logs.copy()
+    for d in [g, tl]:
+        d['GAME_ID'] = d.GAME_ID.astype(str).str.zfill(10)
+    if g.GAME_ID.duplicated().any() or tl.duplicated(['GAME_ID','TEAM_ABBREVIATION']).any():
+        raise ValueError('Duplicate prediction or team result')
+    pts = tl.set_index(['GAME_ID','TEAM_ABBREVIATION']).PTS
+    for side in ['HOME','AWAY']:
+        idx = pd.MultiIndex.from_arrays([g.GAME_ID, g[side]])
+        g[side+'_PTS'] = pts.reindex(idx).to_numpy()
+    predicted = pd.to_datetime(g.PREDICTED_AT, utc=True, errors='coerce')
+    tip = pd.to_datetime(g.TIP_UTC, utc=True, errors='coerce')
+    valid = predicted.notna() & tip.notna() & (predicted < tip)
+    valid &= np.isfinite(g.P_HOME) & g.P_HOME.between(0,1) & (g.HOME != g.AWAY)
+    count = g.GAME_ID.map(tl.groupby('GAME_ID').size())
+    complete = g[['HOME_PTS','AWAY_PTS']].notna().all(axis=1) & (count == 2)
+    complete &= (g.HOME_PTS != g.AWAY_PTS)
+    g['GRADE_STATUS'] = np.where(~valid, 'invalid_prediction', np.where(complete, 'graded', 'pending_or_incomplete'))
+    g['HOME_WIN'] = (g.HOME_PTS > g.AWAY_PTS).where(valid & complete)
+    g['CORRECT'] = ((g.P_HOME >= .5) == g.HOME_WIN).where(valid & complete)
+    return g
+
+
 def grade_games() -> pd.DataFrame:
     g = pd.read_csv(PRED / "games.csv", dtype={"GAME_ID": str})
     tl = pd.read_csv(RAW / "team_game_logs_current.csv", dtype={"GAME_ID": str})
-    tl["GAME_ID"] = tl["GAME_ID"].str.zfill(10)
-    home = tl[tl["MATCHUP"].str.contains("vs.")].set_index("GAME_ID")
-    g["GAME_ID"] = g["GAME_ID"].str.zfill(10)
-    g["HOME_PTS"] = g["GAME_ID"].map(home["PTS"])
-    g["AWAY_PTS"] = g["HOME_PTS"] - g["GAME_ID"].map(home["PLUS_MINUS"])
-    g["HOME_WIN"] = (g["HOME_PTS"] > g["AWAY_PTS"]).where(g["HOME_PTS"].notna())
-    g["CORRECT"] = ((g["P_HOME"] >= 0.5) == g["HOME_WIN"]).where(g["HOME_WIN"].notna())
+    g = score_games(g, tl)
     g.to_csv(PRED / "games.csv", index=False)
     return g
 
@@ -47,16 +76,18 @@ def main():
     done = g[g["HOME_WIN"].notna()]
     pr = p[p["ACTUAL_MIN"] > 0]  # a prop is void if the player doesn't play
     lines = [f"# Live prediction scorecard", "",
-             f"Updated {dt.date.today()}. Model frozen on 2026-11-12; every prediction was logged before tip-off "
-             f"(see the timestamps in `games.csv` and `props.csv`).", "",
-             f"## Games: {len(done)} graded of {GOAL} goal ({len(g) - len(done)} pending)", ""]
+             f"Updated {dt.date.today()}. Model frozen on 2026-11-12. Game grading checks recorded prediction "
+             f"times precede tip-off; timestamps alone do not independently prove publication or input availability.", "",
+             f"## Games: {len(done)} graded of {GOAL} goal "
+             f"({(g['GRADE_STATUS'] == 'pending_or_incomplete').sum()} pending)", ""]
+    lines += [f"Invalid game predictions excluded: {(g['GRADE_STATUS'] == 'invalid_prediction').sum()}.", ""]
     if len(done):
         q = done["P_HOME"].clip(1e-6, 1 - 1e-6)
         y = done["HOME_WIN"].astype(float)
         logloss = -(y * np.log(q) + (1 - y) * np.log(1 - q)).mean()
         conf = np.where(q >= 0.5, q, 1 - q)
-        se = np.sqrt(done["CORRECT"].mean() * (1 - done["CORRECT"].mean()) / len(done))
-        lines += [f"- **Accuracy: {done['CORRECT'].mean():.1%}** (±{1.96 * se:.1%} margin of error)",
+        low, high = wilson_interval(int(done['CORRECT'].sum()), len(done))
+        lines += [f"- **Accuracy: {done['CORRECT'].mean():.1%}** (95% Wilson interval {low:.1%}–{high:.1%}; assumes independent trials)",
                   f"- Always picking the home team: {y.mean():.1%}",
                   f"- Log loss: {logloss:.3f} (lower is better; a coin flip is 0.693)", "",
                   "| Model's confidence | Games | Picks won |", "|---|---|---|"]
@@ -74,7 +105,7 @@ def main():
                   f"- Scored over the prediction: {(pr['ACTUAL_PTS'] > pr['PRED_PTS']).mean():.1%} "
                   f"(about 50% means the median is right)",
                   f"- Players who didn't play (void): {(p['ACTUAL_MIN'].isna() & p['GAME_ID'].isin(done['GAME_ID'])).sum()}"]
-    lines += ["", "Betting lines aren't recorded yet, so these scores measure accuracy, not profit."]
+    lines += ["", "The scores above measure accuracy, not profit. Profit is tracked under paper bets."]
     (PRED / "SCORECARD.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
 

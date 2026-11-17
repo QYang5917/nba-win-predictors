@@ -1,5 +1,72 @@
 # NBA Win Predictors: what wins games, and who will win this season
 
+**V2 follow-up:** [Past-only calibration, learned blending and recency selection](reports/V2_FOLLOWUP.md)
+do not beat the previous fixed blend's 68.46% historical accuracy. A past-selected linear
+regularization setting changes log loss only from 0.591566 to 0.591550, with no extra
+correct picks and uncertainty spanning zero. Optional research inference bundles are saved.
+
+**V2 development:** [Chronological nonlinear and margin-model experiment](reports/V2_RESEARCH.md).
+A fixed linear/boosting blend scores 68.46% versus a 68.18% causal player baseline
+on 3,633 common games (10 extra correct picks), with uncertainty including no gain.
+Standalone boosting models perform worse. Research models and a separate inference
+entry point are saved; possession-level player impact and live integration remain pending.
+
+**Impact-system follow-up:** [Advanced-input normalization, rating shrinkage and context tests](reports/IMPACT_SYSTEM_UPDATE.md).
+Stronger player-impact shrinkage worsens historical probability loss. Adding team context
+reduces log loss from 0.594113 to 0.592389, while accuracy declines from 68.26% to 68.15%.
+Neither is deployed. NBA advanced-data retrieval remains blocked by DNS, so a fully trained
+advanced-impact ranking is still pending real inputs and historical targets.
+
+**Player-rating experiment:** [Continuous recency weighting and joint home estimation](reports/RATING_EXPERIMENT.md)
+compare four rating methods with identical pregame candidates/minutes. On 3,633 common
+games, recency weighting changes accuracy from 68.07% to 68.18% (four extra correct picks)
+and log loss from 0.595332 to 0.593935. The last season's accuracy falls, and the historical
+evaluation period has been reused; this is a research candidate, not a deployed upgrade.
+A follow-up preserves total training weight while emphasizing recent games: accuracy
+remains 68.18%, with log loss 0.593753. Its paired difference from the first recency
+variant includes zero, so superiority over that variant is not established.
+
+**2026-11-13 data audit:** [Evidence, data defects and evaluation limitations](reports/DATA_AUTHENTICITY_AUDIT.md).
+Official game spot checks support real-world scores, but do not authenticate every saved row.
+Among 11,979 historical games, 129 have inconsistent team `PLUS_MINUS` fields and 10 have
+ambiguous home/away markers. The 68.3% actual-participant result below has hindsight
+information; four live wins do not establish 100% accuracy. Reproduce the read-only
+consistency audit with `.venv/bin/python src/audit_data.py`.
+
+**2026-11-12 research update:** A separate [walk-forward market evaluation](reports/MARKET_RESEARCH.md)
+now compares the previous-game player model, market, calibrated market and a market/player hybrid.
+It uses exact-date odds matching and trains combination weights only on earlier seasons.
+On 3,256 evaluation games the hybrid has log loss 0.59006 versus the market's 0.59014,
+but its 22 flat-unit simulated bets lose 3.6%. This is not evidence of a profitable edge.
+The historical notebook below remains an exploratory analysis; frozen live models are unchanged.
+
+A subsequent [team-context experiment](reports/CONTEXT_EXPERIMENT.md) adds causal Elo,
+recent net efficiency and schedule load to the previous-game player model. Across the
+same 3,256 games, log loss improves from 0.60807 to 0.60450 in all three evaluation
+seasons, but simulated ROI remains negative (-5.12%). This is a research candidate,
+not a deployed or profitable model. Reproduce with `.venv/bin/python src/context_experiment.py`.
+
+The next [rotation experiment](reports/ROTATION_RESEARCH.md) reduces historical
+minute-prediction MAE from 7.30 to 7.00 using a learned median model; the learned
+mean model reduces RMSE from 10.73 to 10.26. Forced 240-minute normalization fails
+and is not adopted. Complete-availability scenarios and timestamped snapshot
+ingestion are available for research; these results do not establish better win
+predictions or betting returns.
+
+An [end-to-end rotation/win experiment](reports/ROTATION_WIN_EXPERIMENT.md) now
+cross-fits minutes, rebuilds historical player ratings, and trains win/market models
+only on earlier seasons. On 3,209 common games, learned mean minutes slightly lower
+log loss (0.60612 → 0.60590) and simulated losses (-4.07% → -3.36%), but the paired
+uncertainty interval includes no improvement. All branches, including a small-sample
+profitable legacy/market branch, are reported; none establishes stable profitability.
+
+The [five-game candidate-pool experiment](reports/AVAILABILITY_EXPERIMENT.md)
+raises actual-participant coverage from 85.63% to 96.52%. Learned minutes reduce
+RMSE on a common expanded evaluation set, but MAE worsens slightly. The direct
+minute variant gives log loss 0.60583 and simulated ROI -3.14% on the same 3,209
+games; neither the probability change nor positive small-bet branches establishes
+a reliable edge. Participation modeling remains research-only.
+
 I analyzed **11,979 NBA regular-season games across 10 seasons (2016-17 to 2025-26)**. Every model trains on the first seven seasons (8,289 games) and is tested on the three most recent (**2023-24, 2024-25, 2025-26**: 3,690 games). The split is by season, never random.
 
 ## Results at a glance
@@ -9,12 +76,12 @@ I analyzed **11,979 NBA regular-season games across 10 seasons (2016-17 to 2025-
 | — | Baseline: always pick the home team | 56.9% | **54.7%** |
 | **Who will win?** (pregame info only) | Logistic regression (team averages) | 64.4% | **66.9%** |
 | | Random forest (team averages) | 66.6% | **66.3%** |
-| | **Player-based strength** (tonight's lineup) | 65.7% | **68.3%** |
-| | Player-based strength (last game's players, zero leakage) | 65.1% | 67.9% |
+| | Player-based strength (actual participants; hindsight information) | 65.7% | 68.3% |
+| | Player-based strength (last game's players; historical estimate) | 65.1% | 67.9% |
 | **What explains a win?** (stats from the game itself) | Logistic regression | 95.7% | 96.0% |
 | | Random forest | 94.6% | 93.0% |
 
-**Why two questions?** An audit found that same-game shooting, free throw, turnover and rebounding rates rebuild a team's points per possession with 98% accuracy, so they come close to revealing the final score. The 96% models are useful for *explaining* what wins, but they aren't forecasts. The pregame models are the honest forecast. The best one builds each team from **its players** (ratings × expected minutes) and reaches **68.3%, about 14 points above the baseline**.
+**Why two questions?** An audit found that same-game shooting, free throw, turnover and rebounding rates rebuild a team's points per possession with 98% accuracy, so they come close to revealing the final score. The 96% models explain completed games. The 68.3% player result also uses hindsight through actual participants, so it is not an independently validated pregame accuracy. Previous-game participants remove that particular leak, but historical results still require the data-quality and evaluation checks described in the audit.
 
 ## Key findings: what explains a win
 
@@ -47,7 +114,9 @@ Team averages can't tell when a star sits out. So each team's pregame strength i
 - **Near the ceiling:** with hindsight, knowing every team's full-season quality only reaches 68.9%. The rest is game-to-game luck no pregame model can see.
 
 ## Live test: 1,000 games predicted before tip-off
-Backtests can hide mistakes, so the models are now **frozen** (trained on 2016-17 to 2025-26) and predicting 2026-27 games live, starting November 12, 2026. A few hours before each game, the system reads the official injury report, logs a win probability for the game and a points prediction for every player expected to play 20+ minutes, then commits the log to GitHub. The commit timestamps prove each prediction was made before tip-off.
+Backtests can hide mistakes, so the models are now **frozen** (trained on 2016-17 to 2025-26) and predicting 2026-27 games live, starting November 12, 2026. On each game day, the first scheduled run that gets through (usually in the morning) reads the latest official injury report, logs a win probability for the game and a points prediction for every player expected to play 20+ minutes, then commits the log to GitHub. The commit timestamps prove each prediction was made before tip-off.
+
+Since November 17, 2026 the same run also saves the sportsbook lines on offer (moneyline, spread, total and player points, from several books via The Odds API) and logs **paper bets**: a pretend $1 bet whenever the model's chance times the best recorded price shows positive value. No real money is involved. The rule that gets judged (value above 5%) was fixed before the first bet, and the [scorecard](predictions/SCORECARD.md) reports the return per $1 next to the accuracy.
 
 - **Scorecard:** [`predictions/SCORECARD.md`](predictions/SCORECARD.md) (accuracy, calibration, points error), updated automatically
 - **Raw logs:** [`predictions/games.csv`](predictions/games.csv) and [`predictions/props.csv`](predictions/props.csv)

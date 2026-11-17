@@ -24,3 +24,9 @@ Invalid game predictions excluded: 0.
 - Players who didn't play (void): 103
 
 Betting lines aren't recorded yet, so these scores measure accuracy, not profit.
+
+## Paper bets (no real money)
+
+A pretend $1 bet is logged before tip-off whenever the frozen model's chance times the best recorded price shows positive value. The main rule, fixed in advance, is value above 5%.
+
+No settled bets yet (0 waiting for results; betting lines recorded for 0 games).
