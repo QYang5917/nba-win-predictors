@@ -29,7 +29,10 @@ if __name__ == "__main__":
     today = dt.date.today()
     for i in range(DAYS_BACK, -2, -1):
         day = today - dt.timedelta(days=i)
-        url = latest_for_day(day)
-        if url:
-            (OUT / f"{day}.pdf").write_bytes(requests.get(url, headers=HEADERS, timeout=30).content)
-            print(day, url.rsplit("_", 3)[-3:])
+        try:
+            url = latest_for_day(day)
+            if url:
+                (OUT / f"{day}.pdf").write_bytes(requests.get(url, headers=HEADERS, timeout=30).content)
+                print(day, url.rsplit("_", 3)[-3:])
+        except requests.RequestException as exc:  # keep the saved copy of that day's report
+            print(f"{day}: download failed ({exc}); keeping the saved report.")

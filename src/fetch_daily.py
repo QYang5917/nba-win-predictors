@@ -21,7 +21,15 @@ KEEP = ["SEASON", "PLAYER_ID", "PLAYER_NAME", "TEAM_ID", "TEAM_ABBREVIATION", "G
         "OREB", "DREB", "REB", "AST", "TOV", "STL", "BLK", "BLKA", "PF", "PFD", "PTS", "PLUS_MINUS"]
 
 
-def main():
+def step(label, fn):
+    """Run one download; on failure keep yesterday's file so predictions still happen."""
+    try:
+        fn()
+    except Exception as exc:
+        print(f"WARNING: {label} refresh failed ({exc}); using the cached file.")
+
+
+def fetch_player_logs():
     logs = with_retry(lambda: playergamelogs.PlayerGameLogs(
         season_nullable=CURRENT, season_type_nullable="Regular Season",
         league_id_nullable="00", timeout=90).get_data_frames()[0], "player logs")
@@ -30,6 +38,8 @@ def main():
     logs[KEEP].to_csv(RAW / "player_game_logs_current.csv.gz", index=False, compression="gzip")
     print(f"Player logs {CURRENT}: {len(logs)} rows, through {logs['GAME_DATE'].max()}")
 
+
+def fetch_team_logs():
     tl = with_retry(lambda: leaguegamefinder.LeagueGameFinder(
         player_or_team_abbreviation="T", season_nullable=CURRENT, season_type_nullable="Regular Season",
         league_id_nullable="00", timeout=60).get_data_frames()[0], "team logs")
@@ -37,6 +47,8 @@ def main():
     tl.to_csv(RAW / "team_game_logs_current.csv", index=False)
     print(f"Team games {CURRENT}: {len(tl) // 2}")
 
+
+def fetch_rosters():
     rosters = []
     for t in teams.get_teams():
         r = with_retry(lambda: commonteamroster.CommonTeamRoster(
@@ -46,11 +58,19 @@ def main():
     pd.concat(rosters, ignore_index=True).to_csv(RAW / "rosters_current.csv", index=False)
     print(f"Rosters: {sum(len(r) for r in rosters)} players")
 
+
+def fetch_schedule():
     sch = with_retry(lambda: scheduleleaguev2.ScheduleLeagueV2(
         season=CURRENT, timeout=60).get_data_frames()[0], "schedule")
     sch.to_csv(RAW / "schedule_current.csv", index=False)
 
-    subprocess.run([sys.executable, str(SRC / "fetch_injuries.py")], check=True)
+
+def main():
+    step("schedule", fetch_schedule)
+    step("injury reports", lambda: subprocess.run([sys.executable, str(SRC / "fetch_injuries.py")], check=True))
+    step("player logs", fetch_player_logs)
+    step("team logs", fetch_team_logs)
+    step("rosters", fetch_rosters)
 
 
 if __name__ == "__main__":

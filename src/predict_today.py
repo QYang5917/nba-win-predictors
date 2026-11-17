@@ -1,7 +1,8 @@
 """Live test: log predictions for today's NBA games BEFORE tip-off, using the frozen models.
 
-Runs several times a day; each run handles games tipping in the next few hours, so the
-prediction uses an injury report from shortly before the game. For each such game:
+Runs every hour while the Mac is awake. The first run that gets through each day predicts ALL of
+that day's games that haven't tipped yet, so a sleeping laptop can't make us miss early games.
+The trade-off: a morning prediction uses the morning injury report. For each game:
   - Game: P(home win) from player-based team strength (ratings x expected minutes of players
     not ruled out on today's official injury report) + rest days.
   - Props: predicted median points for every available player expected to play 20+ minutes.
@@ -29,7 +30,6 @@ SEASON = "2026-27"
 MODEL_VERSION = "v1 (frozen 2026-11-12)"
 OUT_CATEGORIES = {"season", "rehab", "long", "short"}  # Out or Doubtful
 PROP_MIN_MINUTES = 20
-WINDOW_HOURS = 3.5  # predict only games tipping soon, so the latest injury report is used
 STAT_COLS = ["MIN", "FGM", "FGA", "FG3M", "FG3A", "FTM", "FTA", "OREB", "DREB", "REB", "AST",
              "TOV", "STL", "BLK", "BLKA", "PF", "PFD", "PTS", "PLUS_MINUS"]
 
@@ -39,8 +39,7 @@ def todays_games(now_utc: dt.datetime) -> pd.DataFrame:
     sch = sch[sch["gameId"].str.startswith("002") & (sch["homeTeam_teamId"] > 0)]
     today_et = now_utc.astimezone(ZoneInfo("America/New_York")).date().isoformat()
     sch["TIP_UTC"] = pd.to_datetime(sch["gameDateTimeUTC"], utc=True)
-    soon = now_utc + dt.timedelta(hours=WINDOW_HOURS)
-    g = sch[(sch["gameDateTimeEst"].str[:10] == today_et) & (sch["TIP_UTC"] > now_utc) & (sch["TIP_UTC"] <= soon)]
+    g = sch[(sch["gameDateTimeEst"].str[:10] == today_et) & (sch["TIP_UTC"] > now_utc)]
     return g.rename(columns={"gameId": "GAME_ID", "homeTeam_teamId": "HOME_ID", "awayTeam_teamId": "AWAY_ID",
                              "homeTeam_teamTricode": "HOME", "awayTeam_teamTricode": "AWAY"})[
         ["GAME_ID", "TIP_UTC", "HOME_ID", "AWAY_ID", "HOME", "AWAY"]].reset_index(drop=True)
@@ -61,8 +60,11 @@ def append_log(path: Path, new: pd.DataFrame, key: list[str]) -> int:
 def main():
     now = dt.datetime.now(dt.timezone.utc)
     games = todays_games(now)
+    if PRED.joinpath("games.csv").exists():  # skip games already logged (the first prediction counts)
+        done = pd.read_csv(PRED / "games.csv", dtype={"GAME_ID": str})["GAME_ID"]
+        games = games[~games["GAME_ID"].isin(done)].reset_index(drop=True)
     if games.empty:
-        print(f"No games tipping in the next {WINDOW_HOURS} hours.")
+        print("No unpredicted games left today.")
         return
     today = now.astimezone(ZoneInfo("America/New_York")).date().isoformat()
 
