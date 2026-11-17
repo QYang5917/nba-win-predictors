@@ -1,0 +1,197 @@
+{
+  "metrics": [
+    {
+      "season": "ALL",
+      "model": "LEGACY_MIN",
+      "player_rows": 89651,
+      "team_games": 7290,
+      "mae": 7.299628059421845,
+      "rmse": 10.72864869410055,
+      "mean_team_unallocated": 8.235374144410002
+    },
+    {
+      "season": "ALL",
+      "model": "ALLOCATED_MIN",
+      "player_rows": 89651,
+      "team_games": 7290,
+      "mae": 7.530775579061577,
+      "rmse": 10.759746144481905,
+      "mean_team_unallocated": 1.0199066100128516e-14
+    },
+    {
+      "season": "ALL",
+      "model": "LEARNED_MEAN",
+      "player_rows": 89651,
+      "team_games": 7290,
+      "mae": 7.170029165422826,
+      "rmse": 10.261463288822078,
+      "mean_team_unallocated": 18.861920366358824
+    },
+    {
+      "season": "ALL",
+      "model": "LEARNED_MEDIAN",
+      "player_rows": 89651,
+      "team_games": 7290,
+      "mae": 6.995194346730924,
+      "rmse": 10.425502322303204,
+      "mean_team_unallocated": 12.020123202056574
+    },
+    {
+      "season": "2023-24",
+      "model": "LEGACY_MIN",
+      "player_rows": 29723,
+      "team_games": 2430,
+      "mae": 6.946851644242235,
+      "rmse": 10.275218674322147,
+      "mean_team_unallocated": 7.531066861462822
+    },
+    {
+      "season": "2023-24",
+      "model": "ALLOCATED_MIN",
+      "player_rows": 29723,
+      "team_games": 2430,
+      "mae": 7.204725952052751,
+      "rmse": 10.321637304932295,
+      "mean_team_unallocated": 1.0093800509645538e-14
+    },
+    {
+      "season": "2023-24",
+      "model": "LEARNED_MEAN",
+      "player_rows": 29723,
+      "team_games": 2430,
+      "mae": 6.864548536852451,
+      "rmse": 9.834923069379775,
+      "mean_team_unallocated": 18.286911044380453
+    },
+    {
+      "season": "2023-24",
+      "model": "LEARNED_MEDIAN",
+      "player_rows": 29723,
+      "team_games": 2430,
+      "mae": 6.654722483494293,
+      "rmse": 9.973220686003781,
+      "mean_team_unallocated": 11.493742768025353
+    },
+    {
+      "season": "2024-25",
+      "model": "LEGACY_MIN",
+      "player_rows": 29819,
+      "team_games": 2430,
+      "mae": 7.439562243726904,
+      "rmse": 10.987040026479248,
+      "mean_team_unallocated": 8.832322678254027
+    },
+    {
+      "season": "2024-25",
+      "model": "ALLOCATED_MIN",
+      "player_rows": 29819,
+      "team_games": 2430,
+      "mae": 7.690915735094042,
+      "rmse": 11.036477116486084,
+      "mean_team_unallocated": 1.0070408156204876e-14
+    },
+    {
+      "season": "2024-25",
+      "model": "LEARNED_MEAN",
+      "player_rows": 29819,
+      "team_games": 2430,
+      "mae": 7.3309257483729375,
+      "rmse": 10.527280660784992,
+      "mean_team_unallocated": 19.311620109817994
+    },
+    {
+      "season": "2024-25",
+      "model": "LEARNED_MEDIAN",
+      "player_rows": 29819,
+      "team_games": 2430,
+      "mae": 7.145311678077699,
+      "rmse": 10.700667265863522,
+      "mean_team_unallocated": 12.428532525380389
+    },
+    {
+      "season": "2025-26",
+      "model": "LEGACY_MIN",
+      "player_rows": 30109,
+      "team_games": 2430,
+      "mae": 7.509295466064077,
+      "rmse": 10.90635090344907,
+      "mean_team_unallocated": 8.342732893513157
+    },
+    {
+      "season": "2025-26",
+      "model": "ALLOCATED_MIN",
+      "player_rows": 30109,
+      "team_games": 2430,
+      "mae": 7.694047482839557,
+      "rmse": 10.904864840124244,
+      "mean_team_unallocated": 1.0432989634535134e-14
+    },
+    {
+      "season": "2025-26",
+      "model": "LEARNED_MEAN",
+      "player_rows": 30109,
+      "team_games": 2430,
+      "mae": 7.312246625850199,
+      "rmse": 10.406097663204969,
+      "mean_team_unallocated": 18.987229944878024
+    },
+    {
+      "season": "2025-26",
+      "model": "LEARNED_MEDIAN",
+      "player_rows": 30109,
+      "team_games": 2430,
+      "mae": 7.1826298805431685,
+      "rmse": 10.58497039075428,
+      "mean_team_unallocated": 12.13809431276398
+    }
+  ],
+  "folds": [
+    {
+      "season": "2023-24",
+      "train_candidates": 173531,
+      "train_end": "2023-04-09",
+      "test_start": "2023-10-26",
+      "test_candidates": 26055,
+      "unpredicted_returning_rows": 3668
+    },
+    {
+      "season": "2024-25",
+      "train_candidates": 199586,
+      "train_end": "2024-04-14",
+      "test_start": "2024-10-24",
+      "test_candidates": 26004,
+      "unpredicted_returning_rows": 3815
+    },
+    {
+      "season": "2025-26",
+      "train_candidates": 225590,
+      "train_end": "2025-04-13",
+      "test_start": "2025-10-23",
+      "test_candidates": 26338,
+      "unpredicted_returning_rows": 3771
+    }
+  ],
+  "learned_features": [
+    "PREV_MIN",
+    "EXP_AFTER",
+    "G_BEFORE",
+    "REST",
+    "TEAM_PREV_PLAYERS"
+  ],
+  "input_sha256": "47152a24b912760c326a2c266f2083cfd358ac2bc85686eb3c9d93b2e31b4134",
+  "code_sha256": "e7855203fe68819dd8178c172b85c7e6b0c653b6d361f1ef7d6c7f6926de71fd",
+  "hyperparameters": {
+    "max_iter": 120,
+    "max_leaf_nodes": 15,
+    "min_samples_leaf": 100,
+    "l2_regularization": 10,
+    "learning_rate": 0.05,
+    "early_stopping": false,
+    "seed": 42
+  },
+  "scope": "Previous-game roster proxy; no historical injury reports, no win or ROI claim.",
+  "cap": 40,
+  "total_minutes": 240,
+  "actual_minutes_normalized_for_overtime": true,
+  "includes_absent_and_returning_players_in_scoring": true
+}

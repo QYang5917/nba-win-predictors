@@ -1,0 +1,242 @@
+{
+  "sha256": {
+    "reports/impact_control/predictions.csv": "b0f0624e8d8fce78f1d1a37ed4b3ede3d54cce3a1c15193e40aed092f408f369",
+    "data/raw/team_game_logs.csv": "8c841c56d5f5f8d6c1790a0150f8cd916277af548d962c0c2d67ebc8805bed85",
+    "src/impact_context_experiment.py": "cf16f633cc0be0b015c084179eecf557d18b08de7e1fffe904974cf34b6bde58",
+    "src/context_experiment.py": "f66e0cbab5adc51da13c81da471023389bf3df0b562d65665f033d41979344d2"
+  },
+  "arms": {
+    "rating": [
+      "recent_normalized_DIFF",
+      "REST_DAYS_DIFF"
+    ],
+    "rating_context": [
+      "recent_normalized_DIFF",
+      "REST_DAYS_DIFF",
+      "ELO_DIFF",
+      "NET10_DIFF",
+      "NET30_DIFF",
+      "B2B_DIFF",
+      "GAMES7_DIFF"
+    ],
+    "conservative_context": [
+      "impact_120_DIFF",
+      "REST_DAYS_DIFF",
+      "ELO_DIFF",
+      "NET10_DIFF",
+      "NET30_DIFF",
+      "B2B_DIFF",
+      "GAMES7_DIFF"
+    ]
+  },
+  "folds": [
+    {
+      "season": "2023-24",
+      "train_end": "2023-04-09 00:00:00",
+      "train_games": 2428,
+      "rating": {
+        "recent_normalized_DIFF": 0.6866950391313075,
+        "REST_DAYS_DIFF": 0.14748367631391898
+      },
+      "rating_context": {
+        "recent_normalized_DIFF": 0.4305271671025903,
+        "REST_DAYS_DIFF": 0.04588966722054346,
+        "ELO_DIFF": 0.15416720802217895,
+        "NET10_DIFF": -0.07733819872804967,
+        "NET30_DIFF": 0.22492078123269493,
+        "B2B_DIFF": -0.1338581862252209,
+        "GAMES7_DIFF": -0.02837264101215284
+      },
+      "conservative_context": {
+        "impact_120_DIFF": 0.5103810002320724,
+        "REST_DAYS_DIFF": 0.04522183855627731,
+        "ELO_DIFF": 0.0541762798953048,
+        "NET10_DIFF": -0.060059624243265525,
+        "NET30_DIFF": 0.2383287615488398,
+        "B2B_DIFF": -0.1353950276405033,
+        "GAMES7_DIFF": -0.02519761414577696
+      }
+    },
+    {
+      "season": "2024-25",
+      "train_end": "2024-04-14 00:00:00",
+      "train_games": 3643,
+      "rating": {
+        "recent_normalized_DIFF": 0.7874460331282669,
+        "REST_DAYS_DIFF": 0.1417781685881802
+      },
+      "rating_context": {
+        "recent_normalized_DIFF": 0.5525347902366974,
+        "REST_DAYS_DIFF": 0.021204486709598343,
+        "ELO_DIFF": 0.20990151299803533,
+        "NET10_DIFF": 0.0009351401683714924,
+        "NET30_DIFF": 0.07062505119672588,
+        "B2B_DIFF": -0.1618710370827012,
+        "GAMES7_DIFF": -0.022184893363197088
+      },
+      "conservative_context": {
+        "impact_120_DIFF": 0.602993282741218,
+        "REST_DAYS_DIFF": 0.021180231269185508,
+        "ELO_DIFF": 0.11250590162161156,
+        "NET10_DIFF": 0.01789770628422221,
+        "NET30_DIFF": 0.10754547545823548,
+        "B2B_DIFF": -0.16223156071383543,
+        "GAMES7_DIFF": -0.020570977053837924
+      }
+    },
+    {
+      "season": "2025-26",
+      "train_end": "2025-04-13 00:00:00",
+      "train_games": 4852,
+      "rating": {
+        "recent_normalized_DIFF": 0.8364491744767482,
+        "REST_DAYS_DIFF": 0.15913208319899985
+      },
+      "rating_context": {
+        "recent_normalized_DIFF": 0.5842709828993446,
+        "REST_DAYS_DIFF": 0.039575395238002686,
+        "ELO_DIFF": 0.15082434756373714,
+        "NET10_DIFF": 0.05794347246354051,
+        "NET30_DIFF": 0.09686306581667879,
+        "B2B_DIFF": -0.15377842744298884,
+        "GAMES7_DIFF": -0.027508659107695448
+      },
+      "conservative_context": {
+        "impact_120_DIFF": 0.6122756359925275,
+        "REST_DAYS_DIFF": 0.038528885495326286,
+        "ELO_DIFF": 0.06809863110992609,
+        "NET10_DIFF": 0.07626095952226841,
+        "NET30_DIFF": 0.13903322602032195,
+        "B2B_DIFF": -0.15506917383849586,
+        "GAMES7_DIFF": -0.026250201078026586
+      }
+    }
+  ],
+  "metrics": [
+    {
+      "season": "ALL",
+      "arm": "rating",
+      "games": 3633,
+      "accuracy": 0.6826314340765208,
+      "log_loss": 0.5941126949677729,
+      "brier": 0.20422279663540913
+    },
+    {
+      "season": "ALL",
+      "arm": "rating_context",
+      "games": 3633,
+      "accuracy": 0.6815304156344619,
+      "log_loss": 0.5923887153193267,
+      "brier": 0.203534785807868
+    },
+    {
+      "season": "ALL",
+      "arm": "conservative_context",
+      "games": 3633,
+      "accuracy": 0.6815304156344619,
+      "log_loss": 0.5930872123285708,
+      "brier": 0.2037399260517175
+    },
+    {
+      "season": "2023-24",
+      "arm": "rating",
+      "games": 1215,
+      "accuracy": 0.6707818930041153,
+      "log_loss": 0.6006125608753994,
+      "brier": 0.20692996491116125
+    },
+    {
+      "season": "2023-24",
+      "arm": "rating_context",
+      "games": 1215,
+      "accuracy": 0.6748971193415638,
+      "log_loss": 0.5984574888998956,
+      "brier": 0.2059629952223783
+    },
+    {
+      "season": "2023-24",
+      "arm": "conservative_context",
+      "games": 1215,
+      "accuracy": 0.674074074074074,
+      "log_loss": 0.5981425699988505,
+      "brier": 0.2057477908385919
+    },
+    {
+      "season": "2024-25",
+      "arm": "rating",
+      "games": 1209,
+      "accuracy": 0.6898263027295285,
+      "log_loss": 0.5957767379279395,
+      "brier": 0.20503973128834624
+    },
+    {
+      "season": "2024-25",
+      "arm": "rating_context",
+      "games": 1209,
+      "accuracy": 0.6799007444168734,
+      "log_loss": 0.5940036350914837,
+      "brier": 0.20446038046048598
+    },
+    {
+      "season": "2024-25",
+      "arm": "conservative_context",
+      "games": 1209,
+      "accuracy": 0.6815550041356493,
+      "log_loss": 0.5947999588232242,
+      "brier": 0.20465141634977005
+    },
+    {
+      "season": "2025-26",
+      "arm": "rating",
+      "games": 1209,
+      "accuracy": 0.6873449131513648,
+      "log_loss": 0.5859165287009346,
+      "brier": 0.2006852586284284
+    },
+    {
+      "season": "2025-26",
+      "arm": "rating_context",
+      "games": 1209,
+      "accuracy": 0.6898263027295285,
+      "log_loss": 0.5846749039835702,
+      "brier": 0.20016893107367012
+    },
+    {
+      "season": "2025-26",
+      "arm": "conservative_context",
+      "games": 1209,
+      "accuracy": 0.6889991728701406,
+      "log_loss": 0.5862940195399633,
+      "brier": 0.2008106063772775
+    }
+  ],
+  "comparisons": [
+    {
+      "left": "P_rating_context",
+      "right": "P_rating",
+      "mean_delta": -0.0017239796484462965,
+      "day_bootstrap_95": [
+        -0.004181480230020163,
+        0.0008883170133655233
+      ],
+      "negative_favors_left": true
+    },
+    {
+      "left": "P_conservative_context",
+      "right": "P_rating",
+      "mean_delta": -0.0010254826392022747,
+      "day_bootstrap_95": [
+        -0.003798834854883848,
+        0.002024259373410379
+      ],
+      "negative_favors_left": true
+    }
+  ],
+  "limitations": [
+    "Historical periods reused; exploratory comparison, not untouched forward evidence.",
+    "Training data begins in 2021-22; compare only this experiment baseline.",
+    "Team context does not identify individual player impact.",
+    "Date bootstrap excludes cross-date dependence and model-selection uncertainty.",
+    "No betting-profit test or deployment."
+  ]
+}

@@ -1,0 +1,410 @@
+{
+  "purpose": "historical closing-price diagnostic; not proof of executable profit",
+  "parameters": {
+    "features": [
+      "LAST_GAME_STRENGTH_DIFF",
+      "REST_DAYS_DIFF"
+    ],
+    "threshold": 0.03,
+    "stake_units": 1,
+    "meta_C": 1.0,
+    "bootstrap_seed": 42
+  },
+  "limitations": [
+    "Historical evaluation seasons have already been examined in this project.",
+    "Odds have no verifiable observation timestamps; closing quotes may not be executable.",
+    "Uses existing historical feature artifacts; no historical injury snapshots.",
+    "Date bootstrap omits across-date dependence, model uncertainty and multiple testing.",
+    "ROI excludes taxes, limits, rejected wagers and account restrictions."
+  ],
+  "inputs_sha256": {
+    "data/processed/pregame_features.csv": "dddb994c696224eea4eb3bd066a1cec210d20d83f1aff2045ebb5f0a5ec8949b",
+    "data/processed/player_strength_features.csv": "81b0e38f0031aaf835ff0f2f89dd98dfb9bd0445e432f913e71ae26ed07c1f32",
+    "data/raw/betting_odds_mgm.csv": "b5c38aea205bb67d38216cc0a4e9396ab3a3d5cfa0cbcd0878a08c98e733a4e8"
+  },
+  "code_sha256": "bd2c2d947d0ea1e373cdb0f9fcecad44e1b572a42847be75b6b229c16d446414",
+  "matching": {
+    "raw_odds_rows": 6081,
+    "identical_quote_duplicates": 12,
+    "conflicting_quote_rows": 0,
+    "invalid_quote_rows": 0,
+    "ambiguous_match_rows": 0,
+    "source_outcome_disagreements": [
+      {
+        "GAME_ID": 22100073,
+        "game_id": "nba.g.2021102914"
+      }
+    ],
+    "matched_games": 5696,
+    "one_day_matches": 0,
+    "unmatched_feature_games": 444,
+    "pregame_rows_without_player_features": 10
+  },
+  "base_folds": [
+    {
+      "season": "2021-22",
+      "train_rows": 5829,
+      "test_rows": 1230,
+      "train_end": "2021-05-16",
+      "test_start": "2021-10-19"
+    },
+    {
+      "season": "2022-23",
+      "train_rows": 7059,
+      "test_rows": 1230,
+      "train_end": "2022-04-10",
+      "test_start": "2022-10-18"
+    },
+    {
+      "season": "2023-24",
+      "train_rows": 8289,
+      "test_rows": 1230,
+      "train_end": "2023-04-09",
+      "test_start": "2023-10-24"
+    },
+    {
+      "season": "2024-25",
+      "train_rows": 9519,
+      "test_rows": 1225,
+      "train_end": "2024-04-14",
+      "test_start": "2024-10-22"
+    },
+    {
+      "season": "2025-26",
+      "train_rows": 10744,
+      "test_rows": 1225,
+      "train_end": "2025-04-13",
+      "test_start": "2025-10-21"
+    }
+  ],
+  "market_folds": [
+    {
+      "season": "2023-24",
+      "train_rows": 2440,
+      "test_rows": 1229,
+      "train_end": "2023-04-09",
+      "test_start": "2023-10-24",
+      "P_CALIBRATED": {
+        "coef": [
+          0.9717292005229036
+        ],
+        "intercept": -0.005070057783921422
+      },
+      "P_HYBRID": {
+        "coef": [
+          0.9404109097951229,
+          0.04132052193301259
+        ],
+        "intercept": -0.00859002267155851
+      }
+    },
+    {
+      "season": "2024-25",
+      "train_rows": 3669,
+      "test_rows": 1225,
+      "train_end": "2024-04-14",
+      "test_start": "2024-10-22",
+      "P_CALIBRATED": {
+        "coef": [
+          1.0252378643525475
+        ],
+        "intercept": -0.036243410193329016
+      },
+      "P_HYBRID": {
+        "coef": [
+          0.9805654833841386,
+          0.05875089301437779
+        ],
+        "intercept": -0.041142305874754745
+      }
+    },
+    {
+      "season": "2025-26",
+      "train_rows": 4894,
+      "test_rows": 802,
+      "train_end": "2025-04-13",
+      "test_start": "2025-10-21",
+      "P_CALIBRATED": {
+        "coef": [
+          1.0270468432212378
+        ],
+        "intercept": -0.03735756271180887
+      },
+      "P_HYBRID": {
+        "coef": [
+          0.9605955017334362,
+          0.08597277346538014
+        ],
+        "intercept": -0.044376740734436
+      }
+    }
+  ],
+  "metrics": [
+    {
+      "model": "P_MARKET",
+      "season": "ALL",
+      "games": 3256,
+      "accuracy": 0.6836609336609336,
+      "log_loss": 0.5901370029143145,
+      "brier": 0.20266972771449682,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "P_MARKET",
+      "season": "2023-24",
+      "games": 1229,
+      "accuracy": 0.692432872253865,
+      "log_loss": 0.5804225903199316,
+      "brier": 0.1982432408164462,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "P_MARKET",
+      "season": "2024-25",
+      "games": 1225,
+      "accuracy": 0.6946938775510204,
+      "log_loss": 0.5816638727056267,
+      "brier": 0.1992188991331609,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "P_MARKET",
+      "season": "2025-26",
+      "games": 802,
+      "accuracy": 0.6533665835411472,
+      "log_loss": 0.6179656782062583,
+      "brier": 0.21472386413574462,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "P_PLAYER",
+      "season": "ALL",
+      "games": 3256,
+      "accuracy": 0.6710687960687961,
+      "log_loss": 0.6080686444812567,
+      "brier": 0.21025337635911429,
+      "bets": 2229,
+      "profit_units": -111.19,
+      "roi": -0.049883355764917,
+      "roi_95_day_bootstrap": [
+        -0.11233915558277058,
+        0.010739768168097978
+      ],
+      "max_daily_drawdown_units": 153.9099999999999
+    },
+    {
+      "model": "P_PLAYER",
+      "season": "2023-24",
+      "games": 1229,
+      "accuracy": 0.6647681041497152,
+      "log_loss": 0.6015101304965036,
+      "brier": 0.2075479518194092,
+      "bets": 865,
+      "profit_units": -90.71000000000001,
+      "roi": -0.1048670520231214,
+      "roi_95_day_bootstrap": [
+        -0.20543955346475512,
+        0.0012893254037158622
+      ],
+      "max_daily_drawdown_units": 100.67999999999999
+    },
+    {
+      "model": "P_PLAYER",
+      "season": "2024-25",
+      "games": 1225,
+      "accuracy": 0.6791836734693878,
+      "log_loss": 0.5998205044661683,
+      "brier": 0.2068387916494434,
+      "bets": 834,
+      "profit_units": -37.36999999999998,
+      "roi": -0.044808153477218206,
+      "roi_95_day_bootstrap": [
+        -0.134383515012663,
+        0.052689099639855935
+      ],
+      "max_daily_drawdown_units": 77.42999999999999
+    },
+    {
+      "model": "P_PLAYER",
+      "season": "2025-26",
+      "games": 802,
+      "accuracy": 0.6683291770573566,
+      "log_loss": 0.6307175038400412,
+      "brier": 0.21961476417537912,
+      "bets": 530,
+      "profit_units": 16.890000000000008,
+      "roi": 0.0318679245283019,
+      "roi_95_day_bootstrap": [
+        -0.0822402674860925,
+        0.139999901341752
+      ],
+      "max_daily_drawdown_units": 46.96
+    },
+    {
+      "model": "P_CALIBRATED",
+      "season": "ALL",
+      "games": 3256,
+      "accuracy": 0.683968058968059,
+      "log_loss": 0.59029037670289,
+      "brier": 0.20273312436092847,
+      "bets": 1,
+      "profit_units": -1.0,
+      "roi": -1.0,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        -1.0
+      ],
+      "max_daily_drawdown_units": 1.0
+    },
+    {
+      "model": "P_CALIBRATED",
+      "season": "2023-24",
+      "games": 1229,
+      "accuracy": 0.6883645240032547,
+      "log_loss": 0.5807981604675381,
+      "brier": 0.19835618057025048,
+      "bets": 1,
+      "profit_units": -1.0,
+      "roi": -1.0,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        -1.0
+      ],
+      "max_daily_drawdown_units": 1.0
+    },
+    {
+      "model": "P_CALIBRATED",
+      "season": "2024-25",
+      "games": 1225,
+      "accuracy": 0.6971428571428572,
+      "log_loss": 0.5814714756961883,
+      "brier": 0.19919981516952803,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "P_CALIBRATED",
+      "season": "2025-26",
+      "games": 802,
+      "accuracy": 0.6571072319201995,
+      "log_loss": 0.6183066952645574,
+      "brier": 0.21483732346093942,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "P_HYBRID",
+      "season": "ALL",
+      "games": 3256,
+      "accuracy": 0.6855036855036855,
+      "log_loss": 0.5900573080088817,
+      "brier": 0.20262265435888205,
+      "bets": 22,
+      "profit_units": -0.7999999999999998,
+      "roi": -0.036363636363636355,
+      "roi_95_day_bootstrap": [
+        -0.8400648148148149,
+        1.0773913043478234
+      ],
+      "max_daily_drawdown_units": 12.0
+    },
+    {
+      "model": "P_HYBRID",
+      "season": "2023-24",
+      "games": 1229,
+      "accuracy": 0.6891781936533767,
+      "log_loss": 0.5806999530189999,
+      "brier": 0.19831676690488664,
+      "bets": 14,
+      "profit_units": -5.0,
+      "roi": -0.35714285714285715,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        1.25
+      ],
+      "max_daily_drawdown_units": 12.0
+    },
+    {
+      "model": "P_HYBRID",
+      "season": "2024-25",
+      "games": 1225,
+      "accuracy": 0.6971428571428572,
+      "log_loss": 0.5811860506987289,
+      "brier": 0.19907938003790376,
+      "bets": 3,
+      "profit_units": 1.75,
+      "roi": 0.5833333333333334,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        3.75
+      ],
+      "max_daily_drawdown_units": 2.0
+    },
+    {
+      "model": "P_HYBRID",
+      "season": "2025-26",
+      "games": 802,
+      "accuracy": 0.6620947630922693,
+      "log_loss": 0.6179469333050184,
+      "brier": 0.21463318643389293,
+      "bets": 5,
+      "profit_units": 2.45,
+      "roi": 0.49000000000000005,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        2.5500000000000003
+      ],
+      "max_daily_drawdown_units": 2.0
+    }
+  ],
+  "hybrid_1pct_net_payout_haircut": {
+    "bets": 9,
+    "profit_units": -9.0,
+    "roi": -1.0,
+    "roi_95_day_bootstrap": [
+      -1.0,
+      -1.0
+    ],
+    "max_daily_drawdown_units": 9.0
+  }
+}

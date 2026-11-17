@@ -165,7 +165,8 @@ def fit_age_curve(logs: pd.DataFrame, ages: pd.DataFrame, box_model, before_seas
     return lambda age: np.polyval(coef, np.clip(age, 19, 37))
 
 
-def season_ratings(logs, season, box_model, age_curve, ages, cutoff_date=None) -> pd.DataFrame:
+def season_ratings(logs, season, box_model, age_curve, ages, cutoff_date=None,
+                   advanced_inputs=None, impact_model=None) -> pd.DataFrame:
     """Ratings for `season` as of `cutoff_date`: 3-season window + age adjustment."""
     p1 = prev_season(season)
     p2 = prev_season(p1)
@@ -182,6 +183,16 @@ def season_ratings(logs, season, box_model, age_curve, ages, cutoff_date=None) -
     r["AGE"] = age.to_numpy()
     r["AGE_ADJ"] = age_curve(r["AGE"].to_numpy()) * share_prev
     r["RATING"] = r["RATING"] + r["AGE_ADJ"]
+    if advanced_inputs is not None or impact_model is not None:
+        if advanced_inputs is None or impact_model is None or cutoff_date is None:
+            raise ValueError('Advanced scoring requires inputs, trained impact model and cutoff')
+        from advanced_impact import score
+        impact = score(r, advanced_inputs, impact_model, cutoff_date)
+        attrs = r.attrs.copy()
+        r = r.merge(impact,on='PLAYER_ID',validate='one_to_one')
+        r.attrs.update(attrs)
+        # Separate units: historical RATING is per 48 minutes; ADVANCED_IMPACT
+        # is per 100 possessions and cannot replace it inside existing projections.
     return r.sort_values("RATING", ascending=False).reset_index(drop=True)
 
 

@@ -1,0 +1,164 @@
+{
+  "sha256": {
+    "data/raw/player_game_logs.csv.gz": "47152a24b912760c326a2c266f2083cfd358ac2bc85686eb3c9d93b2e31b4134",
+    "data/raw/player_ages.csv": "5e7dba3ce9a2ed121c93ca8d87ed03fde7407aa78bea5ebe382fc02738ae3f94",
+    "data/raw/team_game_logs.csv": "8c841c56d5f5f8d6c1790a0150f8cd916277af548d962c0c2d67ebc8805bed85",
+    "data/processed/pregame_features.csv": "dddb994c696224eea4eb3bd066a1cec210d20d83f1aff2045ebb5f0a5ec8949b",
+    "src/rating_experiment.py": "f04e2dd57c2ca720c93986346f734169c6f198444f206503094ceb03954224d2",
+    "src/rating_research.py": "d2babfa7330050979b842ec21e38e7b45f7f92c6444e422d07d0d8456d6a0490",
+    "src/ratings.py": "1938f269177df18aa138975f2f8394ff4d8ee83dbce78f83c7eafff23ad96bf3",
+    "src/build_player_strength.py": "4f64a2bf1184259b5d035e06819f080edeb75683cc4379fa6c5318f88a7983fb",
+    "src/context_experiment.py": "f66e0cbab5adc51da13c81da471023389bf3df0b562d65665f033d41979344d2",
+    "data/raw/player_game_logs_current.csv.gz": "5d4270cbcad7ff01aed3bcdc1b4d7c411e81aa40c4159277a6ba342e0489f25c"
+  },
+  "historical_recipe": "29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db",
+  "arms": [
+    "recent_normalized",
+    "impact_120"
+  ],
+  "impact_penalties": [
+    120.0
+  ],
+  "half_life_days": 365.0,
+  "window_seasons": 3,
+  "ridge_lambda": 30,
+  "refresh_days": 14,
+  "folds": [
+    {
+      "season": "2021-22",
+      "train_games": 3321,
+      "test_games": 1214,
+      "train_end": "2021-05-16",
+      "test_start": "2021-10-22"
+    },
+    {
+      "season": "2022-23",
+      "train_games": 4535,
+      "test_games": 1214,
+      "train_end": "2022-04-10",
+      "test_start": "2022-10-21"
+    },
+    {
+      "season": "2023-24",
+      "train_games": 5749,
+      "test_games": 1215,
+      "train_end": "2023-04-09",
+      "test_start": "2023-10-26"
+    },
+    {
+      "season": "2024-25",
+      "train_games": 6964,
+      "test_games": 1209,
+      "train_end": "2024-04-14",
+      "test_start": "2024-10-25"
+    },
+    {
+      "season": "2025-26",
+      "train_games": 8173,
+      "test_games": 1209,
+      "train_end": "2025-04-13",
+      "test_start": "2025-10-24"
+    }
+  ],
+  "metrics": [
+    {
+      "season": "ALL",
+      "arm": "recent_normalized",
+      "games": 3633,
+      "accuracy": 0.6818056702449766,
+      "log_loss": 0.5937525847189001,
+      "brier": 0.20406609439551535
+    },
+    {
+      "season": "ALL",
+      "arm": "impact_120",
+      "games": 3633,
+      "accuracy": 0.6812551610239471,
+      "log_loss": 0.5962028827018967,
+      "brier": 0.20509829836094237
+    },
+    {
+      "season": "2023-24",
+      "arm": "recent_normalized",
+      "games": 1215,
+      "accuracy": 0.6691358024691358,
+      "log_loss": 0.5994721880317342,
+      "brier": 0.20651654363388317
+    },
+    {
+      "season": "2023-24",
+      "arm": "impact_120",
+      "games": 1215,
+      "accuracy": 0.6732510288065844,
+      "log_loss": 0.599694617907015,
+      "brier": 0.20657232507165815
+    },
+    {
+      "season": "2024-25",
+      "arm": "recent_normalized",
+      "games": 1209,
+      "accuracy": 0.6865177832919769,
+      "log_loss": 0.5962629654752639,
+      "brier": 0.20522701326054388
+    },
+    {
+      "season": "2024-25",
+      "arm": "impact_120",
+      "games": 1209,
+      "accuracy": 0.6790736145574855,
+      "log_loss": 0.5994940172909247,
+      "brier": 0.2065270362312424
+    },
+    {
+      "season": "2025-26",
+      "arm": "recent_normalized",
+      "games": 1209,
+      "accuracy": 0.6898263027295285,
+      "log_loss": 0.5854942155215989,
+      "brier": 0.20044256525371515
+    },
+    {
+      "season": "2025-26",
+      "arm": "impact_120",
+      "games": 1209,
+      "accuracy": 0.6914805624483044,
+      "log_loss": 0.5894026841970551,
+      "brier": 0.20218821851089075
+    }
+  ],
+  "comparisons": [
+    {
+      "left": "P_impact_120",
+      "right": "P_recent_normalized",
+      "mean_delta": 0.0024502979829966317,
+      "day_bootstrap_95": [
+        0.00027392450894373664,
+        0.004562619944358451
+      ],
+      "negative_favors_left": true
+    }
+  ],
+  "excluded_ambiguous_games": [
+    "0022400147",
+    "0022400621",
+    "0022400633",
+    "0022401229",
+    "0022401230",
+    "0022500147",
+    "0022500578",
+    "0022500602",
+    "0022501229",
+    "0022501230"
+  ],
+  "current_cutoff": "2026-11-13",
+  "limitations": [
+    "Reused historical evaluation seasons, not untouched forward validation.",
+    "Game-level minutes cannot fully separate teammate, coach or lineup effects.",
+    "Same prior/age models are retained to isolate changes; priors were learned from game-level targets.",
+    "Recency changes weighting and effective shrinkage together; 365 days fixed, not tuned.",
+    "All arms use previous-game candidates; returns/injuries and season openers remain limitations.",
+    "Age is season-level metadata, not independently timestamp-verified.",
+    "Date bootstrap ignores cross-date dependence, training and model-selection uncertainty.",
+    "No betting evaluation or live model replacement in this experiment."
+  ]
+}

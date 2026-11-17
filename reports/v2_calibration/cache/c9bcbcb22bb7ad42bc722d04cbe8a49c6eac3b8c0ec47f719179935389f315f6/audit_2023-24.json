@@ -1,0 +1,105 @@
+{
+  "season": "2023-24",
+  "train_end": "2023-04-09",
+  "test_start": "2023-10-26",
+  "selection": {
+    "boost_classifier": {
+      "selected": {
+        "config": {
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 80,
+          "l2_regularization": 10.0,
+          "max_iter": 150
+        },
+        "sigma": null,
+        "validation_log_loss": 0.6377420583717497
+      },
+      "candidates": [
+        {
+          "config": {
+            "max_leaf_nodes": 7,
+            "min_samples_leaf": 80,
+            "l2_regularization": 10.0,
+            "max_iter": 150
+          },
+          "sigma": null,
+          "validation_log_loss": 0.6377420583717497
+        },
+        {
+          "config": {
+            "max_leaf_nodes": 15,
+            "min_samples_leaf": 100,
+            "l2_regularization": 30.0,
+            "max_iter": 150
+          },
+          "sigma": null,
+          "validation_log_loss": 0.6421799969552889
+        },
+        {
+          "config": {
+            "max_leaf_nodes": 7,
+            "min_samples_leaf": 150,
+            "l2_regularization": 30.0,
+            "max_iter": 250
+          },
+          "sigma": null,
+          "validation_log_loss": 0.6405590664326514
+        }
+      ],
+      "validation_season": "2022-23",
+      "inner_train_end": "2022-04-10",
+      "validation_start": "2022-10-21",
+      "validation_end": "2023-04-09",
+      "refit_end": "2023-04-09"
+    },
+    "boost_margin": {
+      "selected": {
+        "config": {
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 80,
+          "l2_regularization": 10.0,
+          "max_iter": 150
+        },
+        "sigma": 12.78681642257239,
+        "validation_log_loss": 0.6375629790795562
+      },
+      "candidates": [
+        {
+          "config": {
+            "max_leaf_nodes": 7,
+            "min_samples_leaf": 80,
+            "l2_regularization": 10.0,
+            "max_iter": 150
+          },
+          "sigma": 12.78681642257239,
+          "validation_log_loss": 0.6375629790795562
+        },
+        {
+          "config": {
+            "max_leaf_nodes": 15,
+            "min_samples_leaf": 100,
+            "l2_regularization": 30.0,
+            "max_iter": 150
+          },
+          "sigma": 12.815970123263845,
+          "validation_log_loss": 0.6389323442416822
+        },
+        {
+          "config": {
+            "max_leaf_nodes": 7,
+            "min_samples_leaf": 150,
+            "l2_regularization": 30.0,
+            "max_iter": 250
+          },
+          "sigma": 12.830965036856572,
+          "validation_log_loss": 0.639111286081553
+        }
+      ],
+      "validation_season": "2022-23",
+      "inner_train_end": "2022-04-10",
+      "validation_start": "2022-10-21",
+      "validation_end": "2023-04-09",
+      "refit_end": "2023-04-09"
+    }
+  }
+}

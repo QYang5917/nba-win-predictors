@@ -1,0 +1,1203 @@
+{
+  "sha256": {
+    "reports/impact_control/summary.json": "23a2370c1acbaa34a418c12e4b95a3dcd086e89d776d9127a01a4266c7f1b41e",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2018-19.csv": "ee9fb2f4989682890e6f63206cf835851a6e770b593b317303027fb41397eb9f",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2019-20.csv": "e593cd1d7274468985fb2853468c2c2b8838c7860555d8b8fe78661508faeeaa",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2020-21.csv": "d3c9cd7ffa19f4385e6cbce2f3e729e8738f9a000b61f30c3df388287f2174ea",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2021-22.csv": "40223c854dc5a6b2d45d3bd00661cb4002aabe863bcab0a28e8f601fe083c047",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2022-23.csv": "bb1013f964789201f9b5f55cbf46de4a972b32127ea87f1ab8bff3bb4e28f093",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2023-24.csv": "659b050d7d6685955f91ed51c3f758ef8c8b23a47a6a48c4e82d490dd3c9912c",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2024-25.csv": "f4686d1553b8016b3d1a5b046cda3620e8cd1cb5181168dbf64bd78742f5aaf6",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2025-26.csv": "84f11edd59c10464b6a7803b39d74d99701f67ace2097d1c4d10e8990dc270b9",
+    "data/raw/team_game_logs.csv": "8c841c56d5f5f8d6c1790a0150f8cd916277af548d962c0c2d67ebc8805bed85",
+    "src/v2_research.py": "7d327ffe1d5ad4d37dbbcef3adaf8bcbfe54600a260055ac4d39fb92d42c9326",
+    "src/v2_calibration.py": "d529124bb8291fdec10725921fec0edd87dbd80d3b4ba77fbef19cd51a71501f",
+    "src/style_experiment.py": "f84ecbccb39971299637a085f276604643f4bb5ae7a3af62eb7456ab67ef0723",
+    "src/context_experiment.py": "f66e0cbab5adc51da13c81da471023389bf3df0b562d65665f033d41979344d2"
+  },
+  "upstream_recipe": "29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db",
+  "excluded_home_away_ids": [
+    "0022400147",
+    "0022400621",
+    "0022400633",
+    "0022401229",
+    "0022401230",
+    "0022500147",
+    "0022500578",
+    "0022500602",
+    "0022501229",
+    "0022501230"
+  ],
+  "recipe": "54388eb5f398aae17425080d1211f3ffa8f8df1f49d381b76377abec29ac568a",
+  "base_folds": [
+    {
+      "season": "2020-21",
+      "train_end": "2020-08-14",
+      "test_start": "2020-12-25",
+      "selection": {
+        "boost_classifier": {
+          "selected": {
+            "config": {
+              "max_leaf_nodes": 15,
+              "min_samples_leaf": 100,
+              "l2_regularization": 30.0,
+              "max_iter": 150
+            },
+            "sigma": null,
+            "validation_log_loss": 0.6349747017136212
+          },
+          "candidates": [
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 80,
+                "l2_regularization": 10.0,
+                "max_iter": 150
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6354478645393623
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 15,
+                "min_samples_leaf": 100,
+                "l2_regularization": 30.0,
+                "max_iter": 150
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6349747017136212
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 150,
+                "l2_regularization": 30.0,
+                "max_iter": 250
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6373446285619304
+            }
+          ],
+          "validation_season": "2019-20",
+          "inner_train_end": "2019-04-10",
+          "validation_start": "2019-10-25",
+          "validation_end": "2020-08-14",
+          "refit_end": "2020-08-14"
+        },
+        "boost_margin": {
+          "selected": {
+            "config": {
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 80,
+              "l2_regularization": 10.0,
+              "max_iter": 150
+            },
+            "sigma": 13.071058833669564,
+            "validation_log_loss": 0.6275915679009854
+          },
+          "candidates": [
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 80,
+                "l2_regularization": 10.0,
+                "max_iter": 150
+              },
+              "sigma": 13.071058833669564,
+              "validation_log_loss": 0.6275915679009854
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 15,
+                "min_samples_leaf": 100,
+                "l2_regularization": 30.0,
+                "max_iter": 150
+              },
+              "sigma": 13.139561407078213,
+              "validation_log_loss": 0.6288918446815692
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 150,
+                "l2_regularization": 30.0,
+                "max_iter": 250
+              },
+              "sigma": 13.1385388257953,
+              "validation_log_loss": 0.6317657974015817
+            }
+          ],
+          "validation_season": "2019-20",
+          "inner_train_end": "2019-04-10",
+          "validation_start": "2019-10-25",
+          "validation_end": "2020-08-14",
+          "refit_end": "2020-08-14"
+        }
+      }
+    },
+    {
+      "season": "2021-22",
+      "train_end": "2021-05-16",
+      "test_start": "2021-10-22",
+      "selection": {
+        "boost_classifier": {
+          "selected": {
+            "config": {
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 80,
+              "l2_regularization": 10.0,
+              "max_iter": 150
+            },
+            "sigma": null,
+            "validation_log_loss": 0.6461913623794423
+          },
+          "candidates": [
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 80,
+                "l2_regularization": 10.0,
+                "max_iter": 150
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6461913623794423
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 15,
+                "min_samples_leaf": 100,
+                "l2_regularization": 30.0,
+                "max_iter": 150
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6500229616534773
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 150,
+                "l2_regularization": 30.0,
+                "max_iter": 250
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6508032668508321
+            }
+          ],
+          "validation_season": "2020-21",
+          "inner_train_end": "2020-08-14",
+          "validation_start": "2020-12-25",
+          "validation_end": "2021-05-16",
+          "refit_end": "2021-05-16"
+        },
+        "boost_margin": {
+          "selected": {
+            "config": {
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 80,
+              "l2_regularization": 10.0,
+              "max_iter": 150
+            },
+            "sigma": 14.068872511997004,
+            "validation_log_loss": 0.6339356689173989
+          },
+          "candidates": [
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 80,
+                "l2_regularization": 10.0,
+                "max_iter": 150
+              },
+              "sigma": 14.068872511997004,
+              "validation_log_loss": 0.6339356689173989
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 15,
+                "min_samples_leaf": 100,
+                "l2_regularization": 30.0,
+                "max_iter": 150
+              },
+              "sigma": 14.22863359829577,
+              "validation_log_loss": 0.6415273627343585
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 150,
+                "l2_regularization": 30.0,
+                "max_iter": 250
+              },
+              "sigma": 14.200585318107734,
+              "validation_log_loss": 0.6407546748611583
+            }
+          ],
+          "validation_season": "2020-21",
+          "inner_train_end": "2020-08-14",
+          "validation_start": "2020-12-25",
+          "validation_end": "2021-05-16",
+          "refit_end": "2021-05-16"
+        }
+      }
+    },
+    {
+      "season": "2022-23",
+      "train_end": "2022-04-10",
+      "test_start": "2022-10-21",
+      "selection": {
+        "boost_classifier": {
+          "selected": {
+            "config": {
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 80,
+              "l2_regularization": 10.0,
+              "max_iter": 150
+            },
+            "sigma": null,
+            "validation_log_loss": 0.6321580725154348
+          },
+          "candidates": [
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 80,
+                "l2_regularization": 10.0,
+                "max_iter": 150
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6321580725154348
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 15,
+                "min_samples_leaf": 100,
+                "l2_regularization": 30.0,
+                "max_iter": 150
+              },
+              "sigma": null,
+              "validation_log_loss": 0.637366251671401
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 150,
+                "l2_regularization": 30.0,
+                "max_iter": 250
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6352248516920335
+            }
+          ],
+          "validation_season": "2021-22",
+          "inner_train_end": "2021-05-16",
+          "validation_start": "2021-10-22",
+          "validation_end": "2022-04-10",
+          "refit_end": "2022-04-10"
+        },
+        "boost_margin": {
+          "selected": {
+            "config": {
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 80,
+              "l2_regularization": 10.0,
+              "max_iter": 150
+            },
+            "sigma": 14.137393059341544,
+            "validation_log_loss": 0.6262535281751025
+          },
+          "candidates": [
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 80,
+                "l2_regularization": 10.0,
+                "max_iter": 150
+              },
+              "sigma": 14.137393059341544,
+              "validation_log_loss": 0.6262535281751025
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 15,
+                "min_samples_leaf": 100,
+                "l2_regularization": 30.0,
+                "max_iter": 150
+              },
+              "sigma": 14.297283210282005,
+              "validation_log_loss": 0.6331394958322983
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 150,
+                "l2_regularization": 30.0,
+                "max_iter": 250
+              },
+              "sigma": 14.243096316011554,
+              "validation_log_loss": 0.6326569227752123
+            }
+          ],
+          "validation_season": "2021-22",
+          "inner_train_end": "2021-05-16",
+          "validation_start": "2021-10-22",
+          "validation_end": "2022-04-10",
+          "refit_end": "2022-04-10"
+        }
+      }
+    },
+    {
+      "season": "2023-24",
+      "train_end": "2023-04-09",
+      "test_start": "2023-10-26",
+      "selection": {
+        "boost_classifier": {
+          "selected": {
+            "config": {
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 80,
+              "l2_regularization": 10.0,
+              "max_iter": 150
+            },
+            "sigma": null,
+            "validation_log_loss": 0.6377420583717497
+          },
+          "candidates": [
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 80,
+                "l2_regularization": 10.0,
+                "max_iter": 150
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6377420583717497
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 15,
+                "min_samples_leaf": 100,
+                "l2_regularization": 30.0,
+                "max_iter": 150
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6421799969552889
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 150,
+                "l2_regularization": 30.0,
+                "max_iter": 250
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6405590664326514
+            }
+          ],
+          "validation_season": "2022-23",
+          "inner_train_end": "2022-04-10",
+          "validation_start": "2022-10-21",
+          "validation_end": "2023-04-09",
+          "refit_end": "2023-04-09"
+        },
+        "boost_margin": {
+          "selected": {
+            "config": {
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 80,
+              "l2_regularization": 10.0,
+              "max_iter": 150
+            },
+            "sigma": 12.78681642257239,
+            "validation_log_loss": 0.6375629790795562
+          },
+          "candidates": [
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 80,
+                "l2_regularization": 10.0,
+                "max_iter": 150
+              },
+              "sigma": 12.78681642257239,
+              "validation_log_loss": 0.6375629790795562
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 15,
+                "min_samples_leaf": 100,
+                "l2_regularization": 30.0,
+                "max_iter": 150
+              },
+              "sigma": 12.815970123263845,
+              "validation_log_loss": 0.6389323442416822
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 150,
+                "l2_regularization": 30.0,
+                "max_iter": 250
+              },
+              "sigma": 12.830965036856572,
+              "validation_log_loss": 0.639111286081553
+            }
+          ],
+          "validation_season": "2022-23",
+          "inner_train_end": "2022-04-10",
+          "validation_start": "2022-10-21",
+          "validation_end": "2023-04-09",
+          "refit_end": "2023-04-09"
+        }
+      }
+    },
+    {
+      "season": "2024-25",
+      "train_end": "2024-04-14",
+      "test_start": "2024-10-25",
+      "selection": {
+        "boost_classifier": {
+          "selected": {
+            "config": {
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 80,
+              "l2_regularization": 10.0,
+              "max_iter": 150
+            },
+            "sigma": null,
+            "validation_log_loss": 0.6009945123799257
+          },
+          "candidates": [
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 80,
+                "l2_regularization": 10.0,
+                "max_iter": 150
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6009945123799257
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 15,
+                "min_samples_leaf": 100,
+                "l2_regularization": 30.0,
+                "max_iter": 150
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6043806257781874
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 150,
+                "l2_regularization": 30.0,
+                "max_iter": 250
+              },
+              "sigma": null,
+              "validation_log_loss": 0.6012657869373266
+            }
+          ],
+          "validation_season": "2023-24",
+          "inner_train_end": "2023-04-09",
+          "validation_start": "2023-10-26",
+          "validation_end": "2024-04-14",
+          "refit_end": "2024-04-14"
+        },
+        "boost_margin": {
+          "selected": {
+            "config": {
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 150,
+              "l2_regularization": 30.0,
+              "max_iter": 250
+            },
+            "sigma": 14.039662950993446,
+            "validation_log_loss": 0.6038944740400535
+          },
+          "candidates": [
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 80,
+                "l2_regularization": 10.0,
+                "max_iter": 150
+              },
+              "sigma": 14.021695648931663,
+              "validation_log_loss": 0.6045344536789621
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 15,
+                "min_samples_leaf": 100,
+                "l2_regularization": 30.0,
+                "max_iter": 150
+              },
+              "sigma": 14.071887292056006,
+              "validation_log_loss": 0.6052851134322165
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 150,
+                "l2_regularization": 30.0,
+                "max_iter": 250
+              },
+              "sigma": 14.039662950993446,
+              "validation_log_loss": 0.6038944740400535
+            }
+          ],
+          "validation_season": "2023-24",
+          "inner_train_end": "2023-04-09",
+          "validation_start": "2023-10-26",
+          "validation_end": "2024-04-14",
+          "refit_end": "2024-04-14"
+        }
+      }
+    },
+    {
+      "season": "2025-26",
+      "train_end": "2025-04-13",
+      "test_start": "2025-10-24",
+      "selection": {
+        "boost_classifier": {
+          "selected": {
+            "config": {
+              "max_leaf_nodes": 15,
+              "min_samples_leaf": 100,
+              "l2_regularization": 30.0,
+              "max_iter": 150
+            },
+            "sigma": null,
+            "validation_log_loss": 0.5970005730591738
+          },
+          "candidates": [
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 80,
+                "l2_regularization": 10.0,
+                "max_iter": 150
+              },
+              "sigma": null,
+              "validation_log_loss": 0.5971671619994977
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 15,
+                "min_samples_leaf": 100,
+                "l2_regularization": 30.0,
+                "max_iter": 150
+              },
+              "sigma": null,
+              "validation_log_loss": 0.5970005730591738
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 150,
+                "l2_regularization": 30.0,
+                "max_iter": 250
+              },
+              "sigma": null,
+              "validation_log_loss": 0.5973204688789457
+            }
+          ],
+          "validation_season": "2024-25",
+          "inner_train_end": "2024-04-14",
+          "validation_start": "2024-10-25",
+          "validation_end": "2025-04-13",
+          "refit_end": "2025-04-13"
+        },
+        "boost_margin": {
+          "selected": {
+            "config": {
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 150,
+              "l2_regularization": 30.0,
+              "max_iter": 250
+            },
+            "sigma": 13.848519879032962,
+            "validation_log_loss": 0.5965072228940044
+          },
+          "candidates": [
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 80,
+                "l2_regularization": 10.0,
+                "max_iter": 150
+              },
+              "sigma": 13.825956935919468,
+              "validation_log_loss": 0.5973719561368155
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 15,
+                "min_samples_leaf": 100,
+                "l2_regularization": 30.0,
+                "max_iter": 150
+              },
+              "sigma": 13.831095390311482,
+              "validation_log_loss": 0.5966562533892316
+            },
+            {
+              "config": {
+                "max_leaf_nodes": 7,
+                "min_samples_leaf": 150,
+                "l2_regularization": 30.0,
+                "max_iter": 250
+              },
+              "sigma": 13.848519879032962,
+              "validation_log_loss": 0.5965072228940044
+            }
+          ],
+          "validation_season": "2024-25",
+          "inner_train_end": "2024-04-14",
+          "validation_start": "2024-10-25",
+          "validation_end": "2025-04-13",
+          "refit_end": "2025-04-13"
+        }
+      }
+    }
+  ],
+  "calibration_folds": [
+    {
+      "season": "2023-24",
+      "test_start": "2023-10-26",
+      "rows": 3492,
+      "trained_through": "2023-04-09",
+      "linear_weight": 0.7886106205045105,
+      "platt_coef": [
+        0.8801162249380207
+      ],
+      "platt_intercept": [
+        -0.015796439988794517
+      ],
+      "stacked_coef": [
+        0.6857142384012404,
+        0.20204575681349768
+      ],
+      "stacked_intercept": [
+        -0.019710690527878345
+      ]
+    },
+    {
+      "season": "2024-25",
+      "test_start": "2024-10-25",
+      "rows": 4707,
+      "trained_through": "2024-04-14",
+      "linear_weight": 0.7663134494253112,
+      "platt_coef": [
+        0.9338467993231906
+      ],
+      "platt_intercept": [
+        -0.04545306509543838
+      ],
+      "stacked_coef": [
+        0.7104080626489075,
+        0.24020888168140456
+      ],
+      "stacked_intercept": [
+        -0.049715692795742054
+      ]
+    },
+    {
+      "season": "2025-26",
+      "test_start": "2025-10-24",
+      "rows": 5916,
+      "trained_through": "2025-04-13",
+      "linear_weight": 0.7912383750267795,
+      "platt_coef": [
+        0.9506693009681866
+      ],
+      "platt_intercept": [
+        -0.04575415743561396
+      ],
+      "stacked_coef": [
+        0.7394748873166348,
+        0.22701669289307289
+      ],
+      "stacked_intercept": [
+        -0.04956044404679873
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "season": "ALL",
+      "model": "baseline",
+      "games": 3633,
+      "correct": 2477,
+      "accuracy": 0.6818056702449766,
+      "log_loss": 0.5938817121238027,
+      "brier": 0.20412267033826928,
+      "ece10": 0.010781200540829608
+    },
+    {
+      "season": "ALL",
+      "model": "linear_full",
+      "games": 3633,
+      "correct": 2482,
+      "accuracy": 0.6831819432975502,
+      "log_loss": 0.5915656669197098,
+      "brier": 0.20322536608979203,
+      "ece10": 0.020634177510773805
+    },
+    {
+      "season": "ALL",
+      "model": "fixed_blend",
+      "games": 3633,
+      "correct": 2487,
+      "accuracy": 0.6845582163501238,
+      "log_loss": 0.5927453477669679,
+      "brier": 0.2035970468297636,
+      "ece10": 0.016068033045372087
+    },
+    {
+      "season": "ALL",
+      "model": "platt_linear",
+      "games": 3633,
+      "correct": 2480,
+      "accuracy": 0.6826314340765208,
+      "log_loss": 0.5923081200269006,
+      "brier": 0.2034718954681223,
+      "ece10": 0.01550612773374215
+    },
+    {
+      "season": "ALL",
+      "model": "learned_blend",
+      "games": 3633,
+      "correct": 2479,
+      "accuracy": 0.682356179466006,
+      "log_loss": 0.5917309786396918,
+      "brier": 0.20324279203048126,
+      "ece10": 0.01867842848786642
+    },
+    {
+      "season": "ALL",
+      "model": "stacked",
+      "games": 3633,
+      "correct": 2482,
+      "accuracy": 0.6831819432975502,
+      "log_loss": 0.5925275388109628,
+      "brier": 0.20351316721780094,
+      "ece10": 0.016124860488069912
+    },
+    {
+      "season": "2023-24",
+      "model": "baseline",
+      "games": 1215,
+      "correct": 813,
+      "accuracy": 0.6691358024691358,
+      "log_loss": 0.5994721880317342,
+      "brier": 0.20651654363388317,
+      "ece10": 0.028308358378826105
+    },
+    {
+      "season": "2023-24",
+      "model": "linear_full",
+      "games": 1215,
+      "correct": 817,
+      "accuracy": 0.6724279835390946,
+      "log_loss": 0.599229767387387,
+      "brier": 0.20631755552345213,
+      "ece10": 0.03743672581724052
+    },
+    {
+      "season": "2023-24",
+      "model": "fixed_blend",
+      "games": 1215,
+      "correct": 818,
+      "accuracy": 0.6732510288065844,
+      "log_loss": 0.5986245995122662,
+      "brier": 0.20626866689245432,
+      "ece10": 0.0318187373732013
+    },
+    {
+      "season": "2023-24",
+      "model": "platt_linear",
+      "games": 1215,
+      "correct": 817,
+      "accuracy": 0.6724279835390946,
+      "log_loss": 0.6004789822444022,
+      "brier": 0.2067355446824263,
+      "ece10": 0.03572362134901697
+    },
+    {
+      "season": "2023-24",
+      "model": "learned_blend",
+      "games": 1215,
+      "correct": 811,
+      "accuracy": 0.6674897119341564,
+      "log_loss": 0.5985778487525623,
+      "brier": 0.2061518122109499,
+      "ece10": 0.03620012270599726
+    },
+    {
+      "season": "2023-24",
+      "model": "stacked",
+      "games": 1215,
+      "correct": 816,
+      "accuracy": 0.671604938271605,
+      "log_loss": 0.6001299385086623,
+      "brier": 0.20663920974182795,
+      "ece10": 0.033495352895507445
+    },
+    {
+      "season": "2024-25",
+      "model": "baseline",
+      "games": 1209,
+      "correct": 828,
+      "accuracy": 0.684863523573201,
+      "log_loss": 0.5965324142240412,
+      "brier": 0.2053545157699807,
+      "ece10": 0.0188736203102677
+    },
+    {
+      "season": "2024-25",
+      "model": "linear_full",
+      "games": 1209,
+      "correct": 825,
+      "accuracy": 0.6823821339950372,
+      "log_loss": 0.5927950295635518,
+      "brier": 0.20403758232496497,
+      "ece10": 0.043889377232410286
+    },
+    {
+      "season": "2024-25",
+      "model": "fixed_blend",
+      "games": 1209,
+      "correct": 828,
+      "accuracy": 0.684863523573201,
+      "log_loss": 0.5938994040789914,
+      "brier": 0.2041345842534613,
+      "ece10": 0.03206303020567432
+    },
+    {
+      "season": "2024-25",
+      "model": "platt_linear",
+      "games": 1209,
+      "correct": 826,
+      "accuracy": 0.6832092638544252,
+      "log_loss": 0.5930491778911369,
+      "brier": 0.20406710695683197,
+      "ece10": 0.03187360784335715
+    },
+    {
+      "season": "2024-25",
+      "model": "learned_blend",
+      "games": 1209,
+      "correct": 825,
+      "accuracy": 0.6823821339950372,
+      "log_loss": 0.5930365520913304,
+      "brier": 0.20396402943303565,
+      "ece10": 0.03794218139661502
+    },
+    {
+      "season": "2024-25",
+      "model": "stacked",
+      "games": 1209,
+      "correct": 835,
+      "accuracy": 0.6906534325889164,
+      "log_loss": 0.5932258646968799,
+      "brier": 0.20400419951372145,
+      "ece10": 0.03104850660927935
+    },
+    {
+      "season": "2025-26",
+      "model": "baseline",
+      "games": 1209,
+      "correct": 836,
+      "accuracy": 0.6914805624483044,
+      "log_loss": 0.585612789818323,
+      "brier": 0.20048507134644958,
+      "ece10": 0.014869668770260271
+    },
+    {
+      "season": "2025-26",
+      "model": "linear_full",
+      "games": 1209,
+      "correct": 840,
+      "accuracy": 0.6947890818858561,
+      "log_loss": 0.5826341685701375,
+      "brier": 0.19930561456769008,
+      "ece10": 0.014324557821662594
+    },
+    {
+      "season": "2025-26",
+      "model": "fixed_blend",
+      "games": 1209,
+      "correct": 841,
+      "accuracy": 0.695616211745244,
+      "log_loss": 0.5856828622816295,
+      "brier": 0.20037463068301445,
+      "ece10": 0.01537234129522827
+    },
+    {
+      "season": "2025-26",
+      "model": "platt_linear",
+      "games": 1209,
+      "correct": 837,
+      "accuracy": 0.6923076923076923,
+      "log_loss": 0.5833556497604602,
+      "brier": 0.19959683799481442,
+      "ece10": 0.021856461738733794
+    },
+    {
+      "season": "2025-26",
+      "model": "learned_blend",
+      "games": 1209,
+      "correct": 843,
+      "accuracy": 0.6972704714640199,
+      "log_loss": 0.5835445555709001,
+      "brier": 0.1995980976227412,
+      "ece10": 0.017240032373535993
+    },
+    {
+      "season": "2025-26",
+      "model": "stacked",
+      "games": 1209,
+      "correct": 831,
+      "accuracy": 0.6873449131513648,
+      "log_loss": 0.5841890841965887,
+      "brier": 0.1998805785391734,
+      "ece10": 0.022717188250396463
+    }
+  ],
+  "comparisons": [
+    {
+      "log_loss": {
+        "left": "P_platt_linear",
+        "right": "P_baseline",
+        "mean_delta": -0.0015735920969021239,
+        "day_bootstrap_95": [
+          -0.004872138453947644,
+          0.001847442205112854
+        ],
+        "negative_favors_left": true
+      },
+      "accuracy": {
+        "left": "P_platt_linear",
+        "right": "P_baseline",
+        "accuracy_delta": 0.0008257638315441783,
+        "extra_correct": 3,
+        "week_bootstrap_95": [
+          -0.008394545821621741,
+          0.00938267768219254
+        ],
+        "limitation": "Calendar-week bootstrap omits longer dependence, training uncertainty and model selection."
+      }
+    },
+    {
+      "log_loss": {
+        "left": "P_platt_linear",
+        "right": "P_linear_full",
+        "mean_delta": 0.0007424531071908232,
+        "day_bootstrap_95": [
+          -0.0005507406567502557,
+          0.001961965484175425
+        ],
+        "negative_favors_left": true
+      },
+      "accuracy": {
+        "left": "P_platt_linear",
+        "right": "P_linear_full",
+        "accuracy_delta": -0.0005505092210294523,
+        "extra_correct": -2,
+        "week_bootstrap_95": [
+          -0.004477059266276388,
+          0.0030875686338067685
+        ],
+        "limitation": "Calendar-week bootstrap omits longer dependence, training uncertainty and model selection."
+      }
+    },
+    {
+      "log_loss": {
+        "left": "P_platt_linear",
+        "right": "P_fixed_blend",
+        "mean_delta": -0.000437227740067284,
+        "day_bootstrap_95": [
+          -0.002203247582361689,
+          0.0013894169503130013
+        ],
+        "negative_favors_left": true
+      },
+      "accuracy": {
+        "left": "P_platt_linear",
+        "right": "P_fixed_blend",
+        "accuracy_delta": -0.0019267822736030828,
+        "extra_correct": -7,
+        "week_bootstrap_95": [
+          -0.008264862004229179,
+          0.0042124183385798585
+        ],
+        "limitation": "Calendar-week bootstrap omits longer dependence, training uncertainty and model selection."
+      }
+    },
+    {
+      "log_loss": {
+        "left": "P_learned_blend",
+        "right": "P_baseline",
+        "mean_delta": -0.0021507334841110184,
+        "day_bootstrap_95": [
+          -0.005302416438315466,
+          0.0012418592912393509
+        ],
+        "negative_favors_left": true
+      },
+      "accuracy": {
+        "left": "P_learned_blend",
+        "right": "P_baseline",
+        "accuracy_delta": 0.0005505092210294523,
+        "extra_correct": 2,
+        "week_bootstrap_95": [
+          -0.00857777889784255,
+          0.009269908247877925
+        ],
+        "limitation": "Calendar-week bootstrap omits longer dependence, training uncertainty and model selection."
+      }
+    },
+    {
+      "log_loss": {
+        "left": "P_learned_blend",
+        "right": "P_linear_full",
+        "mean_delta": 0.00016531171998192932,
+        "day_bootstrap_95": [
+          -0.0006816602888147014,
+          0.0009625104454773751
+        ],
+        "negative_favors_left": true
+      },
+      "accuracy": {
+        "left": "P_learned_blend",
+        "right": "P_linear_full",
+        "accuracy_delta": -0.0008257638315441783,
+        "extra_correct": -3,
+        "week_bootstrap_95": [
+          -0.003826654904038073,
+          0.0025352648737079933
+        ],
+        "limitation": "Calendar-week bootstrap omits longer dependence, training uncertainty and model selection."
+      }
+    },
+    {
+      "log_loss": {
+        "left": "P_learned_blend",
+        "right": "P_fixed_blend",
+        "mean_delta": -0.001014369127276178,
+        "day_bootstrap_95": [
+          -0.0019989589674295274,
+          3.354150285683563e-05
+        ],
+        "negative_favors_left": true
+      },
+      "accuracy": {
+        "left": "P_learned_blend",
+        "right": "P_fixed_blend",
+        "accuracy_delta": -0.002202036884117809,
+        "extra_correct": -8,
+        "week_bootstrap_95": [
+          -0.007003169688928203,
+          0.0026940381700331062
+        ],
+        "limitation": "Calendar-week bootstrap omits longer dependence, training uncertainty and model selection."
+      }
+    },
+    {
+      "log_loss": {
+        "left": "P_stacked",
+        "right": "P_baseline",
+        "mean_delta": -0.001354173312839826,
+        "day_bootstrap_95": [
+          -0.004529440212125561,
+          0.0017781949624269572
+        ],
+        "negative_favors_left": true
+      },
+      "accuracy": {
+        "left": "P_stacked",
+        "right": "P_baseline",
+        "accuracy_delta": 0.0013762730525736307,
+        "extra_correct": 5,
+        "week_bootstrap_95": [
+          -0.007125680225502094,
+          0.009659614174142607
+        ],
+        "limitation": "Calendar-week bootstrap omits longer dependence, training uncertainty and model selection."
+      }
+    },
+    {
+      "log_loss": {
+        "left": "P_stacked",
+        "right": "P_linear_full",
+        "mean_delta": 0.0009618718912531218,
+        "day_bootstrap_95": [
+          -0.000681692866696248,
+          0.002520152608350061
+        ],
+        "negative_favors_left": true
+      },
+      "accuracy": {
+        "left": "P_stacked",
+        "right": "P_linear_full",
+        "accuracy_delta": 0.0,
+        "extra_correct": 0,
+        "week_bootstrap_95": [
+          -0.004568756497260002,
+          0.00457122699493585
+        ],
+        "limitation": "Calendar-week bootstrap omits longer dependence, training uncertainty and model selection."
+      }
+    },
+    {
+      "log_loss": {
+        "left": "P_stacked",
+        "right": "P_fixed_blend",
+        "mean_delta": -0.00021780895600498565,
+        "day_bootstrap_95": [
+          -0.0014653836981595137,
+          0.001010403865875258
+        ],
+        "negative_favors_left": true
+      },
+      "accuracy": {
+        "left": "P_stacked",
+        "right": "P_fixed_blend",
+        "accuracy_delta": -0.0013762730525736307,
+        "extra_correct": -5,
+        "week_bootstrap_95": [
+          -0.006816309428085098,
+          0.003815079090621812
+        ],
+        "limitation": "Calendar-week bootstrap omits longer dependence, training uncertainty and model selection."
+      }
+    }
+  ],
+  "forward_meta": {
+    "rows": 7125,
+    "trained_through": "2026-04-12",
+    "linear_weight": 0.8495831334329008,
+    "platt_coef": [
+      0.9663492514108022
+    ],
+    "platt_intercept": [
+      -0.040818005562720194
+    ],
+    "stacked_coef": [
+      0.7957567396170516,
+      0.180544815308651
+    ],
+    "stacked_intercept": [
+      -0.043374063855184324
+    ]
+  },
+  "base_bundle_sha256": "e6e6531510ea503469a45b1ae28b1e2d616bec0b7ad709ce34c1559fe6c6b45d",
+  "limitations": [
+    "Repeated historical research, not untouched forward evidence.",
+    "Calibration only sees past out-of-fold predictions; earlier evaluation seasons enter later training.",
+    "Blend maximizes past probability quality, not hit rate.",
+    "Date/week bootstrap omits longer dependence, training and selection uncertainty.",
+    "No executable odds, profit test, live feature integration or deployment."
+  ]
+}

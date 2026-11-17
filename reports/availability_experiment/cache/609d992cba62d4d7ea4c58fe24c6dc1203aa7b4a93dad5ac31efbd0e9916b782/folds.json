@@ -1,0 +1,50 @@
+[
+  {
+    "season": "2018-19",
+    "train_end": "2018-04-11 00:00:00",
+    "test_start": "2018-10-18 00:00:00",
+    "train_candidates": 63390
+  },
+  {
+    "season": "2019-20",
+    "train_end": "2019-04-10 00:00:00",
+    "test_start": "2019-10-24 00:00:00",
+    "train_candidates": 95437
+  },
+  {
+    "season": "2020-21",
+    "train_end": "2020-08-14 00:00:00",
+    "test_start": "2020-12-25 00:00:00",
+    "train_candidates": 123121
+  },
+  {
+    "season": "2021-22",
+    "train_end": "2021-05-16 00:00:00",
+    "test_start": "2021-10-21 00:00:00",
+    "train_candidates": 152486
+  },
+  {
+    "season": "2022-23",
+    "train_end": "2022-04-10 00:00:00",
+    "test_start": "2022-10-20 00:00:00",
+    "train_candidates": 186285
+  },
+  {
+    "season": "2023-24",
+    "train_end": "2023-04-09 00:00:00",
+    "test_start": "2023-10-26 00:00:00",
+    "train_candidates": 219407
+  },
+  {
+    "season": "2024-25",
+    "train_end": "2024-04-14 00:00:00",
+    "test_start": "2024-10-24 00:00:00",
+    "train_candidates": 253512
+  },
+  {
+    "season": "2025-26",
+    "train_end": "2025-04-13 00:00:00",
+    "test_start": "2025-10-23 00:00:00",
+    "train_candidates": 287678
+  }
+]

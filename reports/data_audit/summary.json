@@ -1,0 +1,122 @@
+{
+  "audit_started_at_utc": "2026-11-14T05:59:14.824022+00:00",
+  "historical": {
+    "team_rows": 23958,
+    "games": 11979,
+    "non_two_team_games": 0,
+    "score_formula_failures": 0,
+    "made_exceeds_attempted": 0,
+    "rebound_formula_failures": 0,
+    "winner_label_failures": 0,
+    "margin_disagreement_rows": 200,
+    "margin_disagreement_games": 129,
+    "ambiguous_home_away_games": 10,
+    "ambiguous_home_away_ids": [
+      "0022400147",
+      "0022400621",
+      "0022400633",
+      "0022401229",
+      "0022401230",
+      "0022500147",
+      "0022500578",
+      "0022500602",
+      "0022501229",
+      "0022501230"
+    ],
+    "player_sum_disagreements": {
+      "PTS": 0,
+      "FGM": 0,
+      "FGA": 4,
+      "FG3M": 0,
+      "FTM": 0
+    },
+    "missing_player_team_games": 0,
+    "seasons": {
+      "2016-17": 1230,
+      "2017-18": 1230,
+      "2018-19": 1230,
+      "2019-20": 1059,
+      "2020-21": 1080,
+      "2021-22": 1230,
+      "2022-23": 1230,
+      "2023-24": 1230,
+      "2024-25": 1230,
+      "2025-26": 1230
+    },
+    "player_rows": 285006,
+    "duplicate_player_game_rows": 0,
+    "player_score_formula_failures": 0
+  },
+  "current": {
+    "team_rows": 348,
+    "games": 174,
+    "non_two_team_games": 0,
+    "score_formula_failures": 0,
+    "made_exceeds_attempted": 0,
+    "rebound_formula_failures": 0,
+    "winner_label_failures": 0,
+    "margin_disagreement_rows": 1,
+    "margin_disagreement_games": 1,
+    "ambiguous_home_away_games": 1,
+    "ambiguous_home_away_ids": [
+      "0022600189"
+    ],
+    "player_sum_disagreements": {
+      "PTS": 0,
+      "FGM": 0,
+      "FGA": 0,
+      "FG3M": 0,
+      "FTM": 0
+    },
+    "missing_player_team_games": 0,
+    "seasons": {
+      "2026-27": 174
+    },
+    "player_rows": 3933,
+    "duplicate_player_game_rows": 0,
+    "player_score_formula_failures": 0
+  },
+  "current_schedule": [
+    {
+      "side": "home",
+      "matched_completed_team_rows": 174,
+      "score_disagreements": 0
+    },
+    {
+      "side": "away",
+      "matched_completed_team_rows": 174,
+      "score_disagreements": 0
+    }
+  ],
+  "live_predictions": {
+    "rows": 10,
+    "graded": 4,
+    "invalid_predictions": 0,
+    "correct": 4,
+    "wilson_95": [
+      0.5101091635454027,
+      1.0
+    ],
+    "timestamp_provenance": "Self-recorded timestamps plus local Git history; remote publication not independently verified."
+  },
+  "odds": {
+    "rows": 6081,
+    "duplicate_source_ids": 12,
+    "has_verified_quote_observation_timestamps": false
+  },
+  "source_assurance": {
+    "fetch_code": "nba_api calling stats.nba.com; not independent proof of saved CSV provenance",
+    "remote_verification": "This script does not verify GitHub HEAD or independently fetch official results. See the dated narrative report for external spot checks.",
+    "scope": "Local working copy, including uncommitted changes and previously added research files."
+  },
+  "git_head": "db3610ab487588873d62451387af4bc704db00d7",
+  "snapshot_sha256": {
+    "data/raw/team_game_logs.csv": "8c841c56d5f5f8d6c1790a0150f8cd916277af548d962c0c2d67ebc8805bed85",
+    "data/raw/player_game_logs.csv.gz": "47152a24b912760c326a2c266f2083cfd358ac2bc85686eb3c9d93b2e31b4134",
+    "data/raw/team_game_logs_current.csv": "6af58f2585d0b53ea206506bc29a03b87f3a9954d692b43743ab943a6dcb0394",
+    "data/raw/player_game_logs_current.csv.gz": "5d4270cbcad7ff01aed3bcdc1b4d7c411e81aa40c4159277a6ba342e0489f25c",
+    "data/raw/schedule_current.csv": "fefbe2fc7d6a26e9b237423e6435597548b22cc0d337f7a6636c68cfa163d532",
+    "predictions/games.csv": "8bfeea1274742683ae0060e312bd61cb25bf457329a3df74dbca9acb052c5ab1",
+    "data/raw/betting_odds_mgm.csv": "b5c38aea205bb67d38216cc0a4e9396ab3a3d5cfa0cbcd0878a08c98e733a4e8"
+  }
+}

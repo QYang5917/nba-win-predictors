@@ -1,0 +1,511 @@
+{
+  "sha256": {
+    "reports/impact_control/summary.json": "23a2370c1acbaa34a418c12e4b95a3dcd086e89d776d9127a01a4266c7f1b41e",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2018-19.csv": "ee9fb2f4989682890e6f63206cf835851a6e770b593b317303027fb41397eb9f",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2019-20.csv": "e593cd1d7274468985fb2853468c2c2b8838c7860555d8b8fe78661508faeeaa",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2020-21.csv": "d3c9cd7ffa19f4385e6cbce2f3e729e8738f9a000b61f30c3df388287f2174ea",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2021-22.csv": "40223c854dc5a6b2d45d3bd00661cb4002aabe863bcab0a28e8f601fe083c047",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2022-23.csv": "bb1013f964789201f9b5f55cbf46de4a972b32127ea87f1ab8bff3bb4e28f093",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2023-24.csv": "659b050d7d6685955f91ed51c3f758ef8c8b23a47a6a48c4e82d490dd3c9912c",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2024-25.csv": "f4686d1553b8016b3d1a5b046cda3620e8cd1cb5181168dbf64bd78742f5aaf6",
+    "reports/impact_control/cache/29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db/teams_2025-26.csv": "84f11edd59c10464b6a7803b39d74d99701f67ace2097d1c4d10e8990dc270b9",
+    "data/raw/team_game_logs.csv": "8c841c56d5f5f8d6c1790a0150f8cd916277af548d962c0c2d67ebc8805bed85",
+    "src/v2_recency.py": "61797ba86b62adaff9984818a75df4ed220d8c4c8b394a7d2e8967ae65c2b96a",
+    "src/v2_research.py": "7d327ffe1d5ad4d37dbbcef3adaf8bcbfe54600a260055ac4d39fb92d42c9326",
+    "src/style_experiment.py": "f84ecbccb39971299637a085f276604643f4bb5ae7a3af62eb7456ab67ef0723",
+    "src/context_experiment.py": "f66e0cbab5adc51da13c81da471023389bf3df0b562d65665f033d41979344d2",
+    "reports/v2_research/predictions.csv": "7ea5842faf31248c7291490fae38740b2fe2d0b56cd65d9c5a92d8d7598ec60c"
+  },
+  "upstream_recipe": "29d35aea3988ffecba38b334d643e16689622a81351aaaedd95d5e796f2b04db",
+  "excluded_home_away_ids": [
+    "0022400147",
+    "0022400621",
+    "0022400633",
+    "0022401229",
+    "0022401230",
+    "0022500147",
+    "0022500578",
+    "0022500602",
+    "0022501229",
+    "0022501230"
+  ],
+  "configs": [
+    {
+      "half_life_days": null,
+      "C": 0.1
+    },
+    {
+      "half_life_days": null,
+      "C": 1.0
+    },
+    {
+      "half_life_days": 365.0,
+      "C": 0.1
+    },
+    {
+      "half_life_days": 365.0,
+      "C": 1.0
+    },
+    {
+      "half_life_days": 730.0,
+      "C": 0.1
+    },
+    {
+      "half_life_days": 730.0,
+      "C": 1.0
+    }
+  ],
+  "folds": [
+    {
+      "season": "2023-24",
+      "selected": {
+        "config": {
+          "half_life_days": null,
+          "C": 1.0
+        },
+        "validation_loss": 0.6364177190041934
+      },
+      "candidates": [
+        {
+          "config": {
+            "half_life_days": null,
+            "C": 0.1
+          },
+          "validation_loss": 0.6364254361693542
+        },
+        {
+          "config": {
+            "half_life_days": null,
+            "C": 1.0
+          },
+          "validation_loss": 0.6364177190041934
+        },
+        {
+          "config": {
+            "half_life_days": 365.0,
+            "C": 0.1
+          },
+          "validation_loss": 0.6392405023425302
+        },
+        {
+          "config": {
+            "half_life_days": 365.0,
+            "C": 1.0
+          },
+          "validation_loss": 0.6392525048151468
+        },
+        {
+          "config": {
+            "half_life_days": 730.0,
+            "C": 0.1
+          },
+          "validation_loss": 0.6377509507332106
+        },
+        {
+          "config": {
+            "half_life_days": 730.0,
+            "C": 1.0
+          },
+          "validation_loss": 0.6377350932741993
+        }
+      ],
+      "validation_season": "2022-23",
+      "validation_end": "2023-04-09",
+      "trained_through": "2023-04-09"
+    },
+    {
+      "season": "2024-25",
+      "selected": {
+        "config": {
+          "half_life_days": null,
+          "C": 0.1
+        },
+        "validation_loss": 0.5991988122742723
+      },
+      "candidates": [
+        {
+          "config": {
+            "half_life_days": null,
+            "C": 0.1
+          },
+          "validation_loss": 0.5991988122742723
+        },
+        {
+          "config": {
+            "half_life_days": null,
+            "C": 1.0
+          },
+          "validation_loss": 0.599229767387387
+        },
+        {
+          "config": {
+            "half_life_days": 365.0,
+            "C": 0.1
+          },
+          "validation_loss": 0.6020363795979535
+        },
+        {
+          "config": {
+            "half_life_days": 365.0,
+            "C": 1.0
+          },
+          "validation_loss": 0.6022872087832167
+        },
+        {
+          "config": {
+            "half_life_days": 730.0,
+            "C": 0.1
+          },
+          "validation_loss": 0.600782615516912
+        },
+        {
+          "config": {
+            "half_life_days": 730.0,
+            "C": 1.0
+          },
+          "validation_loss": 0.6009771990185316
+        }
+      ],
+      "validation_season": "2023-24",
+      "validation_end": "2024-04-14",
+      "trained_through": "2024-04-14"
+    },
+    {
+      "season": "2025-26",
+      "selected": {
+        "config": {
+          "half_life_days": null,
+          "C": 0.1
+        },
+        "validation_loss": 0.5927682152087578
+      },
+      "candidates": [
+        {
+          "config": {
+            "half_life_days": null,
+            "C": 0.1
+          },
+          "validation_loss": 0.5927682152087578
+        },
+        {
+          "config": {
+            "half_life_days": null,
+            "C": 1.0
+          },
+          "validation_loss": 0.5927950295635518
+        },
+        {
+          "config": {
+            "half_life_days": 365.0,
+            "C": 0.1
+          },
+          "validation_loss": 0.5930971612653919
+        },
+        {
+          "config": {
+            "half_life_days": 365.0,
+            "C": 1.0
+          },
+          "validation_loss": 0.5932755892165974
+        },
+        {
+          "config": {
+            "half_life_days": 730.0,
+            "C": 0.1
+          },
+          "validation_loss": 0.5929470641386999
+        },
+        {
+          "config": {
+            "half_life_days": 730.0,
+            "C": 1.0
+          },
+          "validation_loss": 0.5930101369831928
+        }
+      ],
+      "validation_season": "2024-25",
+      "validation_end": "2025-04-13",
+      "trained_through": "2025-04-13"
+    }
+  ],
+  "metrics": [
+    {
+      "season": "ALL",
+      "model": "baseline",
+      "games": 3633,
+      "correct": 2477,
+      "accuracy": 0.6818056702449766,
+      "log_loss": 0.5938817121238027,
+      "brier": 0.20412267033826928
+    },
+    {
+      "season": "ALL",
+      "model": "linear_full",
+      "games": 3633,
+      "correct": 2482,
+      "accuracy": 0.6831819432975502,
+      "log_loss": 0.5915656669197098,
+      "brier": 0.20322536608979203
+    },
+    {
+      "season": "ALL",
+      "model": "fixed_blend",
+      "games": 3633,
+      "correct": 2487,
+      "accuracy": 0.6845582163501238,
+      "log_loss": 0.5927453477669679,
+      "brier": 0.2035970468297636
+    },
+    {
+      "season": "ALL",
+      "model": "recency",
+      "games": 3633,
+      "correct": 2482,
+      "accuracy": 0.6831819432975502,
+      "log_loss": 0.5915502742873504,
+      "brier": 0.203216996636049
+    },
+    {
+      "season": "2023-24",
+      "model": "baseline",
+      "games": 1215,
+      "correct": 813,
+      "accuracy": 0.6691358024691358,
+      "log_loss": 0.5994721880317342,
+      "brier": 0.20651654363388317
+    },
+    {
+      "season": "2023-24",
+      "model": "linear_full",
+      "games": 1215,
+      "correct": 817,
+      "accuracy": 0.6724279835390946,
+      "log_loss": 0.599229767387387,
+      "brier": 0.20631755552345213
+    },
+    {
+      "season": "2023-24",
+      "model": "fixed_blend",
+      "games": 1215,
+      "correct": 818,
+      "accuracy": 0.6732510288065844,
+      "log_loss": 0.5986245995122662,
+      "brier": 0.20626866689245432
+    },
+    {
+      "season": "2023-24",
+      "model": "recency",
+      "games": 1215,
+      "correct": 817,
+      "accuracy": 0.6724279835390946,
+      "log_loss": 0.599229767387387,
+      "brier": 0.20631755552345213
+    },
+    {
+      "season": "2024-25",
+      "model": "baseline",
+      "games": 1209,
+      "correct": 828,
+      "accuracy": 0.684863523573201,
+      "log_loss": 0.5965324142240412,
+      "brier": 0.2053545157699807
+    },
+    {
+      "season": "2024-25",
+      "model": "linear_full",
+      "games": 1209,
+      "correct": 825,
+      "accuracy": 0.6823821339950372,
+      "log_loss": 0.5927950295635518,
+      "brier": 0.20403758232496497
+    },
+    {
+      "season": "2024-25",
+      "model": "fixed_blend",
+      "games": 1209,
+      "correct": 828,
+      "accuracy": 0.684863523573201,
+      "log_loss": 0.5938994040789914,
+      "brier": 0.2041345842534613
+    },
+    {
+      "season": "2024-25",
+      "model": "recency",
+      "games": 1209,
+      "correct": 825,
+      "accuracy": 0.6823821339950372,
+      "log_loss": 0.5927682152087578,
+      "brier": 0.2040195770155519
+    },
+    {
+      "season": "2025-26",
+      "model": "baseline",
+      "games": 1209,
+      "correct": 836,
+      "accuracy": 0.6914805624483044,
+      "log_loss": 0.585612789818323,
+      "brier": 0.20048507134644958
+    },
+    {
+      "season": "2025-26",
+      "model": "linear_full",
+      "games": 1209,
+      "correct": 840,
+      "accuracy": 0.6947890818858561,
+      "log_loss": 0.5826341685701375,
+      "brier": 0.19930561456769008
+    },
+    {
+      "season": "2025-26",
+      "model": "fixed_blend",
+      "games": 1209,
+      "correct": 841,
+      "accuracy": 0.695616211745244,
+      "log_loss": 0.5856828622816295,
+      "brier": 0.20037463068301445
+    },
+    {
+      "season": "2025-26",
+      "model": "recency",
+      "games": 1209,
+      "correct": 840,
+      "accuracy": 0.6947890818858561,
+      "log_loss": 0.5826147286376187,
+      "brier": 0.19929846998012357
+    }
+  ],
+  "forward_selection": {
+    "selected": {
+      "config": {
+        "half_life_days": 730.0,
+        "C": 0.1
+      },
+      "validation_loss": 0.5822990675641304
+    },
+    "candidates": [
+      {
+        "config": {
+          "half_life_days": null,
+          "C": 0.1
+        },
+        "validation_loss": 0.5826147286376187
+      },
+      {
+        "config": {
+          "half_life_days": null,
+          "C": 1.0
+        },
+        "validation_loss": 0.5826341685701375
+      },
+      {
+        "config": {
+          "half_life_days": 365.0,
+          "C": 0.1
+        },
+        "validation_loss": 0.5827630217023306
+      },
+      {
+        "config": {
+          "half_life_days": 365.0,
+          "C": 1.0
+        },
+        "validation_loss": 0.582803272628708
+      },
+      {
+        "config": {
+          "half_life_days": 730.0,
+          "C": 0.1
+        },
+        "validation_loss": 0.5822990675641304
+      },
+      {
+        "config": {
+          "half_life_days": 730.0,
+          "C": 1.0
+        },
+        "validation_loss": 0.5823184221118795
+      }
+    ],
+    "validation_season": "2025-26",
+    "validation_end": "2026-04-12",
+    "trained_through": "2026-04-12"
+  },
+  "comparisons": [
+    {
+      "log_loss": {
+        "left": "P_recency",
+        "right": "P_baseline",
+        "mean_delta": -0.002331437836452266,
+        "day_bootstrap_95": [
+          -0.005740527790265164,
+          0.0013629389471515486
+        ],
+        "negative_favors_left": true
+      },
+      "accuracy": {
+        "left": "P_recency",
+        "right": "P_baseline",
+        "accuracy_delta": 0.0013762730525736307,
+        "extra_correct": 5,
+        "week_bootstrap_95": [
+          -0.0072233074064107445,
+          0.009731992862589934
+        ],
+        "limitation": "Calendar-week bootstrap omits longer dependence, training uncertainty and model selection."
+      }
+    },
+    {
+      "log_loss": {
+        "left": "P_recency",
+        "right": "P_linear_full",
+        "mean_delta": -1.5392632359318755e-05,
+        "day_bootstrap_95": [
+          -6.269215279901047e-05,
+          3.4682855847612165e-05
+        ],
+        "negative_favors_left": true
+      },
+      "accuracy": {
+        "left": "P_recency",
+        "right": "P_linear_full",
+        "accuracy_delta": 0.0,
+        "extra_correct": 0,
+        "week_bootstrap_95": [
+          0.0,
+          0.0
+        ],
+        "limitation": "Calendar-week bootstrap omits longer dependence, training uncertainty and model selection."
+      }
+    },
+    {
+      "log_loss": {
+        "left": "P_recency",
+        "right": "P_fixed_blend",
+        "mean_delta": -0.0011950734796174261,
+        "day_bootstrap_95": [
+          -0.0029640587018343687,
+          0.000696164008776351
+        ],
+        "negative_favors_left": true
+      },
+      "accuracy": {
+        "left": "P_recency",
+        "right": "P_fixed_blend",
+        "accuracy_delta": -0.0013762730525736307,
+        "extra_correct": -5,
+        "week_bootstrap_95": [
+          -0.00688552881245741,
+          0.004404652610249979
+        ],
+        "limitation": "Calendar-week bootstrap omits longer dependence, training uncertainty and model selection."
+      }
+    }
+  ],
+  "limitations": [
+    "Repeated historical research; no untouched forward holdout.",
+    "Only six configurations selected using the most recent past season.",
+    "Normalized sample weights change historical relevance, not total loss scale.",
+    "Date/week bootstrap omits training, selection and longer dependence.",
+    "Research bundle not deployed; live feature integration remains pending."
+  ]
+}

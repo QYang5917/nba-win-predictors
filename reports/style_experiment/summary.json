@@ -1,0 +1,257 @@
+{
+  "sha256": {
+    "data/raw/team_game_logs.csv": "8c841c56d5f5f8d6c1790a0150f8cd916277af548d962c0c2d67ebc8805bed85",
+    "reports/rating_experiment/predictions.csv": "4ec2a5b675f4d62be56e4dfc8690d7e9fefd6bba4e97672b7ccd3a1ae11347b2",
+    "src/style_experiment.py": "ce8f2b13a235ed8c8bc7c49df637f1bd5f6351a6e886a7f2768f81eeed05c84d",
+    "src/context_experiment.py": "f66e0cbab5adc51da13c81da471023389bf3df0b562d65665f033d41979344d2"
+  },
+  "arms": {
+    "player": [
+      "recent_normalized_DIFF",
+      "REST_DAYS_DIFF"
+    ],
+    "three_scoring": [
+      "recent_normalized_DIFF",
+      "REST_DAYS_DIFF",
+      "THREE_PTS100_DIFF"
+    ],
+    "rebounds": [
+      "recent_normalized_DIFF",
+      "REST_DAYS_DIFF",
+      "OREB_RATE_DIFF",
+      "DREB_RATE_DIFF"
+    ],
+    "opponent_three": [
+      "recent_normalized_DIFF",
+      "REST_DAYS_DIFF",
+      "OPP_THREE_PCT_DIFF"
+    ],
+    "all_available": [
+      "recent_normalized_DIFF",
+      "REST_DAYS_DIFF",
+      "THREE_PTS100_DIFF",
+      "OREB_RATE_DIFF",
+      "DREB_RATE_DIFF",
+      "OPP_THREE_PCT_DIFF"
+    ]
+  },
+  "metrics": [
+    {
+      "season": "ALL",
+      "arm": "player",
+      "games": 3633,
+      "accuracy": 0.6826314340765208,
+      "log_loss": 0.5941126949677729,
+      "brier": 0.20422279663540913
+    },
+    {
+      "season": "ALL",
+      "arm": "three_scoring",
+      "games": 3633,
+      "accuracy": 0.6798788879713735,
+      "log_loss": 0.5945195169240041,
+      "brier": 0.20440239374255334
+    },
+    {
+      "season": "ALL",
+      "arm": "rebounds",
+      "games": 3633,
+      "accuracy": 0.6831819432975502,
+      "log_loss": 0.5941525337681908,
+      "brier": 0.20426414202232085
+    },
+    {
+      "season": "ALL",
+      "arm": "opponent_three",
+      "games": 3633,
+      "accuracy": 0.6845582163501238,
+      "log_loss": 0.5938037256448238,
+      "brier": 0.20407112914862904
+    },
+    {
+      "season": "ALL",
+      "arm": "all_available",
+      "games": 3633,
+      "accuracy": 0.6812551610239471,
+      "log_loss": 0.5942806949563407,
+      "brier": 0.20430650353884533
+    },
+    {
+      "season": "2023-24",
+      "arm": "player",
+      "games": 1215,
+      "accuracy": 0.6707818930041153,
+      "log_loss": 0.6006125608753994,
+      "brier": 0.20692996491116125
+    },
+    {
+      "season": "2023-24",
+      "arm": "three_scoring",
+      "games": 1215,
+      "accuracy": 0.6699588477366255,
+      "log_loss": 0.6009395835169768,
+      "brier": 0.2071081911565349
+    },
+    {
+      "season": "2023-24",
+      "arm": "rebounds",
+      "games": 1215,
+      "accuracy": 0.6724279835390946,
+      "log_loss": 0.6007439154448176,
+      "brier": 0.2068924606181701
+    },
+    {
+      "season": "2023-24",
+      "arm": "opponent_three",
+      "games": 1215,
+      "accuracy": 0.6781893004115226,
+      "log_loss": 0.6006501972513595,
+      "brier": 0.20692641003612097
+    },
+    {
+      "season": "2023-24",
+      "arm": "all_available",
+      "games": 1215,
+      "accuracy": 0.6707818930041153,
+      "log_loss": 0.6011842632380602,
+      "brier": 0.20710719634616945
+    },
+    {
+      "season": "2024-25",
+      "arm": "player",
+      "games": 1209,
+      "accuracy": 0.6898263027295285,
+      "log_loss": 0.5957767379279395,
+      "brier": 0.20503973128834624
+    },
+    {
+      "season": "2024-25",
+      "arm": "three_scoring",
+      "games": 1209,
+      "accuracy": 0.6832092638544252,
+      "log_loss": 0.5964635427770396,
+      "brier": 0.2053041168877898
+    },
+    {
+      "season": "2024-25",
+      "arm": "rebounds",
+      "games": 1209,
+      "accuracy": 0.685690653432589,
+      "log_loss": 0.5953515824285844,
+      "brier": 0.2048945263762581
+    },
+    {
+      "season": "2024-25",
+      "arm": "opponent_three",
+      "games": 1209,
+      "accuracy": 0.6881720430107527,
+      "log_loss": 0.5954068482021164,
+      "brier": 0.20490297131370083
+    },
+    {
+      "season": "2024-25",
+      "arm": "all_available",
+      "games": 1209,
+      "accuracy": 0.6840363937138131,
+      "log_loss": 0.5956784545529438,
+      "brier": 0.20502420529799556
+    },
+    {
+      "season": "2025-26",
+      "arm": "player",
+      "games": 1209,
+      "accuracy": 0.6873449131513648,
+      "log_loss": 0.5859165287009346,
+      "brier": 0.2006852586284284
+    },
+    {
+      "season": "2025-26",
+      "arm": "three_scoring",
+      "games": 1209,
+      "accuracy": 0.6865177832919769,
+      "log_loss": 0.5861235631053258,
+      "brier": 0.20078144490832794
+    },
+    {
+      "season": "2025-26",
+      "arm": "rebounds",
+      "games": 1209,
+      "accuracy": 0.6914805624483044,
+      "log_loss": 0.5863293918595739,
+      "brier": 0.20099239530779067
+    },
+    {
+      "season": "2025-26",
+      "arm": "opponent_three",
+      "games": 1209,
+      "accuracy": 0.6873449131513648,
+      "log_loss": 0.5853201539544123,
+      "brier": 0.20036983596759148
+    },
+    {
+      "season": "2025-26",
+      "arm": "all_available",
+      "games": 1209,
+      "accuracy": 0.6889991728701406,
+      "log_loss": 0.585945106193245,
+      "brier": 0.20077420975248347
+    }
+  ],
+  "comparisons": [
+    {
+      "left": "P_three_scoring",
+      "right": "P_player",
+      "mean_delta": 0.00040682195623115006,
+      "day_bootstrap_95": [
+        -0.0001236776602063932,
+        0.0009503434350125521
+      ],
+      "negative_favors_left": true
+    },
+    {
+      "left": "P_rebounds",
+      "right": "P_player",
+      "mean_delta": 3.983880041784155e-05,
+      "day_bootstrap_95": [
+        -0.0006267747959155857,
+        0.000807687385650984
+      ],
+      "negative_favors_left": true
+    },
+    {
+      "left": "P_opponent_three",
+      "right": "P_player",
+      "mean_delta": -0.00030896932294910596,
+      "day_bootstrap_95": [
+        -0.0008024033722386097,
+        0.00016838037827570282
+      ],
+      "negative_favors_left": true
+    },
+    {
+      "left": "P_all_available",
+      "right": "P_player",
+      "mean_delta": 0.00016799998856769296,
+      "day_bootstrap_95": [
+        -0.0008812318287050933,
+        0.0012340154491523021
+      ],
+      "negative_favors_left": true
+    }
+  ],
+  "training_start": "2021-10-22",
+  "window": 20,
+  "minimum_history": 10,
+  "unavailable": [
+    "paint points",
+    "points off turnovers",
+    "opponent paint FG percentage"
+  ],
+  "limitations": [
+    "Reused historical evaluation; multiple exploratory comparisons.",
+    "Team features are not individual player defensive ratings.",
+    "Opponent three-point percentage is not adjusted for shooter quality or shot openness.",
+    "Date bootstrap ignores dependence across dates and model selection.",
+    "Training starts in 2021-22, so compare against this experiment baseline only."
+  ]
+}

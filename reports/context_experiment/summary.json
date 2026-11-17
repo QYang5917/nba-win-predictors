@@ -1,0 +1,967 @@
+{
+  "arms": {
+    "players": [
+      "LAST_GAME_STRENGTH_DIFF",
+      "REST_DAYS_DIFF"
+    ],
+    "context": [
+      "REST_DAYS_DIFF",
+      "ELO_DIFF",
+      "NET10_DIFF",
+      "NET30_DIFF",
+      "B2B_DIFF",
+      "GAMES7_DIFF"
+    ],
+    "combined": [
+      "LAST_GAME_STRENGTH_DIFF",
+      "REST_DAYS_DIFF",
+      "ELO_DIFF",
+      "NET10_DIFF",
+      "NET30_DIFF",
+      "B2B_DIFF",
+      "GAMES7_DIFF"
+    ]
+  },
+  "base_folds": [
+    {
+      "season": "2021-22",
+      "train_rows": 5829,
+      "test_rows": 1230,
+      "train_end": "2021-05-16",
+      "test_start": "2021-10-19",
+      "players": {
+        "LAST_GAME_STRENGTH_DIFF": 0.7914692887329597,
+        "REST_DAYS_DIFF": 0.08134279789222952
+      },
+      "context": {
+        "REST_DAYS_DIFF": -0.035772174521664285,
+        "ELO_DIFF": 0.3346462640847471,
+        "NET10_DIFF": -0.04474585129364585,
+        "NET30_DIFF": 0.4622513904154016,
+        "B2B_DIFF": -0.13597901258644549,
+        "GAMES7_DIFF": -0.060174710537424826
+      },
+      "combined": {
+        "LAST_GAME_STRENGTH_DIFF": 0.5901950235386407,
+        "REST_DAYS_DIFF": -0.027812363782333697,
+        "ELO_DIFF": 0.1433882192157185,
+        "NET10_DIFF": 0.10968988260325344,
+        "NET30_DIFF": 0.0035590813556511686,
+        "B2B_DIFF": -0.12730753888396876,
+        "GAMES7_DIFF": -0.05167951415650617
+      }
+    },
+    {
+      "season": "2022-23",
+      "train_rows": 7059,
+      "test_rows": 1230,
+      "train_end": "2022-04-10",
+      "test_start": "2022-10-18",
+      "players": {
+        "LAST_GAME_STRENGTH_DIFF": 0.7923356842147651,
+        "REST_DAYS_DIFF": 0.09985769219538246
+      },
+      "context": {
+        "REST_DAYS_DIFF": -0.02204899667902562,
+        "ELO_DIFF": 0.3200725387035574,
+        "NET10_DIFF": -0.07973187078978157,
+        "NET30_DIFF": 0.5087935151713541,
+        "B2B_DIFF": -0.14098517531447055,
+        "GAMES7_DIFF": -0.05656715867904098
+      },
+      "combined": {
+        "LAST_GAME_STRENGTH_DIFF": 0.5796370804462954,
+        "REST_DAYS_DIFF": -0.015007795289370145,
+        "ELO_DIFF": 0.12631451478337286,
+        "NET10_DIFF": 0.06808537208143683,
+        "NET30_DIFF": 0.07114884842192674,
+        "B2B_DIFF": -0.1371882625023717,
+        "GAMES7_DIFF": -0.04758849995928752
+      }
+    },
+    {
+      "season": "2023-24",
+      "train_rows": 8289,
+      "test_rows": 1230,
+      "train_end": "2023-04-09",
+      "test_start": "2023-10-24",
+      "players": {
+        "LAST_GAME_STRENGTH_DIFF": 0.7628832748253788,
+        "REST_DAYS_DIFF": 0.10277968693869034
+      },
+      "context": {
+        "REST_DAYS_DIFF": -0.008911221664231427,
+        "ELO_DIFF": 0.319716860339554,
+        "NET10_DIFF": -0.08021155295939582,
+        "NET30_DIFF": 0.48403903161703893,
+        "B2B_DIFF": -0.13253410495079537,
+        "GAMES7_DIFF": -0.054443247234888574
+      },
+      "combined": {
+        "LAST_GAME_STRENGTH_DIFF": 0.5378669471558694,
+        "REST_DAYS_DIFF": -0.0022207196591045577,
+        "ELO_DIFF": 0.13052474705547812,
+        "NET10_DIFF": 0.037880395465256185,
+        "NET30_DIFF": 0.10778738323466014,
+        "B2B_DIFF": -0.12757015421093812,
+        "GAMES7_DIFF": -0.04297186907964614
+      }
+    },
+    {
+      "season": "2024-25",
+      "train_rows": 9519,
+      "test_rows": 1225,
+      "train_end": "2024-04-14",
+      "test_start": "2024-10-22",
+      "players": {
+        "LAST_GAME_STRENGTH_DIFF": 0.7902464452986991,
+        "REST_DAYS_DIFF": 0.10648761229199245
+      },
+      "context": {
+        "REST_DAYS_DIFF": -0.012730754696142444,
+        "ELO_DIFF": 0.35089584270874963,
+        "NET10_DIFF": -0.07502467159611396,
+        "NET30_DIFF": 0.47411125960219735,
+        "B2B_DIFF": -0.14414084364941787,
+        "GAMES7_DIFF": -0.052248120463551866
+      },
+      "combined": {
+        "LAST_GAME_STRENGTH_DIFF": 0.5659735360460606,
+        "REST_DAYS_DIFF": -0.005613253661183153,
+        "ELO_DIFF": 0.15620857479937267,
+        "NET10_DIFF": 0.058043585448214044,
+        "NET30_DIFF": 0.06283440991534474,
+        "B2B_DIFF": -0.13962425961606503,
+        "GAMES7_DIFF": -0.03881686910121818
+      }
+    },
+    {
+      "season": "2025-26",
+      "train_rows": 10744,
+      "test_rows": 1225,
+      "train_end": "2025-04-13",
+      "test_start": "2025-10-21",
+      "players": {
+        "LAST_GAME_STRENGTH_DIFF": 0.8110002067042426,
+        "REST_DAYS_DIFF": 0.1165336646516574
+      },
+      "context": {
+        "REST_DAYS_DIFF": -0.004831601333052925,
+        "ELO_DIFF": 0.3366952469310473,
+        "NET10_DIFF": -0.05605040765612149,
+        "NET30_DIFF": 0.4962400782995155,
+        "B2B_DIFF": -0.1469924562382259,
+        "GAMES7_DIFF": -0.050717291144088565
+      },
+      "combined": {
+        "LAST_GAME_STRENGTH_DIFF": 0.572805380657219,
+        "REST_DAYS_DIFF": 0.002033508002926807,
+        "ELO_DIFF": 0.13467208657973517,
+        "NET10_DIFF": 0.07503885164694098,
+        "NET30_DIFF": 0.08633159506667577,
+        "B2B_DIFF": -0.14185349714509196,
+        "GAMES7_DIFF": -0.0400876038055586
+      }
+    }
+  ],
+  "meta_folds": {
+    "players": [
+      {
+        "season": "2023-24",
+        "train_rows": 2440,
+        "test_rows": 1229,
+        "train_end": "2023-04-09",
+        "test_start": "2023-10-24",
+        "P_CALIBRATED": {
+          "coef": [
+            0.9717292005229036
+          ],
+          "intercept": -0.005070057783921422
+        },
+        "P_HYBRID": {
+          "coef": [
+            0.9404109097951229,
+            0.04132052193301259
+          ],
+          "intercept": -0.00859002267155851
+        }
+      },
+      {
+        "season": "2024-25",
+        "train_rows": 3669,
+        "test_rows": 1225,
+        "train_end": "2024-04-14",
+        "test_start": "2024-10-22",
+        "P_CALIBRATED": {
+          "coef": [
+            1.0252378643525475
+          ],
+          "intercept": -0.036243410193329016
+        },
+        "P_HYBRID": {
+          "coef": [
+            0.9805654833841386,
+            0.05875089301437779
+          ],
+          "intercept": -0.041142305874754745
+        }
+      },
+      {
+        "season": "2025-26",
+        "train_rows": 4894,
+        "test_rows": 802,
+        "train_end": "2025-04-13",
+        "test_start": "2025-10-21",
+        "P_CALIBRATED": {
+          "coef": [
+            1.0270468432212378
+          ],
+          "intercept": -0.03735756271180887
+        },
+        "P_HYBRID": {
+          "coef": [
+            0.9605955017334362,
+            0.08597277346538014
+          ],
+          "intercept": -0.044376740734436
+        }
+      }
+    ],
+    "context": [
+      {
+        "season": "2023-24",
+        "train_rows": 2440,
+        "test_rows": 1229,
+        "train_end": "2023-04-09",
+        "test_start": "2023-10-24",
+        "P_CALIBRATED": {
+          "coef": [
+            0.9717292005229036
+          ],
+          "intercept": -0.005070057783921422
+        },
+        "P_HYBRID": {
+          "coef": [
+            1.0078652877481802,
+            -0.049243040750101025
+          ],
+          "intercept": -0.0002159255398082316
+        }
+      },
+      {
+        "season": "2024-25",
+        "train_rows": 3669,
+        "test_rows": 1225,
+        "train_end": "2024-04-14",
+        "test_start": "2024-10-22",
+        "P_CALIBRATED": {
+          "coef": [
+            1.0252378643525475
+          ],
+          "intercept": -0.036243410193329016
+        },
+        "P_HYBRID": {
+          "coef": [
+            1.1001606601274438,
+            -0.09928963212455312
+          ],
+          "intercept": -0.02694938232299107
+        }
+      },
+      {
+        "season": "2025-26",
+        "train_rows": 4894,
+        "test_rows": 802,
+        "train_end": "2025-04-13",
+        "test_start": "2025-10-21",
+        "P_CALIBRATED": {
+          "coef": [
+            1.0270468432212378
+          ],
+          "intercept": -0.03735756271180887
+        },
+        "P_HYBRID": {
+          "coef": [
+            1.0715002865626426,
+            -0.058331997193350194
+          ],
+          "intercept": -0.03223251639290703
+        }
+      }
+    ],
+    "combined": [
+      {
+        "season": "2023-24",
+        "train_rows": 2440,
+        "test_rows": 1229,
+        "train_end": "2023-04-09",
+        "test_start": "2023-10-24",
+        "P_CALIBRATED": {
+          "coef": [
+            0.9717292005229036
+          ],
+          "intercept": -0.005070057783921422
+        },
+        "P_HYBRID": {
+          "coef": [
+            0.9667706985048572,
+            0.006143420135194378
+          ],
+          "intercept": -0.005490550744202697
+        }
+      },
+      {
+        "season": "2024-25",
+        "train_rows": 3669,
+        "test_rows": 1225,
+        "train_end": "2024-04-14",
+        "test_start": "2024-10-22",
+        "P_CALIBRATED": {
+          "coef": [
+            1.0252378643525475
+          ],
+          "intercept": -0.036243410193329016
+        },
+        "P_HYBRID": {
+          "coef": [
+            1.016219136969357,
+            0.011729038145359813
+          ],
+          "intercept": -0.03711389116325359
+        }
+      },
+      {
+        "season": "2025-26",
+        "train_rows": 4894,
+        "test_rows": 802,
+        "train_end": "2025-04-13",
+        "test_start": "2025-10-21",
+        "P_CALIBRATED": {
+          "coef": [
+            1.0270468432212378
+          ],
+          "intercept": -0.03735756271180887
+        },
+        "P_HYBRID": {
+          "coef": [
+            0.9783074370301535,
+            0.05946880645600285
+          ],
+          "intercept": -0.041124922625044275
+        }
+      }
+    ]
+  },
+  "matching": {
+    "raw_odds_rows": 6081,
+    "identical_quote_duplicates": 12,
+    "conflicting_quote_rows": 0,
+    "invalid_quote_rows": 0,
+    "ambiguous_match_rows": 0,
+    "source_outcome_disagreements": [
+      {
+        "GAME_ID": 22100073,
+        "game_id": "nba.g.2021102914"
+      }
+    ],
+    "matched_games": 5696,
+    "one_day_matches": 0,
+    "unmatched_feature_games": 444,
+    "invalid_raw_home_away_game_ids": [
+      22400147,
+      22400621,
+      22400633,
+      22401229,
+      22401230,
+      22500147,
+      22500578,
+      22500602,
+      22501229,
+      22501230
+    ],
+    "excluded_pregame_rows": 10
+  },
+  "metrics": [
+    {
+      "model": "P_MARKET",
+      "season": "ALL",
+      "games": 3256,
+      "accuracy": 0.6836609336609336,
+      "log_loss": 0.5901370029143145,
+      "brier": 0.20266972771449682,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "P_MARKET",
+      "season": "2023-24",
+      "games": 1229,
+      "accuracy": 0.692432872253865,
+      "log_loss": 0.5804225903199316,
+      "brier": 0.1982432408164462,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "P_MARKET",
+      "season": "2024-25",
+      "games": 1225,
+      "accuracy": 0.6946938775510204,
+      "log_loss": 0.5816638727056267,
+      "brier": 0.1992188991331609,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "P_MARKET",
+      "season": "2025-26",
+      "games": 802,
+      "accuracy": 0.6533665835411472,
+      "log_loss": 0.6179656782062583,
+      "brier": 0.21472386413574462,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "P_CALIBRATED",
+      "season": "ALL",
+      "games": 3256,
+      "accuracy": 0.683968058968059,
+      "log_loss": 0.59029037670289,
+      "brier": 0.20273312436092847,
+      "bets": 1,
+      "profit_units": -1.0,
+      "roi": -1.0,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        -1.0
+      ],
+      "max_daily_drawdown_units": 1.0
+    },
+    {
+      "model": "P_CALIBRATED",
+      "season": "2023-24",
+      "games": 1229,
+      "accuracy": 0.6883645240032547,
+      "log_loss": 0.5807981604675381,
+      "brier": 0.19835618057025048,
+      "bets": 1,
+      "profit_units": -1.0,
+      "roi": -1.0,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        -1.0
+      ],
+      "max_daily_drawdown_units": 1.0
+    },
+    {
+      "model": "P_CALIBRATED",
+      "season": "2024-25",
+      "games": 1225,
+      "accuracy": 0.6971428571428572,
+      "log_loss": 0.5814714756961883,
+      "brier": 0.19919981516952803,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "P_CALIBRATED",
+      "season": "2025-26",
+      "games": 802,
+      "accuracy": 0.6571072319201995,
+      "log_loss": 0.6183066952645574,
+      "brier": 0.21483732346093942,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "P_players",
+      "season": "ALL",
+      "games": 3256,
+      "accuracy": 0.6710687960687961,
+      "log_loss": 0.6080686444812567,
+      "brier": 0.21025337635911429,
+      "bets": 2229,
+      "profit_units": -111.19,
+      "roi": -0.049883355764917,
+      "roi_95_day_bootstrap": [
+        -0.11233915558277058,
+        0.010739768168097978
+      ],
+      "max_daily_drawdown_units": 153.9099999999999
+    },
+    {
+      "model": "P_players",
+      "season": "2023-24",
+      "games": 1229,
+      "accuracy": 0.6647681041497152,
+      "log_loss": 0.6015101304965036,
+      "brier": 0.2075479518194092,
+      "bets": 865,
+      "profit_units": -90.71000000000001,
+      "roi": -0.1048670520231214,
+      "roi_95_day_bootstrap": [
+        -0.20543955346475512,
+        0.0012893254037158622
+      ],
+      "max_daily_drawdown_units": 100.67999999999999
+    },
+    {
+      "model": "P_players",
+      "season": "2024-25",
+      "games": 1225,
+      "accuracy": 0.6791836734693878,
+      "log_loss": 0.5998205044661683,
+      "brier": 0.2068387916494434,
+      "bets": 834,
+      "profit_units": -37.36999999999998,
+      "roi": -0.044808153477218206,
+      "roi_95_day_bootstrap": [
+        -0.134383515012663,
+        0.052689099639855935
+      ],
+      "max_daily_drawdown_units": 77.42999999999999
+    },
+    {
+      "model": "P_players",
+      "season": "2025-26",
+      "games": 802,
+      "accuracy": 0.6683291770573566,
+      "log_loss": 0.6307175038400412,
+      "brier": 0.21961476417537912,
+      "bets": 530,
+      "profit_units": 16.890000000000008,
+      "roi": 0.0318679245283019,
+      "roi_95_day_bootstrap": [
+        -0.0822402674860925,
+        0.139999901341752
+      ],
+      "max_daily_drawdown_units": 46.96
+    },
+    {
+      "model": "P_context",
+      "season": "ALL",
+      "games": 3256,
+      "accuracy": 0.6578624078624079,
+      "log_loss": 0.613975502596023,
+      "brier": 0.212995176978258,
+      "bets": 2244,
+      "profit_units": -176.38,
+      "roi": -0.07860071301247772,
+      "roi_95_day_bootstrap": [
+        -0.14408218404767273,
+        -0.010706722039572526
+      ],
+      "max_daily_drawdown_units": 179.35999999999996
+    },
+    {
+      "model": "P_context",
+      "season": "2023-24",
+      "games": 1229,
+      "accuracy": 0.6582587469487388,
+      "log_loss": 0.60857779752576,
+      "brier": 0.21072825986741678,
+      "bets": 843,
+      "profit_units": -106.74,
+      "roi": -0.12661921708185053,
+      "roi_95_day_bootstrap": [
+        -0.23338397895685897,
+        -0.014507181249449334
+      ],
+      "max_daily_drawdown_units": 117.94999999999999
+    },
+    {
+      "model": "P_context",
+      "season": "2024-25",
+      "games": 1225,
+      "accuracy": 0.6759183673469388,
+      "log_loss": 0.6022866498642381,
+      "brier": 0.20802761227969652,
+      "bets": 864,
+      "profit_units": -23.880000000000003,
+      "roi": -0.027638888888888893,
+      "roi_95_day_bootstrap": [
+        -0.12853475297837122,
+        0.0859768761199778
+      ],
+      "max_daily_drawdown_units": 46.63
+    },
+    {
+      "model": "P_context",
+      "season": "2025-26",
+      "games": 802,
+      "accuracy": 0.6296758104738155,
+      "log_loss": 0.640100969089526,
+      "brier": 0.22405665813157677,
+      "bets": 537,
+      "profit_units": -45.76000000000001,
+      "roi": -0.08521415270018624,
+      "roi_95_day_bootstrap": [
+        -0.2038709492398011,
+        0.0428825809333611
+      ],
+      "max_daily_drawdown_units": 56.23999999999998
+    },
+    {
+      "model": "P_combined",
+      "season": "ALL",
+      "games": 3256,
+      "accuracy": 0.6704545454545454,
+      "log_loss": 0.6044995340534157,
+      "brier": 0.2087038733929618,
+      "bets": 2033,
+      "profit_units": -104.17999999999999,
+      "roi": -0.051244466305951794,
+      "roi_95_day_bootstrap": [
+        -0.11867003671257643,
+        0.016434881496000787
+      ],
+      "max_daily_drawdown_units": 113.27000000000001
+    },
+    {
+      "model": "P_combined",
+      "season": "2023-24",
+      "games": 1229,
+      "accuracy": 0.6696501220504475,
+      "log_loss": 0.5980314679059731,
+      "brier": 0.2058967392994043,
+      "bets": 785,
+      "profit_units": -81.03999999999999,
+      "roi": -0.1032356687898089,
+      "roi_95_day_bootstrap": [
+        -0.214777447263954,
+        0.011253267103970567
+      ],
+      "max_daily_drawdown_units": 85.15999999999998
+    },
+    {
+      "model": "P_combined",
+      "season": "2024-25",
+      "games": 1225,
+      "accuracy": 0.6840816326530612,
+      "log_loss": 0.5947794035686254,
+      "brier": 0.20470568485373936,
+      "bets": 766,
+      "profit_units": -23.229999999999997,
+      "roi": -0.030326370757180154,
+      "roi_95_day_bootstrap": [
+        -0.1294765315798153,
+        0.07584882573094417
+      ],
+      "max_daily_drawdown_units": 45.86
+    },
+    {
+      "model": "P_combined",
+      "season": "2025-26",
+      "games": 802,
+      "accuracy": 0.6508728179551122,
+      "log_loss": 0.6292581539275746,
+      "brier": 0.21911253768414582,
+      "bets": 482,
+      "profit_units": 0.08999999999999986,
+      "roi": 0.00018672199170124452,
+      "roi_95_day_bootstrap": [
+        -0.11647807818779686,
+        0.11894243257811689
+      ],
+      "max_daily_drawdown_units": 28.810000000000002
+    },
+    {
+      "model": "HYBRID_players",
+      "season": "ALL",
+      "games": 3256,
+      "accuracy": 0.6855036855036855,
+      "log_loss": 0.5900573080088817,
+      "brier": 0.20262265435888205,
+      "bets": 22,
+      "profit_units": -0.7999999999999998,
+      "roi": -0.036363636363636355,
+      "roi_95_day_bootstrap": [
+        -0.8400648148148149,
+        1.0773913043478234
+      ],
+      "max_daily_drawdown_units": 12.0
+    },
+    {
+      "model": "HYBRID_players",
+      "season": "2023-24",
+      "games": 1229,
+      "accuracy": 0.6891781936533767,
+      "log_loss": 0.5806999530189999,
+      "brier": 0.19831676690488664,
+      "bets": 14,
+      "profit_units": -5.0,
+      "roi": -0.35714285714285715,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        1.25
+      ],
+      "max_daily_drawdown_units": 12.0
+    },
+    {
+      "model": "HYBRID_players",
+      "season": "2024-25",
+      "games": 1225,
+      "accuracy": 0.6971428571428572,
+      "log_loss": 0.5811860506987289,
+      "brier": 0.19907938003790376,
+      "bets": 3,
+      "profit_units": 1.75,
+      "roi": 0.5833333333333334,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        3.75
+      ],
+      "max_daily_drawdown_units": 2.0
+    },
+    {
+      "model": "HYBRID_players",
+      "season": "2025-26",
+      "games": 802,
+      "accuracy": 0.6620947630922693,
+      "log_loss": 0.6179469333050184,
+      "brier": 0.21463318643389293,
+      "bets": 5,
+      "profit_units": 2.45,
+      "roi": 0.49000000000000005,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        2.5500000000000003
+      ],
+      "max_daily_drawdown_units": 2.0
+    },
+    {
+      "model": "HYBRID_context",
+      "season": "ALL",
+      "games": 3256,
+      "accuracy": 0.6867321867321867,
+      "log_loss": 0.5902577664073356,
+      "brier": 0.20269298958148385,
+      "bets": 37,
+      "profit_units": -4.2,
+      "roi": -0.11351351351351352,
+      "roi_95_day_bootstrap": [
+        -0.7300312500000001,
+        0.6330206442831209
+      ],
+      "max_daily_drawdown_units": 15.0
+    },
+    {
+      "model": "HYBRID_context",
+      "season": "2023-24",
+      "games": 1229,
+      "accuracy": 0.6908055329536208,
+      "log_loss": 0.5805721337079074,
+      "brier": 0.19822888976647515,
+      "bets": 29,
+      "profit_units": -8.25,
+      "roi": -0.28448275862068967,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        0.6289044401544384
+      ],
+      "max_daily_drawdown_units": 15.0
+    },
+    {
+      "model": "HYBRID_context",
+      "season": "2024-25",
+      "games": 1225,
+      "accuracy": 0.7012244897959183,
+      "log_loss": 0.5818268653116757,
+      "brier": 0.19931369406643565,
+      "bets": 8,
+      "profit_units": 4.05,
+      "roi": 0.50625,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        2.286309523809523
+      ],
+      "max_daily_drawdown_units": 3.0
+    },
+    {
+      "model": "HYBRID_context",
+      "season": "2025-26",
+      "games": 802,
+      "accuracy": 0.6583541147132169,
+      "log_loss": 0.6179778367686586,
+      "brier": 0.21469550289642103,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "HYBRID_combined",
+      "season": "ALL",
+      "games": 3256,
+      "accuracy": 0.6845823095823096,
+      "log_loss": 0.5902400501198094,
+      "brier": 0.20270648123177368,
+      "bets": 3,
+      "profit_units": -3.0,
+      "roi": -1.0,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        -1.0
+      ],
+      "max_daily_drawdown_units": 3.0
+    },
+    {
+      "model": "HYBRID_combined",
+      "season": "2023-24",
+      "games": 1229,
+      "accuracy": 0.6883645240032547,
+      "log_loss": 0.5807929207625643,
+      "brier": 0.19835497352026438,
+      "bets": 2,
+      "profit_units": -2.0,
+      "roi": -1.0,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        -1.0
+      ],
+      "max_daily_drawdown_units": 2.0
+    },
+    {
+      "model": "HYBRID_combined",
+      "season": "2024-25",
+      "games": 1225,
+      "accuracy": 0.6971428571428572,
+      "log_loss": 0.581405887524567,
+      "brier": 0.19917344502771975,
+      "bets": 0,
+      "profit_units": 0.0,
+      "roi": null,
+      "roi_95_day_bootstrap": [
+        null,
+        null
+      ],
+      "max_daily_drawdown_units": 0.0
+    },
+    {
+      "model": "HYBRID_combined",
+      "season": "2025-26",
+      "games": 802,
+      "accuracy": 0.6596009975062345,
+      "log_loss": 0.6182105877248293,
+      "brier": 0.21477128463253545,
+      "bets": 1,
+      "profit_units": -1.0,
+      "roi": -1.0,
+      "roi_95_day_bootstrap": [
+        -1.0,
+        -1.0
+      ],
+      "max_daily_drawdown_units": 1.0
+    }
+  ],
+  "comparisons": [
+    {
+      "left": "P_combined",
+      "right": "P_players",
+      "mean_delta": -0.0035691104278410585,
+      "day_bootstrap_95": [
+        -0.006121682760894656,
+        -0.0008112672589384819
+      ],
+      "negative_favors_left": true
+    },
+    {
+      "left": "P_combined",
+      "right": "P_context",
+      "mean_delta": -0.009475968542607204,
+      "day_bootstrap_95": [
+        -0.014052866309863013,
+        -0.004782129416176859
+      ],
+      "negative_favors_left": true
+    },
+    {
+      "left": "HYBRID_combined",
+      "right": "P_MARKET",
+      "mean_delta": 0.00010304720549496724,
+      "day_bootstrap_95": [
+        -0.00047399667255548696,
+        0.0007058598525436116
+      ],
+      "negative_favors_left": true
+    },
+    {
+      "left": "HYBRID_combined",
+      "right": "P_CALIBRATED",
+      "mean_delta": -5.0326583080628755e-05,
+      "day_bootstrap_95": [
+        -0.00024105907140805716,
+        0.0001478957089559654
+      ],
+      "negative_favors_left": true
+    }
+  ],
+  "fixed_parameters": {
+    "C": 1.0,
+    "elo_K": 20,
+    "elo_home": 65,
+    "season_decay": 0.75,
+    "ewm_spans": [
+      10,
+      30
+    ],
+    "bet_threshold": 0.03,
+    "unit_stake": 1
+  },
+  "limitations": [
+    "Previously examined historical seasons: exploratory, not a fresh holdout.",
+    "Closing odds lack observation timestamps; no executable edge established.",
+    "Day bootstrap ignores across-day dependence and model-selection uncertainty.",
+    "Raw home designation does not distinguish neutral-site games.",
+    "Existing player/rest features reused; only new context features have event-causality tests."
+  ],
+  "sha256": {
+    "data/raw/team_game_logs.csv": "8c841c56d5f5f8d6c1790a0150f8cd916277af548d962c0c2d67ebc8805bed85",
+    "data/processed/pregame_features.csv": "dddb994c696224eea4eb3bd066a1cec210d20d83f1aff2045ebb5f0a5ec8949b",
+    "data/processed/player_strength_features.csv": "81b0e38f0031aaf835ff0f2f89dd98dfb9bd0445e432f913e71ae26ed07c1f32",
+    "data/raw/betting_odds_mgm.csv": "b5c38aea205bb67d38216cc0a4e9396ab3a3d5cfa0cbcd0878a08c98e733a4e8",
+    "src/context_experiment.py": "f66e0cbab5adc51da13c81da471023389bf3df0b562d65665f033d41979344d2",
+    "src/market_research.py": "bd2c2d947d0ea1e373cdb0f9fcecad44e1b572a42847be75b6b229c16d446414"
+  }
+}
