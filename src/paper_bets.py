@@ -136,34 +136,84 @@ def grade() -> pd.DataFrame:
     return bets
 
 
+def money(x: float) -> str:
+    return f"{'+' if x >= 0 else '-'}${abs(x):.2f}"
+
+
+def luck_check(profit: pd.Series) -> str:
+    """Is the return far enough from zero to rule out luck? (about 2 standard errors)"""
+    if len(profit) < 30:
+        return "too few bets to say"
+    spread = 2 * profit.std(ddof=1) / np.sqrt(len(profit))
+    return f"{'yes' if abs(profit.mean()) < spread else 'unlikely'} (±{spread:.0%})"
+
+
+def summary_column(bets: pd.DataFrame) -> list[str]:
+    """The numbers for one column of the summary table."""
+    done = bets[bets["RESULT"].isin(["won", "lost"])]
+    out = [str(len(bets)), str(len(done)), str(bets["RESULT"].isna().sum()), str((bets["RESULT"] == "void").sum())]
+    if not len(done):
+        return out + ["–"] * 8
+    won = (done["RESULT"] == "won").sum()
+    return out + [str(won), str(len(done) - won), f"{won / len(done):.1%}", f"{(1 / done['PRICE']).mean():.1%}",
+                  f"{done['PRICE'].mean():.2f}", f"${len(done):.0f}", money(done["PROFIT"].sum()),
+                  f"{done['PROFIT'].mean():+.1%}"]
+
+
 def scorecard_section(bets: pd.DataFrame, n_lines: int) -> list[str]:
     lines = ["", "## Paper bets (no real money)", "",
              "A pretend $1 bet is logged before tip-off whenever the frozen model's chance times the best "
              f"recorded price shows positive value. The main rule, fixed in advance, is value above {MAIN_EDGE:.0%}.", ""]
-    done = bets[bets["RESULT"].isin(["won", "lost"])] if len(bets) else bets
-    if not len(done):
-        waiting = len(bets) if len(bets) else 0
-        return lines + [f"No settled bets yet ({waiting} waiting for results; betting lines recorded for {n_lines} games)."]
-    lines += ["| Market | Rule | Bets | Won | Return per $1 | Could be luck? |", "|---|---|---|---|---|---|"]
+    if not len(bets):
+        return lines + [f"No paper bets yet (betting lines recorded for {n_lines} games)."]
+    done = bets[bets["RESULT"].isin(["won", "lost"])]
+
+    # 1. Summary: every bet, and the bets under the main rule
+    labels = ["Bets logged", "Settled", "Waiting for results", "Void (player didn't play)", "Won", "Lost",
+              "Win rate", "Win rate needed to break even", "Average odds (payout per $1)", "Money staked",
+              "Profit or loss", "Return per $1"]
+    cols = [summary_column(bets), summary_column(bets[bets["EV"] > MAIN_EDGE])]
+    lines += ["### Summary", "", f"| | All paper bets | Main rule (value above {MAIN_EDGE:.0%}) |", "|---|---|---|"]
+    lines += [f"| {label} | {a} | {b} |" for label, a, b in zip(labels, *cols)]
+    if len(done):
+        lines += ["", f"Could the main rule's result be luck? {luck_check(done.loc[done['EV'] > MAIN_EDGE, 'PROFIT'])}."]
+    else:
+        return lines + ["", "No bets are settled yet, so there are no results to show."]
+
+    # 2. Each market under each rule
+    lines += ["", "### By market and rule", "",
+              "| Market | Rule | Settled | Won | Win rate | Break-even | Profit or loss | Return per $1 | Could be luck? |",
+              "|---|---|---|---|---|---|---|---|---|"]
     for market in ["moneyline", "points"]:
         for label, edge in [("any positive value", 0), (f"**value above {MAIN_EDGE:.0%} (main rule)**", MAIN_EDGE),
                             ("value above 10%", 0.10)]:
             s = done[(done["MARKET"] == market) & (done["EV"] > edge)]
             if not len(s):
-                lines.append(f"| {market} | {label} | 0 | – | – | – |")
+                lines.append(f"| {market} | {label} | 0 | – | – | – | – | – | – |")
                 continue
-            roi, se = s["PROFIT"].mean(), s["PROFIT"].std(ddof=1) / np.sqrt(len(s)) if len(s) > 1 else np.nan
-            if len(s) < 30 or not np.isfinite(se):
-                verdict = "too few bets to say"
-            elif abs(roi) < 2 * se:
-                verdict = f"yes (±{2 * se:.0%})"
-            else:
-                verdict = f"unlikely (±{2 * se:.0%})"
-            lines.append(f"| {market} | {label} | {len(s)} | {(s['RESULT'] == 'won').mean():.1%} | {roi:+.1%} | {verdict} |")
-    void = (bets["RESULT"] == "void").sum()
-    lines += ["", f"Waiting for results: {bets['RESULT'].isna().sum()}. Void (player didn't play): {void}. "
-              "Points lines can be recorded a few hours after the prediction, so some bets use an older prediction "
-              "against a newer line."]
+            won = (s["RESULT"] == "won").sum()
+            lines.append(f"| {market} | {label} | {len(s)} | {won} | {won / len(s):.1%} | {(1 / s['PRICE']).mean():.1%} "
+                         f"| {money(s['PROFIT'].sum())} | {s['PROFIT'].mean():+.1%} | {luck_check(s['PROFIT'])} |")
+
+    # 3. Day by day (all paper bets), newest first, with a running total
+    day = done.groupby("GAME_DATE").agg(BETS=("PROFIT", "size"), WON=("RESULT", lambda r: (r == "won").sum()),
+                                        PROFIT=("PROFIT", "sum")).sort_index()
+    day["TOTAL"] = day["PROFIT"].cumsum()
+    lines += ["", "### Day by day (all paper bets, last 14 days)", "",
+              "| Date | Settled | Won | Win rate | Profit or loss | Running total |", "|---|---|---|---|---|---|"]
+    for date, d in day.tail(14).iloc[::-1].iterrows():
+        lines.append(f"| {date} | {d.BETS:.0f} | {d.WON:.0f} | {d.WON / d.BETS:.1%} | {money(d.PROFIT)} | {money(d.TOTAL)} |")
+
+    # 4. The latest settled bets, so the numbers can be checked by hand
+    lines += ["", "### Latest settled bets", "", "| Date | Bet | Book | Odds | Model's chance | Result | Profit or loss |",
+              "|---|---|---|---|---|---|---|"]
+    for b in done.sort_values(["GAME_DATE", "LOGGED_AT"]).tail(10).iloc[::-1].itertuples():
+        what = f"{b.PICK} to win" if b.MARKET == "moneyline" else f"{b.PLAYER_NAME} {b.PICK.lower()} {b.LINE:g} points"
+        lines.append(f"| {b.GAME_DATE} | {what} | {b.BOOK} | {b.PRICE:.2f} | {b.MODEL_PROB:.0%} | {b.RESULT} | {money(b.PROFIT)} |")
+
+    lines += ["", "Break-even is the win rate needed to make exactly $0 at the odds taken. Points lines can be recorded "
+              "a few hours after the prediction, so some bets use an older prediction against a newer line. "
+              "The full list is in [paper_bets.csv](paper_bets.csv)."]
     return lines
 
 
@@ -179,6 +229,7 @@ def main():
         lg = read("lines_games.csv")
         section = scorecard_section(bets, lg["GAME_ID"].nunique() if len(lg) else 0)
         card.write_text(text + "\n" + "\n".join(section) + "\n")
+        print("\n".join(section))
 
 
 if __name__ == "__main__":
