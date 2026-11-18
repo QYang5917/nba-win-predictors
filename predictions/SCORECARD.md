@@ -2,6 +2,16 @@
 
 Updated 2026-11-18. Model frozen on 2026-11-12. Game grading checks recorded prediction times precede tip-off; timestamps alone do not independently prove publication or input availability.
 
+## Bets so far (pretend $1 bets, no real money)
+
+| | Bets placed | Finished | Won | Lost | Win rate | Profit or loss |
+|---|---|---|---|---|---|---|
+| Game winner | 16 | 5 | 2 | 3 | 40.0% | +$1.19 |
+| Player points | 186 | 58 | 22 | 36 | 37.9% | -$0.53 |
+| **Total** | **202** | **63** | **24** | **39** | **38.1%** | **+$0.66** |
+
+Bets that are not finished are waiting for the game to end. Details are under [Paper bets](#paper-bets-no-real-money) below.
+
 ## Games: 31 graded of 1000 goal (12 pending)
 
 Invalid game predictions excluded: 0.

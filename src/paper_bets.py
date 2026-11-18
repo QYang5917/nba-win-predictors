@@ -16,6 +16,7 @@ Rules, fixed on 2026-11-16 before any bet was logged:
 """
 import datetime as dt
 import json
+import re
 from pathlib import Path
 
 import numpy as np
@@ -229,6 +230,23 @@ def summary_column(bets: pd.DataFrame) -> list[str]:
                   f"{done['PROFIT'].mean():+.1%}"]
 
 
+def quick_table(bets: pd.DataFrame) -> list[str]:
+    """The short table at the top of the scorecard: how many bets, win rate and profit."""
+    lines = ["## Bets so far (pretend $1 bets, no real money)", "",
+             "| | Bets placed | Finished | Won | Lost | Win rate | Profit or loss |", "|---|---|---|---|---|---|---|"]
+    for label, s in [("Game winner", bets[bets["MARKET"] == "moneyline"]),
+                     ("Player points", bets[bets["MARKET"] == "points"]), ("**Total**", bets)]:
+        done = s[s["RESULT"].isin(["won", "lost"])]
+        won = (done["RESULT"] == "won").sum()
+        cells = [len(s), len(done), won, len(done) - won, f"{won / len(done):.1%}" if len(done) else "–",
+                 money(done["PROFIT"].sum()) if len(done) else "–"]
+        if label == "**Total**":
+            cells = [f"**{c}**" for c in cells]
+        lines.append(f"| {label} | " + " | ".join(str(c) for c in cells) + " |")
+    return lines + ["", "Bets that are not finished are waiting for the game to end. "
+                    "Details are under [Paper bets](#paper-bets-no-real-money) below."]
+
+
 def scorecard_section(bets: pd.DataFrame, n_lines: int, has_chart: bool = False) -> list[str]:
     lines = ["", "## Paper bets (no real money)", "",
              "A pretend $1 bet is logged before tip-off whenever the frozen model's chance times the best "
@@ -295,12 +313,16 @@ def main():
     bets = read("paper_bets.csv")
     print(f"Paper bets: {n} new, {len(bets)} in total.")
     card = PRED / "SCORECARD.md"
-    if card.exists():  # grade_predictions.py rewrites the scorecard each run; add this section to the end
+    if card.exists():  # grade_predictions.py rewrites the scorecard each run; add the bet tables to it
         text = card.read_text().split("\n## Paper bets")[0].rstrip("\n")
+        text = re.sub(r"\n## Bets so far.*?(?=\n## )", "", text, flags=re.S)  # drop an older copy of the short table
+        if len(bets) and "\n## " in text:  # short table first, right under the title
+            head, rest = text.split("\n## ", 1)
+            text = head.rstrip("\n") + "\n\n" + "\n".join(quick_table(bets)) + "\n\n## " + rest
         lg = read("lines_games.csv")
         section = scorecard_section(bets, lg["GAME_ID"].nunique() if len(lg) else 0, draw_chart(bets))
         card.write_text(text + "\n" + "\n".join(section) + "\n")
-        print("\n".join(section))
+        print("\n".join(quick_table(bets)) if len(bets) else "\n".join(section))
 
 
 if __name__ == "__main__":
