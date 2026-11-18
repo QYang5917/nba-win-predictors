@@ -117,9 +117,11 @@ def grade() -> pd.DataFrame:
     finished = set(winner.index)
     actual = props.set_index(["GAME_ID", "PLAYER_ID"])[["ACTUAL_PTS", "ACTUAL_MIN"]] if len(props) else None
     played = set(props.loc[props["ACTUAL_MIN"] > 0, "GAME_ID"]) if len(props) else set()
-    bets["RESULT"] = bets["RESULT"].astype(object)
+    # Results are worked out again from the final scores on every run, so a wrong or late score
+    # can never stick. The bet itself (pick, line, price) is never changed.
+    bets["RESULT"], bets["PROFIT"] = pd.Series([None] * len(bets), dtype=object), np.nan
     for i, b in bets.iterrows():
-        if pd.notna(b["RESULT"]) or b["GAME_ID"] not in finished:
+        if b["GAME_ID"] not in finished:
             continue
         if b["MARKET"] == "moneyline":
             won = winner[b["GAME_ID"]] == b["PICK"]
@@ -145,6 +147,7 @@ def draw_chart(bets: pd.DataFrame) -> bool:
     """Save predictions/paper_bets.png: running profit, and win rate against break-even. False if nothing settled."""
     done = bets[bets["RESULT"].isin(["won", "lost"])].sort_values(["TIP_UTC", "LOGGED_AT"]) if len(bets) else bets
     if not len(done):
+        CHART.unlink(missing_ok=True)  # don't leave an out-of-date chart behind
         return False
     import matplotlib
     matplotlib.use("Agg")

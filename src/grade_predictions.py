@@ -33,6 +33,9 @@ def score_games(predictions, team_logs):
         d['GAME_ID'] = d.GAME_ID.astype(str).str.zfill(10)
     if g.GAME_ID.duplicated().any() or tl.duplicated(['GAME_ID','TEAM_ABBREVIATION']).any():
         raise ValueError('Duplicate prediction or team result')
+    if 'WL' in tl.columns:
+        # A game still being played shows a partial score and no W/L yet. Only final games are graded.
+        tl = tl[tl.WL.notna()]
     pts = tl.set_index(['GAME_ID','TEAM_ABBREVIATION']).PTS
     for side in ['HOME','AWAY']:
         idx = pd.MultiIndex.from_arrays([g.GAME_ID, g[side]])
@@ -63,6 +66,10 @@ def grade_props() -> pd.DataFrame:
     logs = pd.read_csv(RAW / "player_game_logs_current.csv.gz", dtype={"GAME_ID": str})
     logs["GAME_ID"] = logs["GAME_ID"].str.zfill(10)
     p["GAME_ID"] = p["GAME_ID"].str.zfill(10)
+    # Only take player results from games that are final for both teams (W/L recorded).
+    tl = pd.read_csv(RAW / "team_game_logs_current.csv", dtype={"GAME_ID": str})
+    final = tl[tl["WL"].notna()].assign(GAME_ID=lambda x: x["GAME_ID"].str.zfill(10)).groupby("GAME_ID").size()
+    logs = logs[logs["GAME_ID"].isin(final[final == 2].index)]
     res = logs.set_index(["GAME_ID", "PLAYER_ID"])[["PTS", "MIN"]]
     idx = pd.MultiIndex.from_arrays([p["GAME_ID"], p["PLAYER_ID"]])
     p["ACTUAL_PTS"] = res["PTS"].reindex(idx).to_numpy()
