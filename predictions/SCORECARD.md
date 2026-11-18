@@ -29,6 +29,8 @@ The scores above measure accuracy, not profit. Profit is tracked under paper bet
 
 A pretend $1 bet is logged before tip-off whenever the frozen model's chance times the best recorded price shows positive value. The main rule, fixed in advance, is value above 5%.
 
+![Paper bets: running profit, and win rate against the break-even rate](paper_bets.png)
+
 ### Summary
 
 | | All paper bets | Main rule (value above 5%) |

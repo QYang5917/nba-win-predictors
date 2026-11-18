@@ -136,6 +136,72 @@ def grade() -> pd.DataFrame:
     return bets
 
 
+CHART = PRED / "paper_bets.png"
+COLORS = {"moneyline": "#2f6fb5", "points": "#d9792b"}  # blue and orange stay distinct for colour-blind readers
+NAMES = {"moneyline": "Moneyline", "points": "Player points"}
+
+
+def draw_chart(bets: pd.DataFrame) -> bool:
+    """Save predictions/paper_bets.png: running profit, and win rate against break-even. False if nothing settled."""
+    done = bets[bets["RESULT"].isin(["won", "lost"])].sort_values(["TIP_UTC", "LOGGED_AT"]) if len(bets) else bets
+    if not len(done):
+        return False
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    ink, muted, grid = "#1f2328", "#6b7280", "#e5e7eb"
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(11, 4.4), gridspec_kw={"width_ratios": [1.7, 1]}, dpi=160)
+    fig.patch.set_facecolor("white")
+    total = done["PROFIT"].sum()
+    usd = lambda x: money(x).replace("$", r"\$")  # a bare $ would start maths mode in matplotlib
+    fig.suptitle(f"Paper bets: {len(done)} settled, {usd(total)} at \\$1 a bet (no real money)",
+                 x=0.02, ha="left", fontsize=13, fontweight="bold", color=ink)
+
+    # Left: running profit, one line per market, counted in settled bets
+    ax.axhline(0, color=muted, lw=1)
+    markets = [m for m in NAMES if (done["MARKET"] == m).any()]
+    for m in markets:
+        run = np.r_[0, done.loc[done["MARKET"] == m, "PROFIT"].cumsum()]
+        ax.plot(range(len(run)), run, color=COLORS[m], lw=2, marker="o" if len(run) <= 15 else None, ms=4,
+                label=f"{NAMES[m]}: {usd(run[-1])} after {len(run) - 1} bets")
+    ax.set_title("Running profit", loc="left", fontsize=11, color=ink)
+    ax.set_xlabel("Settled bets", color=muted)
+    ax.yaxis.set_major_formatter(lambda v, _: f"{'-' if v < 0 else ''}\\${abs(v):g}")
+    ax.xaxis.get_major_locator().set_params(integer=True)
+    ax.margins(x=0.03, y=0.25)
+    ax.set_xlim(left=0)
+    ax.legend(frameon=False, loc="upper left", bbox_to_anchor=(0, 1.0), fontsize=9.5, labelcolor=ink)
+
+    # Right: win rate (dot) against the win rate needed to break even (bar)
+    for i, m in enumerate(markets):
+        s = done[done["MARKET"] == m]
+        win, need = (s["RESULT"] == "won").mean() * 100, (1 / s["PRICE"]).mean() * 100
+        ax2.plot([need, need], [i - 0.22, i + 0.22], color=muted, lw=2)
+        ax2.plot([need, win], [i, i], color=COLORS[m], lw=2, alpha=0.45)
+        ax2.plot(win, i, "o", color=COLORS[m], ms=9, mec="white", mew=2)
+        ahead = win >= need  # put the label on the outer side of the dot, away from the break-even bar
+        ax2.annotate(f"won {win:.0f}%", (win, i), xytext=(10 if ahead else -10, 0), textcoords="offset points",
+                     ha="left" if ahead else "right", va="center", fontsize=9, color=ink)
+        ax2.annotate(f"needs {need:.0f}%", (need, i + 0.22), xytext=(0, -4), textcoords="offset points",
+                     ha="center", va="top", fontsize=9, color=muted)
+    ax2.set_yticks(range(len(markets)), [NAMES[m] for m in markets], color=ink)
+    ax2.set_ylim(len(markets) - 0.4, -0.6)
+    ax2.set_xlim(0, 100)
+    ax2.xaxis.set_major_formatter(lambda v, _: f"{v:.0f}%")
+    ax2.set_title("Win rate vs. rate needed to break even", loc="left", fontsize=11, color=ink)
+    for a in (ax, ax2):
+        a.grid(axis="y" if a is ax else "x", color=grid, lw=0.8)
+        a.set_axisbelow(True)
+        a.tick_params(colors=muted, length=0)
+        for side in a.spines.values():
+            side.set_visible(False)
+    fig.tight_layout(rect=(0, 0, 1, 0.93))
+    fig.savefig(CHART, facecolor="white")
+    plt.close(fig)
+    return True
+
+
 def money(x: float) -> str:
     return f"{'+' if x >= 0 else '-'}${abs(x):.2f}"
 
@@ -160,7 +226,7 @@ def summary_column(bets: pd.DataFrame) -> list[str]:
                   f"{done['PROFIT'].mean():+.1%}"]
 
 
-def scorecard_section(bets: pd.DataFrame, n_lines: int) -> list[str]:
+def scorecard_section(bets: pd.DataFrame, n_lines: int, has_chart: bool = False) -> list[str]:
     lines = ["", "## Paper bets (no real money)", "",
              "A pretend $1 bet is logged before tip-off whenever the frozen model's chance times the best "
              f"recorded price shows positive value. The main rule, fixed in advance, is value above {MAIN_EDGE:.0%}.", ""]
@@ -173,6 +239,8 @@ def scorecard_section(bets: pd.DataFrame, n_lines: int) -> list[str]:
               "Win rate", "Win rate needed to break even", "Average odds (payout per $1)", "Money staked",
               "Profit or loss", "Return per $1"]
     cols = [summary_column(bets), summary_column(bets[bets["EV"] > MAIN_EDGE])]
+    if has_chart:
+        lines += ["![Paper bets: running profit, and win rate against the break-even rate](paper_bets.png)", ""]
     lines += ["### Summary", "", f"| | All paper bets | Main rule (value above {MAIN_EDGE:.0%}) |", "|---|---|---|"]
     lines += [f"| {label} | {a} | {b} |" for label, a, b in zip(labels, *cols)]
     if len(done):
@@ -227,7 +295,7 @@ def main():
     if card.exists():  # grade_predictions.py rewrites the scorecard each run; add this section to the end
         text = card.read_text().split("\n## Paper bets")[0].rstrip("\n")
         lg = read("lines_games.csv")
-        section = scorecard_section(bets, lg["GAME_ID"].nunique() if len(lg) else 0)
+        section = scorecard_section(bets, lg["GAME_ID"].nunique() if len(lg) else 0, draw_chart(bets))
         card.write_text(text + "\n" + "\n".join(section) + "\n")
         print("\n".join(section))
 
