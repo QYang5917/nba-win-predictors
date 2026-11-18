@@ -2,7 +2,7 @@
 
 Updated 2026-11-18. Model frozen on 2026-11-12. Game grading checks recorded prediction times precede tip-off; timestamps alone do not independently prove publication or input availability.
 
-## Games: 31 graded of 1000 goal (0 pending)
+## Games: 31 graded of 1000 goal (12 pending)
 
 Invalid game predictions excluded: 0.
 
