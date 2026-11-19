@@ -33,6 +33,8 @@ Invalid game predictions excluded: 0.
 - Scored over the prediction: 57.3% (about 50% means the median is right)
 - Players who didn't play (void): 26
 
+Until November 19, 2026 the live run fed the points model too many players per team, which made its predictions about 1 point too low. Predictions labelled v1.1 use the same frozen model with that fixed.
+
 The scores above measure accuracy, not profit. Profit is tracked under paper bets.
 
 ## Paper bets (no real money)
