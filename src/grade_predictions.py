@@ -112,6 +112,13 @@ def main():
                   f"- Scored over the prediction: {(pr['ACTUAL_PTS'] > pr['PRED_PTS']).mean():.1%} "
                   f"(about 50% means the median is right)",
                   f"- Players who didn't play (void): {(p['ACTUAL_MIN'].isna() & p['GAME_ID'].isin(done['GAME_ID'])).sum()}"]
+        if pr["MODEL"].nunique() > 1:  # the lineup fix (v1.1) is scored apart from the earlier predictions
+            lines += ["", "| Version | Player-games | Average miss | Scored over the prediction |", "|---|---|---|---|"]
+            for version, v in pr.groupby("MODEL", sort=True):
+                lines.append(f"| {version} | {len(v)} | {(v['PRED_PTS'] - v['ACTUAL_PTS']).abs().mean():.2f} pts "
+                             f"| {(v['ACTUAL_PTS'] > v['PRED_PTS']).mean():.1%} |")
+        lines += ["", "Until November 19, 2026 the live run fed the points model too many players per team, which made "
+                  "its predictions about 1 point too low. Predictions labelled v1.1 use the same frozen model with that fixed."]
     lines += ["", "The scores above measure accuracy, not profit. Profit is tracked under paper bets."]
     (PRED / "SCORECARD.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))

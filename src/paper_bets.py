@@ -234,8 +234,16 @@ def quick_table(bets: pd.DataFrame) -> list[str]:
     """The short table at the top of the scorecard: how many bets, win rate and profit."""
     lines = ["## Bets so far (pretend $1 bets, no real money)", "",
              "| | Bets placed | Finished | Won | Lost | Win rate | Profit or loss |", "|---|---|---|---|---|---|---|"]
-    for label, s in [("Game winner", bets[bets["MARKET"] == "moneyline"]),
-                     ("Player points", bets[bets["MARKET"] == "points"]), ("**Total**", bets)]:
+    points = bets[bets["MARKET"] == "points"]
+    rows = [("Game winner", bets[bets["MARKET"] == "moneyline"]), ("Player points", points)]
+    props = read("props.csv")
+    if len(props) and len(points):  # bets made after the lineup fix (v1.1 predictions) get their own row
+        fixed = props.loc[props["MODEL"].str.startswith("v1.1"), ["GAME_ID", "PLAYER_ID"]].assign(FIXED=True)
+        is_fixed = points.merge(fixed, on=["GAME_ID", "PLAYER_ID"], how="left")["FIXED"].notna().to_numpy()
+        if is_fixed.any():
+            rows = [rows[0], ("Player points, before the lineup fix", points[~is_fixed]),
+                    ("Player points, after the lineup fix", points[is_fixed])]
+    for label, s in rows + [("**Total**", bets)]:
         done = s[s["RESULT"].isin(["won", "lost"])]
         won = (done["RESULT"] == "won").sum()
         cells = [len(s), len(done), won, len(done) - won, f"{won / len(done):.1%}" if len(done) else "–",

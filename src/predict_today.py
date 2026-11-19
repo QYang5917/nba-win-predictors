@@ -6,6 +6,8 @@ The trade-off: a morning prediction uses the morning injury report. For each gam
   - Game: P(home win) from player-based team strength (ratings x expected minutes of players
     not ruled out on today's official injury report) + rest days.
   - Props: predicted median points for every available player expected to play 20+ minutes.
+    The points model sees each team as its 11 available players with the most expected minutes
+    (see PROP_LINEUP below).
 
 Predictions are appended to predictions/games.csv and predictions/props.csv with a UTC
 timestamp. A game that's already logged is never overwritten (the first prediction counts).
@@ -30,6 +32,14 @@ SEASON = "2026-27"
 MODEL_VERSION = "v1 (frozen 2026-11-12)"
 OUT_CATEGORIES = {"season", "rehab", "long", "short"}  # Out or Doubtful
 PROP_MIN_MINUTES = 20
+# The points model was trained on the players who really played each game (about 11 a team). Until
+# 2026-11-19 the live run gave it every rostered player not ruled out (about 14), which made a
+# player's share of his team look smaller and pushed predictions about 1 point too low
+# (players beat the prediction 57% of the time instead of 50%). Now it gets the 11 available players
+# with the most expected minutes. Same frozen model file; only its inputs changed. Evidence:
+# lineup_replay.py. The game model is not affected.
+PROP_LINEUP = 11
+PROPS_VERSION = "v1.1 (frozen model, lineup fix 2026-11-19)"
 STAT_COLS = ["MIN", "FGM", "FGA", "FG3M", "FG3A", "FTM", "FTA", "OREB", "DREB", "REB", "AST",
              "TOV", "STL", "BLK", "BLKA", "PF", "PFD", "PTS", "PLUS_MINUS"]
 
@@ -109,7 +119,7 @@ def main():
             base = dict(SEASON=SEASON, TEAM_ID=tid, TEAM_ABBREVIATION=abbr, GAME_ID=g.GAME_ID,
                         GAME_DATE=today, MATCHUP=matchup, WL=None, **{c: 0 for c in STAT_COLS})
             pseudo_teams.append(base)
-            for p in team.itertuples():
+            for p in team.nlargest(PROP_LINEUP, "EXP").itertuples():
                 pseudo_players.append({**base, "PLAYER_ID": p.PLAYER_ID, "PLAYER_NAME": p.PLAYER, "FUTURE": True})
         diff, rest_diff = side[True] - side[False], rest(g.HOME_ID) - rest(g.AWAY_ID)
         z = gm["intercept"] + gm["coef"][0] * diff + gm["coef"][1] * rest_diff
@@ -133,7 +143,7 @@ def main():
     props = tonight[tonight["EXP_MIN"] >= PROP_MIN_MINUTES].assign(
         PREDICTED_AT=now.strftime("%Y-%m-%dT%H:%M:%SZ"), GAME_DATE=today,
         TEAM=lambda x: x["PLAYER_ID"].map(abbr), OPP=lambda x: x["OPP_ID"].map(opp_abbr),
-        QUESTIONABLE=lambda x: x["PLAYER_ID"].isin(questionable), MODEL=MODEL_VERSION)
+        QUESTIONABLE=lambda x: x["PLAYER_ID"].isin(questionable), MODEL=PROPS_VERSION)
     props = props[["PREDICTED_AT", "GAME_DATE", "GAME_ID", "PLAYER_ID", "PLAYER_NAME", "TEAM", "OPP",
                    "QUESTIONABLE", "EXP_MIN", "SEASON_AVG_PTS", "PRED_PTS", "MISSING_USAGE", "MODEL"]].round(2)
 
