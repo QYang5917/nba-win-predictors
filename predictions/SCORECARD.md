@@ -1,6 +1,6 @@
 # Live prediction scorecard
 
-Updated 2026-11-19. Model frozen on 2026-11-12. Game grading checks recorded prediction times precede tip-off; timestamps alone do not independently prove publication or input availability.
+Updated 2026-11-20. Model frozen on 2026-11-12. Game grading checks recorded prediction times precede tip-off; timestamps alone do not independently prove publication or input availability.
 
 ## Bets so far (pretend $1 bets, no real money)
 
