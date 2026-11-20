@@ -12,7 +12,7 @@ Updated 2026-11-20. Model frozen on 2026-11-12. Game grading checks recorded pre
 
 Bets that are not finished are waiting for the game to end. Details are under [Paper bets](#paper-bets-no-real-money) below.
 
-## Games: 43 graded of 1000 goal (4 pending)
+## Games: 43 graded of 1000 goal (13 pending)
 
 Invalid game predictions excluded: 0.
 
