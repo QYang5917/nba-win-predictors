@@ -153,9 +153,9 @@ def main():
         window = dict(commenceTimeFrom=pulled, commenceTimeTo=(games["TIP_UTC"].max() + pd.Timedelta(hours=1))
                       .strftime("%Y-%m-%dT%H:%M:%SZ"))
         if not need_games.empty and state["game_pulls"] < MAX_GAME_PULLS_PER_DAY:
-            state["game_pulls"] += 1
             events, left = call("/odds", key, regions="us", markets="h2h,spreads,totals",
                                 oddsFormat="decimal", **window)
+            state["game_pulls"] += 1  # counted only when the call got through; a failed one costs no credits
             rows = []
             for ev in events:
                 g = match(ev)
