@@ -28,6 +28,10 @@ ROOT = Path(__file__).resolve().parents[1]
 MODELS, PRED = ROOT / "models", ROOT / "predictions"
 BETS = PRED / "paper_bets.csv"
 MAIN_EDGE = 0.05
+# Off since 2026-11-20: the bet tables and chart are kept out of the scorecard until enough bets have
+# finished to mean something (about 1,000 after the lineup fix). Bets are still logged and settled in
+# paper_bets.csv on every run. Set to True to show them again.
+SHOW_ON_SCORECARD = False
 COLS = ["LOGGED_AT", "GAME_DATE", "GAME_ID", "TIP_UTC", "MARKET", "PLAYER_ID", "PLAYER_NAME", "PICK", "LINE",
         "BOOK", "PRICE", "MODEL_PROB", "EV", "RESULT", "PROFIT"]
 
@@ -324,6 +328,9 @@ def main():
     if card.exists():  # grade_predictions.py rewrites the scorecard each run; add the bet tables to it
         text = card.read_text().split("\n## Paper bets")[0].rstrip("\n")
         text = re.sub(r"\n## Bets so far.*?(?=\n## )", "", text, flags=re.S)  # drop an older copy of the short table
+        if not SHOW_ON_SCORECARD:
+            card.write_text(text + "\n")
+            return
         if len(bets) and "\n## " in text:  # short table first, right under the title
             head, rest = text.split("\n## ", 1)
             text = head.rstrip("\n") + "\n\n" + "\n".join(quick_table(bets)) + "\n\n## " + rest
@@ -331,7 +338,6 @@ def main():
         section = scorecard_section(bets, lg["GAME_ID"].nunique() if len(lg) else 0, draw_chart(bets))
         card.write_text(text + "\n" + "\n".join(section) + "\n")
         print("\n".join(quick_table(bets)) if len(bets) else "\n".join(section))
-
 
 if __name__ == "__main__":
     main()

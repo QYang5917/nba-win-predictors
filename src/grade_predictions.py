@@ -119,7 +119,8 @@ def main():
                              f"| {(v['ACTUAL_PTS'] > v['PRED_PTS']).mean():.1%} |")
         lines += ["", "Until November 19, 2026 the live run fed the points model too many players per team, which made "
                   "its predictions about 1 point too low. Predictions labelled v1.1 use the same frozen model with that fixed."]
-    lines += ["", "The scores above measure accuracy, not profit. Profit is tracked under paper bets."]
+    lines += ["", "The scores above measure accuracy, not profit. Pretend $1 bets against real sportsbook lines are logged in "
+              "[paper_bets.csv](paper_bets.csv); their results will be reported here once about 1,000 have finished."]
     (PRED / "SCORECARD.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
 
