@@ -1,32 +1,32 @@
 # Live prediction scorecard
 
-Updated 2026-11-21. Model frozen on 2026-11-12. Game grading checks recorded prediction times precede tip-off; timestamps alone do not independently prove publication or input availability.
+Updated 2026-11-22. Model frozen on 2026-11-12. Game grading checks recorded prediction times precede tip-off; timestamps alone do not independently prove publication or input availability.
 
-## Games: 57 graded of 1000 goal (5 pending)
+## Games: 62 graded of 1000 goal (0 pending)
 
 Invalid game predictions excluded: 0.
 
-- **Accuracy: 66.7%** (95% Wilson interval 53.7%–77.5%; assumes independent trials)
-- Always picking the home team: 47.4%
-- Log loss: 0.641 (lower is better; a coin flip is 0.693)
+- **Accuracy: 67.7%** (95% Wilson interval 55.4%–78.0%; assumes independent trials)
+- Always picking the home team: 51.6%
+- Log loss: 0.649 (lower is better; a coin flip is 0.693)
 
 | Model's confidence | Games | Picks won |
 |---|---|---|
-| 50%–60% | 15 | 66.7% |
-| 60%–70% | 10 | 70.0% |
+| 50%–60% | 16 | 68.8% |
+| 60%–70% | 12 | 75.0% |
 | 70%–80% | 23 | 60.9% |
-| 80%–100% | 9 | 77.8% |
+| 80%–100% | 11 | 72.7% |
 
-## Player points: 732 graded
+## Player points: 791 graded
 
-- **Average miss: model 5.34 pts vs season average 5.40 pts** (same 732 player-games)
-- Scored over the prediction: 56.4% (about 50% means the median is right)
-- Players who didn't play (void): 33
+- **Average miss: model 5.35 pts vs season average 5.39 pts** (same 791 player-games)
+- Scored over the prediction: 55.9% (about 50% means the median is right)
+- Players who didn't play (void): 39
 
 | Version | Player-games | Average miss | Scored over the prediction |
 |---|---|---|---|
 | v1 (frozen 2026-11-12) | 599 | 5.27 pts | 57.9% |
-| v1.1 (frozen model, lineup fix 2026-11-19) | 133 | 5.68 pts | 49.6% |
+| v1.1 (frozen model, lineup fix 2026-11-19) | 192 | 5.59 pts | 49.5% |
 
 Until November 19, 2026 the live run fed the points model too many players per team, which made its predictions about 1 point too low. Predictions labelled v1.1 use the same frozen model with that fixed.
 
