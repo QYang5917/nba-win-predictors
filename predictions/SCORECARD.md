@@ -1,6 +1,6 @@
 # Live prediction scorecard
 
-Updated 2026-11-26. Model frozen on 2026-11-12. Game grading checks recorded prediction times precede tip-off; timestamps alone do not independently prove publication or input availability.
+Updated 2026-11-27. Model frozen on 2026-11-12. Game grading checks recorded prediction times precede tip-off; timestamps alone do not independently prove publication or input availability.
 
 ## Games: 91 graded of 1000 goal (0 pending)
 
